@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->foreignId('claseUsuario')->constrained('claseUsuario')->default(1);
+            $table->foreignId('claseUsuario')->constrained('claseUsuario');
             $table->double('wallet')->default(0.0);
             $table->rememberToken();
             $table->timestamps();
