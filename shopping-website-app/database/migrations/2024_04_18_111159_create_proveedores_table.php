@@ -15,8 +15,8 @@ return new class extends Migration {
             $table->string('nombre')->unique();
             $table->string('direccion')->unique();
             $table->string('email')->unique();
-            $table->string('website')->default('Sin datos');
-            $table->string('telefono')->default('Sin datos');
+            $table->string('website')->nullable()->default('Sin datos');
+            $table->string('telefono')->nullable()->default('Sin datos');
             $table->timestamps();
         });
 

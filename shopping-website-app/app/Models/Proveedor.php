@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Proveedor extends Model
 {
     use HasFactory;
+
+    protected $table = 'proveedores'; //una forma de sobreescribir la tabla del modelo
+
+    protected $fillable = ['nombre', 'direccion', 'email', 'website', 'telefono'];
 }

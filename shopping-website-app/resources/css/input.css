@@ -25,6 +25,12 @@
 
   }
 
+  @layer components{
+    .input-error{
+      @apply text-xs text-red-500;
+    }
+  }
+
   body *{
     box-sizing: border-box;
   }
