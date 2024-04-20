@@ -4,7 +4,7 @@
     <!-- INDEX -->
 <main>
 <div class="w-2/3 m-auto relative overflow-x-auto mt-4 sm:rounded-lg">
-    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="{{route('proveedor.create')}}">Añadir nuevo</a></button>
+    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="{{route('producto.create')}}">Añadir nuevo</a></button>
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
             <tr>
@@ -12,19 +12,22 @@
                     ID
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Nombre
+                    Nombre Producto
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Email
+                    Descripción
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Website
+                    Categoría
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Telefono
+                    Proveedor
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Creado
+                    Precio
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Unidades
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Acciones
@@ -32,30 +35,33 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($proveedores as $proveedor)
+            @foreach ($productos as $producto)
             <tr class="odd:bg-white  even:bg-gray-50  border-b ">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                    {{$proveedor->id}}
+                    {{$producto->id}}
                 </th>
                 <td class="px-6 py-4">
-                    {{$proveedor->nombre}}
+                    {{$producto->nombreProducto}}
                 </td>
                 <td class="px-6 py-4">
-                    {{$proveedor->email}}
+                    {{Str::words($producto->descripcion,20) }}
                 </td>
                 <td class="px-6 py-4">
-                    {{$proveedor->website}}
+                    {{$producto->categoria}}
                 </td>
                 <td class="px-6 py-4">
-                    {{$proveedor->telefono}}
+                    {{$producto->proveedor}}
                 </td>
                 <td class="px-6 py-4">
-                    {{$proveedor->created_at}}
+                    {{$producto->precio}}
+                </td>
+                <td class="px-6 py-4">
+                    {{$producto->unidades}}
                 </td>
                 <td class="px-6 py-4 flex gap-2">
-                    <a href="{{route('proveedor.edit',$proveedor)}}" class="font-medium text-blue-600  hover:underline">Editar</a>
-                    <a href="{{route('proveedor.show',$proveedor)}}" class="font-medium text-yellow-600  hover:underline">Ver</a>
-                    <form action="{{route('proveedor.destroy',$proveedor)}}" method="POST">
+                    <a href="{{route('producto.edit',$producto)}}" class="font-medium text-blue-600  hover:underline">Editar</a>
+                    <a href="{{route('producto.show',$producto)}}" class="font-medium text-yellow-600  hover:underline">Ver</a>
+                    <form action="{{route('producto.destroy',$producto)}}" method="POST">
                         @csrf
                         @method('DELETE') <!-- Modificamos método del formulario -->
                         <button class="font-medium text-red-600  hover:underline">Borrar</button>

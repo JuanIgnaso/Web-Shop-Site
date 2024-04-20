@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Proveedor;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProveedorController extends Controller
 {
@@ -37,14 +38,14 @@ class ProveedorController extends Controller
                 'nombre' => ['required', 'unique:proveedores,nombre', 'between:2,50'],
                 'direccion' => ['required', 'unique:proveedores,direccion', 'between:3,100'],
                 'email' => ['required', 'unique:proveedores,email', 'email'],
-                'website' => ['url', 'nullable'],
-                'telefono' => ['regex:/[0-9]{9}/', 'nullable']
+                'website' => ['url'],
+                'telefono' => ['regex:/[0-9]{9}/']
             ]
         );
 
         //Crear nuevo registro
         $proveedor = Proveedor::create($data);
-        return to_route('proveedor.index')->with('message', 'Se ha creado un nuevo registro.');
+        return to_route('proveedor.show', $proveedor)->with('message', 'Se ha creado un nuevo registro.');
     }
 
     /**
@@ -61,7 +62,8 @@ class ProveedorController extends Controller
      */
     public function edit(Proveedor $proveedor)
     {
-        return view('proveedor.edit');
+        $titulo = 'Editar proveedor ID: ' . $proveedor->id;
+        return view('proveedor.edit', ['proveedor' => $proveedor, 'titulo' => $titulo]);
     }
 
     /**
@@ -69,7 +71,32 @@ class ProveedorController extends Controller
      */
     public function update(Request $request, Proveedor $proveedor)
     {
-        //
+        //Editando un registro
+        $data = $request->validate(
+            [
+                'nombre' => [
+                    'required',
+                    Rule::unique('proveedores', 'nombre')->ignore($proveedor),
+                    'between:2,50',
+                ],
+                'direccion' => [
+                    'required',
+                    Rule::unique('proveedores', 'direccion')->ignore($proveedor), //Añadir esto para que no salte el error
+                    'between:3,100'
+                ],
+                'email' => [
+                    'required',
+                    Rule::unique('proveedores', 'email')->ignore($proveedor)
+                    ,
+                    'email'
+                ],
+                'website' => ['url'],
+                'telefono' => ['regex:/[0-9]{9}/']
+            ]
+        );
+        $proveedor->update($data);
+        return to_route('proveedor.show', $proveedor)->with('message', 'Los cambios se han realizado con éxito!');
+
     }
 
     /**

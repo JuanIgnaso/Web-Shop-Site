@@ -20,6 +20,7 @@ return new class extends Migration {
         \DB::table('categorias')->insert(
             [
                 ['nombre' => 'Sin Categoria', 'categoriaPadre' => NULL],
+                ['nombre' => 'test', 'categoriaPadre' => 1]
             ]
         );
     }
