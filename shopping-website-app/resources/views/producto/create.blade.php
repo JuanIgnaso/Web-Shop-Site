@@ -4,10 +4,10 @@
 {{ $titulo}}
 @endsection
 
-<x-app-layout>
+<x-adminPanel.admin-panel-layout>
     <h1 class="text-center font-bold mt-4">@yield('title')</h1>
 
-    <form class="w-2/3 md:w-1/2 m-auto" action="{{route('producto.store')}}" method="POST">
+    <form class="element-form" action="{{route('producto.store')}}" method="POST">
         @csrf
         <div class="space-y-12">
             <div class="border-b border-gray-900/10 pb-12">
@@ -109,4 +109,4 @@
         </div>
     </form>
 
-</x-app-layout>
+</x-adminPanel.admin-panel-layout>

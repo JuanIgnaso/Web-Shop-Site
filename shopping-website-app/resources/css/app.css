@@ -979,6 +979,18 @@ body {
   color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
+.element-form {
+  margin: auto;
+  margin-bottom: 4rem;
+  width: 80%;
+}
+
+@media (min-width: 768px) {
+  .element-form {
+    width: 66.666667%;
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -1152,6 +1164,10 @@ body {
 
 .mb-12 {
   margin-bottom: 3rem;
+}
+
+.mb-16 {
+  margin-bottom: 4rem;
 }
 
 .mb-2 {
@@ -1902,11 +1918,6 @@ body {
 .bg-yellow-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(202 138 4 / var(--tw-bg-opacity));
-}
-
-.bg-red-800 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(153 27 27 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-60 {

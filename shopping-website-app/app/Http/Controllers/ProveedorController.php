@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Proveedor;
 use App\Http\Controllers\Controller;
+use App\Models\Registro;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -45,6 +47,7 @@ class ProveedorController extends Controller
 
         //Crear nuevo registro
         $proveedor = Proveedor::create($data);
+        $insert = Registro::create(['operacion' => 'Crear nuevo registro', 'tabla' => 'proveedores', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
         return to_route('proveedor.show', $proveedor)->with('message', 'Se ha creado un nuevo registro.');
     }
 
@@ -105,6 +108,7 @@ class ProveedorController extends Controller
     public function destroy(Proveedor $proveedor)
     {
         $proveedor->delete();
+        $insert = Registro::create(['operacion' => 'Eliminar registro', 'tabla' => 'proveedores', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
         return to_route('proveedor.index')->with('message', 'Registro eliminado correctamente');
     }
 }

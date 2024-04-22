@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\DashbordController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProveedorController;
@@ -26,10 +27,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('producto', ProductoController::class);
 });
 
-//Prueba
-Route::get('/admin', function () {
-    return view('test');
-});
+//Dashboard Panel de Control
+Route::get('/panelcontrol', [DashbordController::class, 'index'])->name('panel.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

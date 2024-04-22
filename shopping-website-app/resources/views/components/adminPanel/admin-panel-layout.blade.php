@@ -12,23 +12,30 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js','resources/css/fontawesome/css/all.css'])
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-50/50">
-            @include('components.alerts')
+
+
+
             <!-- Aside del panel de control -->
-            @include('adminDashBoard.dashboard-aside')
+            @include('components.adminPanel.dashboard-aside')
+
             <!-- Main content -->
             <main class="p-4 xl:ml-80">
             @include('layouts.navigation')
+
+             <!-- Alertas -->
+             @include('components.alerts')
+
                 <div class="mt-12">
                     {{ $slot }}
                 </div>
                 <div class="text-blue-gray-600">
                     @include('components.footer')
                 </div>
-              </main>
+            </main>
         </div>
     </body>
 </html>

@@ -29,6 +29,10 @@
     .input-error{
       @apply text-xs text-red-500;
     }
+
+    .element-form{
+      @apply w-[80%] md:w-2/3 m-auto mb-16;
+    }
   }
 
   body *{

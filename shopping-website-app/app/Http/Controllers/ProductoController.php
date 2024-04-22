@@ -6,6 +6,8 @@ use App\Models\Categoria;
 use App\Models\Producto;
 use App\Http\Controllers\Controller;
 use App\Models\Proveedor;
+use App\Models\Registro;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -49,6 +51,7 @@ class ProductoController extends Controller
         );
 
         $producto = Producto::create($data);
+        Registro::create(['operacion' => 'Crear nuevo registro', 'tabla' => 'productos', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
         return to_route('producto.index')->with('message', 'Se ha creado un nuevo registro');
     }
 
@@ -100,6 +103,7 @@ class ProductoController extends Controller
     public function destroy(Producto $producto)
     {
         $producto->delete();
+        Registro::create(['operacion' => 'Eliminar registro', 'tabla' => 'productos', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
         return to_route('producto.index')->with('message', 'Registro eliminado correctamente');
 
     }

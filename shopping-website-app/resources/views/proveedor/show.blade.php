@@ -1,10 +1,10 @@
 @section('title')
 {{ $titulo}}
 @endsection
-<x-app-layout>
+<x-adminPanel.admin-panel-layout>
     <h1 class="text-center font-bold mt-4">@yield('title')</h1>
 
-    <div class="w-2/3 md:w-1/2 m-auto">
+    <div class="w-2/3 md:w-1/2 m-auto mb-16">
         <div class="px-4 sm:px-0 mt-5  divide-y ">
           <h3 class="text-center font-semibold leading-7 text-gray-900">Aquí se muestran los datos del proveedor <strong class="font-bold">ID - {{$proveedor->id}}</strong></h3>
         </div>
@@ -44,4 +44,4 @@
           </div>
       </div>
 
-</x-app-layout>
+</x-adminPanel.admin-panel-layout>

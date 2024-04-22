@@ -1,9 +1,9 @@
-<x-app-layout>
+<x-adminPanel.admin-panel-layout>
     <h1 class="text-center mt-4">Lista de Proveedores</h1>
 
     <!-- INDEX -->
 <main>
-<div class="w-2/3 m-auto relative overflow-x-auto mt-4 sm:rounded-lg">
+<div class="w-2/3 m-auto relative overflow-x-auto mt-4 mb-16 sm:rounded-lg">
     <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="{{route('proveedor.create')}}">Añadir nuevo</a></button>
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
@@ -70,4 +70,4 @@
 </main>
 
 
-</x-app-layout>
+</x-adminPanel.admin-panel-layout>

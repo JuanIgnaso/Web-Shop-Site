@@ -1,10 +1,10 @@
 @section('title')
     {{$titulo}}
 @endsection
-<x-app-layout>
+<x-adminPanel.admin-panel-layout>
     <h1 class="text-center font-bold mt-4">@yield('title')</h1>
 
-<form class="w-2/3 md:w-1/2 m-auto" action="{{route('proveedor.update',$proveedor)}}" method="POST">
+<form class="element-form" action="{{route('proveedor.update',$proveedor)}}" method="POST">
     @csrf
     @method('PUT')
     <div class="space-y-12">
@@ -69,4 +69,4 @@
     </div>
   </form>
 
-</x-app-layout>
+</x-adminPanel.admin-panel-layout>
