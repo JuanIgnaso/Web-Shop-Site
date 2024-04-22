@@ -7,6 +7,7 @@ use App\Models\Producto;
 use App\Http\Controllers\Controller;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProductoController extends Controller
 {
@@ -15,8 +16,9 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = Producto::query()->orderBy('created_at', 'desc')->paginate(30);
-        return view('producto.index', ['productos' => $productos]);
+        $titulo = 'Productos Index';
+        $productos = Producto::query()->leftJoin('proveedores', 'productos.proveedor', '=', 'productos.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->orderBy('created_at', 'desc')->get(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor']);
+        return view('producto.index', ['titulo' => $titulo, 'productos' => $productos]);
     }
 
     /**
@@ -38,8 +40,8 @@ class ProductoController extends Controller
         $data = $request->validate(
             [
                 'nombreProducto' => ['required', 'unique:productos,nombreProducto'],
-                'categoria' => ['required', 'exists:categorias'],
-                'proveedor' => ['required', 'exists:proveedores'],
+                'categoria' => ['required', 'exists:categorias,id'],
+                'proveedor' => ['required', 'exists:proveedores,id'],
                 'unidades' => ['required', 'numeric', 'min:0'],
                 'precio' => ['required', 'numeric', 'min:0'],
                 'descripcion' => ['nullable', 'max:5000']
@@ -55,7 +57,8 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
-        //
+        $titulo = 'Detalles del producto ID - ' . $producto->id;
+        return view('producto.show', ['titulo' => $titulo, 'producto' => $producto]);
     }
 
     /**
@@ -63,7 +66,10 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        //
+        $titulo = 'Editar producto';
+        $categorias = Categoria::get();
+        $proveedores = Proveedor::get();
+        return view('producto.edit', ['producto' => $producto, 'titulo' => $titulo, 'categorias' => $categorias, 'proveedores' => $proveedores]);
     }
 
     /**
@@ -71,7 +77,21 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        //
+        $data = $request->validate(
+            [
+                'nombreProducto' => [
+                    'required',
+                    Rule::unique('productos', 'nombreProducto')->ignore($producto),
+                ],
+                'categoria' => ['required', 'exists:categorias,id'],
+                'proveedor' => ['required', 'exists:proveedores,id'],
+                'unidades' => ['required', 'numeric', 'min:0'],
+                'precio' => ['required', 'numeric', 'min:0'],
+                'descripcion' => ['nullable', 'max:5000']
+            ]
+        );
+        $producto->update($data);
+        return to_route('producto.show', $producto)->with('message', 'Cambios realizados con éxito!');
     }
 
     /**
@@ -79,6 +99,8 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
-        //
+        $producto->delete();
+        return to_route('producto.index')->with('message', 'Registro eliminado correctamente');
+
     }
 }

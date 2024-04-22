@@ -12,15 +12,15 @@ return new class extends Migration {
     {
         Schema::create('categorias', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->unique();
+            $table->string('nombre_categoria')->unique();
             $table->foreignId('categoriaPadre')->nullable()->constrained('categorias');
             $table->timestamps();
         });
 
         \DB::table('categorias')->insert(
             [
-                ['nombre' => 'Sin Categoria', 'categoriaPadre' => NULL],
-                ['nombre' => 'test', 'categoriaPadre' => 1]
+                ['nombre_categoria' => 'Sin Categoria', 'categoriaPadre' => NULL],
+                ['nombre_categoria' => 'test', 'categoriaPadre' => 1]
             ]
         );
     }

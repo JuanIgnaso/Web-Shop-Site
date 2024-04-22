@@ -35,7 +35,7 @@ class ProveedorController extends Controller
         //validar request
         $data = $request->validate(
             [
-                'nombre' => ['required', 'unique:proveedores,nombre', 'between:2,50'],
+                'nombre_proveedor' => ['required', 'unique:proveedores,nombre', 'between:2,50'],
                 'direccion' => ['required', 'unique:proveedores,direccion', 'between:3,100'],
                 'email' => ['required', 'unique:proveedores,email', 'email'],
                 'website' => ['url'],
@@ -74,9 +74,9 @@ class ProveedorController extends Controller
         //Editando un registro
         $data = $request->validate(
             [
-                'nombre' => [
+                'nombre_proveedor' => [
                     'required',
-                    Rule::unique('proveedores', 'nombre')->ignore($proveedor),
+                    Rule::unique('proveedores', 'nombre_proveedor')->ignore($proveedor),
                     'between:2,50',
                 ],
                 'direccion' => [

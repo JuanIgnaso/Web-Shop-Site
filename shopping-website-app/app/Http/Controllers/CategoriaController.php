@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CategoriaController extends Controller
 {
@@ -36,7 +37,7 @@ class CategoriaController extends Controller
         //validamos request
         $data = $request->validate(
             [
-                'nombre' => ['required', 'unique:categorias,nombre'],
+                'nombre_categoria' => ['required', 'unique:categorias,nombre'],
                 'categoriaPadre' => ['exists:categorias,id', 'nullable']
             ]
         );
@@ -59,7 +60,9 @@ class CategoriaController extends Controller
      */
     public function edit(Categoria $categoria)
     {
-        //
+        dump(request());
+        $titulo = 'Editando categoría';
+        return view('categoria.edit', ['titulo' => $titulo, 'categoria' => $categoria, 'categorias' => Categoria::get()]);
     }
 
     /**
@@ -67,7 +70,17 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, Categoria $categoria)
     {
-        //
+
+        $data = $request->validate(
+            [
+                'nombre_categoria' => ['required'],
+                Rule::unique('categorias')->ignore($categoria),
+                'categoriaPadre' => ['exists:categorias,id', 'nullable']
+            ]
+        );
+
+        $categoria->update($data);
+        return to_route('categoria.show', $categoria)->with('message', 'Registro actualizado');
     }
 
     /**

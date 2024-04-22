@@ -38,7 +38,7 @@
                     {{$proveedor->id}}
                 </th>
                 <td class="px-6 py-4">
-                    {{$proveedor->nombre}}
+                    {{$proveedor->nombre_proveedor}}
                 </td>
                 <td class="px-6 py-4">
                     {{$proveedor->email}}

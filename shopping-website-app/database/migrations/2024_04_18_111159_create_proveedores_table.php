@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('proveedores', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->unique();
+            $table->string('nombre_proveedor')->unique();
             $table->string('direccion')->unique();
             $table->string('email')->unique();
             $table->string('website')->default("Sin datos");
@@ -22,7 +22,7 @@ return new class extends Migration {
 
         \DB::table('proveedores')->insert(
             [
-                ['nombre' => 'Proveedor Prueba', 'direccion' => 'test', 'email' => 'proveedortest@mail.com', 'website' => 'https://testSite.com', 'telefono' => '999999999'],
+                ['nombre_proveedor' => 'Proveedor Prueba', 'direccion' => 'test', 'email' => 'proveedortest@mail.com', 'website' => 'https://testSite.com', 'telefono' => '999999999'],
             ]
         );
     }

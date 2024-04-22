@@ -37,7 +37,7 @@
                     {{$categoria->id}}
                 </th>
                 <td class="px-6 py-4">
-                    {{$categoria->nombre}}
+                    {{$categoria->nombre_categoria}}
                 </td>
                 <td class="px-6 py-4">
                     {{$categoria->categoriaPadre}}

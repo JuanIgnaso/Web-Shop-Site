@@ -19,6 +19,7 @@
                 </div>
             </div>
 
+
             <!-- Settings Dropdown -->
             @if(isset(Auth::user()->name))
             <div class="hidden sm:flex sm:items-center sm:ms-6">

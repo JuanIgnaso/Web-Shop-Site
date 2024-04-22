@@ -10,11 +10,11 @@
       <div class="border-b border-gray-900/10 pb-12">
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div class="sm:col-span-3">
-            <label for="nombre" class="block text-sm font-medium leading-6 text-gray-900">Nombre del Proveedor</label>
+            <label for="nombre_proveedor" class="block text-sm font-medium leading-6 text-gray-900">Nombre del Proveedor</label>
             <div class="mt-2">
-              <input type="text" name="nombre" id="nombre" value="{{old('nombre')}}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="introduce un nombre...">
-              @if($errors->has('nombre'))
-                <p class="input-error">{{$errors->first('nombre')}}</p>
+              <input type="text" name="nombre_proveedor" id="nombre_proveedor" value="{{old('nombre_proveedor')}}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="introduce un nombre...">
+              @if($errors->has('nombre_proveedor'))
+                <p class="input-error">{{$errors->first('nombre_proveedor')}}</p>
               @endif
             </div>
           </div>
