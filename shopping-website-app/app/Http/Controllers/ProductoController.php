@@ -19,7 +19,7 @@ class ProductoController extends Controller
     public function index()
     {
         $titulo = 'Productos Index';
-        $productos = Producto::query()->leftJoin('proveedores', 'productos.proveedor', '=', 'productos.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->orderBy('created_at', 'desc')->get(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor']);
+        $productos = Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor'])->leftJoin('proveedores', 'productos.proveedor', '=', 'productos.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->orderBy('created_at', 'desc')->get();
         return view('producto.index', ['titulo' => $titulo, 'productos' => $productos]);
     }
 

@@ -17,11 +17,18 @@
                         {{ __('Inicio') }}
                     </x-nav-link>
                 </div>
+                @if(Auth::check())
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('panel.index')" :active="request()->routeIs('panel.index')">
+                        {{ __('Panel de Control') }}
+                    </x-nav-link>
+                </div>
+                @endif
             </div>
 
 
             <!-- Settings Dropdown -->
-            @if(isset(Auth::user()->name))
+            @if(Auth::check())
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -83,7 +90,7 @@
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
-            @isset(Auth::user()->name)
+            @if(Auth::check())
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800">{{Auth::user()->name ?? 'Default Name'}}</div>
                 <div class="font-medium text-sm text-gray-500">{{Auth::user()->email ?? 'Default Name'}}</div>
@@ -106,7 +113,7 @@
                     </x-responsive-nav-link>
                 </form>
             </div>
-            @endisset
+            @endif
         </div>
     </div>
 </nav>

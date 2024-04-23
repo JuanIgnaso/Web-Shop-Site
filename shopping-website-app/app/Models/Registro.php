@@ -13,4 +13,8 @@ class Registro extends Model
 
     protected $fillable = ['operacion', 'tabla', 'usuario', 'ocurrido_en'];
 
+    function getAllRecords()
+    {
+        return \DB::table('registros')->select(['registros.*', 'users.name'])->leftJoin('users', 'registros.usuario', '=', 'users.id')->orderBy('ocurrido_en', 'desc')->get();
+    }
 }

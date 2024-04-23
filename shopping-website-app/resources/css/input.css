@@ -33,6 +33,10 @@
     .element-form{
       @apply w-[80%] md:w-2/3 m-auto mb-16;
     }
+
+    .table-row{
+      @apply odd:bg-white  even:bg-turquoiseLight  border-b ;
+    }
   }
 
   body *{

@@ -10,11 +10,20 @@ export default {
     ],
 
     theme: {
+
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'turquoiseDark':'#17242a',
+                'turquoiseMedium':'#2b7a77',
+                'turquoiseSemiLight':'#3aafa9',
+                'turquoiseLight':'#def2f1',
+                'turquoiseWhite':'#feffff'
+            },
         },
+
     },
 
     plugins: [

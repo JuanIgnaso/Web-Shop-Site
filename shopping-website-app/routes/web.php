@@ -5,6 +5,7 @@ use App\Http\Controllers\DashbordController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\RegistroController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,10 +26,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('proveedor', ProveedorController::class);
     Route::resource('categoria', CategoriaController::class);
     Route::resource('producto', ProductoController::class);
+    //Dashboard Panel de Control
+    Route::get('/panelcontrol', [DashbordController::class, 'index'])->name('panel.index');
+    Route::get('/registros', [RegistroController::class, 'index'])->name('registros.index');
 });
 
-//Dashboard Panel de Control
-Route::get('/panelcontrol', [DashbordController::class, 'index'])->name('panel.index');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

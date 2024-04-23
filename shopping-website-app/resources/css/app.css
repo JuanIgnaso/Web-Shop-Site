@@ -991,6 +991,20 @@ body {
   }
 }
 
+.table-row {
+  border-bottom-width: 1px;
+}
+
+.table-row:nth-child(odd) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.table-row:nth-child(even) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(222 242 241 / var(--tw-bg-opacity));
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -1290,6 +1304,10 @@ body {
   display: table;
 }
 
+.table-row {
+  display: table-row;
+}
+
 .grid {
   display: grid;
 }
@@ -1447,6 +1465,10 @@ body {
 
 .w-8 {
   width: 2rem;
+}
+
+.w-\[90\%\] {
+  width: 90%;
 }
 
 .w-\[calc\(100\%\+8rem\)\] {
@@ -1701,6 +1723,10 @@ body {
   border-color: rgb(209 213 219 / var(--tw-divide-opacity));
 }
 
+.self-end {
+  align-self: flex-end;
+}
+
 .self-center {
   align-self: center;
 }
@@ -1910,6 +1936,16 @@ body {
   background-color: transparent;
 }
 
+.bg-turquoiseDark {
+  --tw-bg-opacity: 1;
+  background-color: rgb(23 36 42 / var(--tw-bg-opacity));
+}
+
+.bg-turquoiseWhite {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 255 255 / var(--tw-bg-opacity));
+}
+
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
@@ -1972,6 +2008,12 @@ body {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+.from-turquoiseMedium {
+  --tw-gradient-from: #2b7a77 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(43 122 119 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
 .via-white {
   --tw-gradient-to: rgb(255 255 255 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), #fff var(--tw-gradient-via-position), var(--tw-gradient-to);
@@ -2003,6 +2045,10 @@ body {
 
 .to-zinc-900 {
   --tw-gradient-to: #18181b var(--tw-gradient-to-position);
+}
+
+.to-turquoiseSemiLight {
+  --tw-gradient-to: #3aafa9 var(--tw-gradient-to-position);
 }
 
 .bg-clip-border {
@@ -2541,6 +2587,11 @@ body {
   --tw-shadow: var(--tw-shadow-colored);
 }
 
+.shadow-turquoiseSemiLight\/20 {
+  --tw-shadow-color: rgb(58 175 169 / 0.2);
+  --tw-shadow: var(--tw-shadow-colored);
+}
+
 .outline {
   outline-style: solid;
 }
@@ -2857,6 +2908,11 @@ body *{
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
+.even\:bg-turquoiseLight:nth-child(even) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(222 242 241 / var(--tw-bg-opacity));
+}
+
 .placeholder-shown\:border:-moz-placeholder-shown {
   border-width: 1px;
 }
@@ -2918,6 +2974,11 @@ body *{
   color: rgb(0 0 0 / 0.7);
 }
 
+.hover\:text-blue-400:hover {
+  --tw-text-opacity: 1;
+  color: rgb(96 165 250 / var(--tw-text-opacity));
+}
+
 .hover\:text-blue-500:hover {
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity));
@@ -2964,6 +3025,11 @@ body *{
 
 .hover\:shadow-blue-500\/40:hover {
   --tw-shadow-color: rgb(59 130 246 / 0.4);
+  --tw-shadow: var(--tw-shadow-colored);
+}
+
+.hover\:shadow-turquoiseSemiLight\/40:hover {
+  --tw-shadow-color: rgb(58 175 169 / 0.4);
   --tw-shadow: var(--tw-shadow-colored);
 }
 
@@ -3512,6 +3578,10 @@ body *{
 
   .lg\:h-16 {
     height: 4rem;
+  }
+
+  .lg\:w-\[80\%\] {
+    width: 80%;
   }
 
   .lg\:max-w-7xl {

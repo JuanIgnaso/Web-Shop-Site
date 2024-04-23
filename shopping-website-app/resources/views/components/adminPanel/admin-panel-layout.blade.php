@@ -23,7 +23,7 @@
             @include('components.adminPanel.dashboard-aside')
 
             <!-- Main content -->
-            <main class="p-4 xl:ml-80">
+            <main class="p-4 xl:ml-80 bg-turquoiseWhite">
             @include('layouts.navigation')
 
              <!-- Alertas -->
