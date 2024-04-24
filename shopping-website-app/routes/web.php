@@ -6,6 +6,8 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\RegistroController;
+use App\Http\Controllers\UserController;
+use App\Http\Middleware\AccessForbidden;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -13,25 +15,19 @@ Route::get('/', function () {
     return view('dashboard', ['name' => $name]);
 })->name('dashboard');
 
-// Route::get('/', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 
-
-Route::middleware(['auth', 'verified'])->group(function () {
+//Restricción provisional, lanza un 403 si no estás logueado
+Route::middleware(AccessForbidden::class)->group(function () {
     /*
-    Route::resource crea 7 rutas para manejar el controler:
-    note.index(get),note.create(get),note.store(post),note.show(get),note.edit(get),note.update(put),note.destroy(delete)
+    index(get),create(get),store(post),show(get),edit(get),update(put),destroy(delete)
     */
-    Route::resource('proveedor', ProveedorController::class);
-    Route::resource('categoria', CategoriaController::class);
-    Route::resource('producto', ProductoController::class);
-    //Dashboard Panel de Control
     Route::get('/panelcontrol', [DashbordController::class, 'index'])->name('panel.index');
-    Route::get('/registros', [RegistroController::class, 'index'])->name('registros.index');
+    Route::resource('/panelcontrol/proveedor', ProveedorController::class);
+    Route::resource('/panelcontrol/categoria', CategoriaController::class);
+    Route::resource('/panelcontrol/producto', ProductoController::class);
+    Route::get('/panelcontrol/registros', [RegistroController::class, 'index'])->name('registros.index');
+    Route::resource('/panelcontrol/user', UserController::class);
 });
-
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

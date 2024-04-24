@@ -15,16 +15,30 @@ class DashbordController extends Controller
 {
     function index()
     {
+
+
         //Recoger registros de este mes
         $esteMes = Registro::whereBetween('ocurrido_en', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()])->count();
 
         $data = [
-            'productos' => Producto::count(),
-            'categorias' => Categoria::count(),
-            'proveedores' => Proveedor::count(),
-            'usuarios' => User::count(),
+            'productos' => [
+                'totales' => Producto::count(),
+                'ultimo' => Producto::select(['created_at'])->latest('created_at')->get()
+            ],
+            'categorias' => [
+                'totales' => Categoria::count(),
+                'ultimo' => Categoria::select(['created_at'])->latest('created_at')->get()
+            ],
+            'proveedores' => [
+                'totales' => Proveedor::count(),
+                'ultimo' => Proveedor::select(['created_at'])->latest('created_at')->get()
+            ],
+            'usuarios' => [
+                'totales' => User::count(),
+                'ultimo' => User::select(['created_at'])->latest('created_at')->get()
+            ],
             'registros' => [
-                'ultimos' => Registro::orderBy('ocurrido_en', 'desc')->limit(6)->get(),
+                'ultimos' => Registro::select(['registros.*', 'users.name'])->leftJoin('users', 'registros.usuario', '=', 'users.id')->latest('ocurrido_en')->limit(6)->get(),
                 'totalesMes' => $esteMes
             ]
 

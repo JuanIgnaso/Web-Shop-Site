@@ -32,7 +32,7 @@
           <x-adminPanel.list-element :params="['url'=>route('proveedor.index'),'text'=>'Proveedores','icono'=>'fa-solid fa-truck-ramp-box']"></x-adminPanel.list-element>
         </li>
         <li>
-          <x-adminPanel.list-element :params="['url'=>'','text'=>'Usuarios','icono'=>'fa-solid fa-user']"></x-adminPanel.list-element>
+          <x-adminPanel.list-element :params="['url'=>route('user.index'),'text'=>'Usuarios','icono'=>'fa-solid fa-user']"></x-adminPanel.list-element>
         </li>
       </ul>
 
