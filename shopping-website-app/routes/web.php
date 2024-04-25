@@ -9,6 +9,7 @@ use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AccessForbidden;
 use App\Http\Middleware\AdminAccess;
+use App\Http\Middleware\EditorAllowed;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,7 +28,7 @@ destroy -> DELETE
 */
 
 
-Route::middleware(AccessForbidden::class)->group(function () {
+Route::middleware(EditorAllowed::class)->group(function () {
     //Panel de control
     Route::get('/panelcontrol', [DashbordController::class, 'index'])->name('panel.index');
 

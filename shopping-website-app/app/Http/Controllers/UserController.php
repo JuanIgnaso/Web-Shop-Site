@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClaseUsuario;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $titulo = 'Editar Usuario';
+        $titulo = 'Datos del Usuario';
         return view('usuario.show', ['titulo' => $titulo, 'user' => $user]);
     }
 
@@ -47,7 +48,12 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        if (\Auth::user()->id == $user->id) {
+            abort(404);
+        }
+        $clases = ClaseUsuario::orderBy('id')->get();
+        $titulo = 'Editar Usuario';
+        return view('usuario.edit', ['clases' => $clases, 'titulo' => $titulo, 'user' => $user]);
     }
 
     /**

@@ -61,6 +61,7 @@
                                 {{$usuario->created_at}}
                             </td>
                             <td class="px-6 py-4">
+                                @if(Auth::user()->id != $usuario->id)
                                 <div class=" flex justify-center gap-2">
                                     <a class="admin-panel-action-button emerald-gradient shadow-emerald-500/40" href="{{route('user.show',$usuario)}}"><i class="fa-solid fa-eye"></i></a>
                                     @if(Auth::user()->activo == 1)
@@ -68,8 +69,9 @@
                                     @else
                                     <a class="admin-panel-action-button darkgrey-gradient shadow-neutral-500/40" href=""><i class="fa-solid fa-toggle-off"></i></a>
                                     @endif
-                                    <a class="admin-panel-action-button blue-gradient shadow-blue-600/40" href=""><i class="fa-solid fa-pen-nib"></i></a>
+                                    <a class="admin-panel-action-button blue-gradient shadow-blue-600/40" href="{{route('user.edit',$usuario)}}"><i class="fa-solid fa-pen-nib"></i></a>
                                 </div>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

@@ -17,7 +17,7 @@
                         {{ __('Inicio') }}
                     </x-nav-link>
                 </div>
-                @if(Auth::check())
+                @if(Auth::check() && Auth::user()->claseUsuario != 1)
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('panel.index')" :active="request()->routeIs('panel.index')">
                         {{ __('Panel de Control') }}

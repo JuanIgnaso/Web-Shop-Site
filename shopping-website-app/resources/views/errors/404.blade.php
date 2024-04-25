@@ -1,3 +1,5 @@
-<x-app-layout>
-    <h2 class="text-center p-4">{{ $exception->getMessage() }}</h2>
-</x-app-layout>
+@extends('errors::minimal')
+
+@section('title', __('Page Not Found'))
+@section('code', '404')
+@section('message', __($exception->getMessage() ?: 'Page Not Found'))
