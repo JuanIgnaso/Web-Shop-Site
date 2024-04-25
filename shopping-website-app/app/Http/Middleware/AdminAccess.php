@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AccessForbidden
+class AdminAccess
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class AccessForbidden
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!\Auth::check() || \Auth::user()->activo == 0) {
+        if (\Auth::user()->claseUsuario != 3) {
             abort(403);
         }
 

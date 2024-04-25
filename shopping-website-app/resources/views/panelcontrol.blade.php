@@ -39,7 +39,7 @@
         </div>
 
         <div class="relative flex flex-col bg-clip-border rounded-xl bg-turquoiseLight text-gray-800 shadow-md">
-          <div class="bg-clip-border mx-4  overflow-hidden bg-gradient-to-tr from-green-600 to-green-400 text-white shadow-green-500/40 shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center">
+          <div class="bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-green-600 to-green-400 text-white shadow-green-500/40 shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center">
             <i class="fa-solid fa-truck-ramp-box text-2xl"></i>
           </div>
           <div class="p-4 text-right">

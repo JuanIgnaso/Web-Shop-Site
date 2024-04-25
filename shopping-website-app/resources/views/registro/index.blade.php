@@ -62,5 +62,11 @@
                 </table>
             </div>
 
+            @if($registros->hasPages())
+            <footer class="flex justify-center mt-6">
+                {{$registros->links()}}
+            </footer>
+            @endif
+
         </div>
 </x-adminPanel.admin-panel-layout>

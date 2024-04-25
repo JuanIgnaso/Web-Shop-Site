@@ -19,7 +19,7 @@ class ProductoController extends Controller
     public function index()
     {
         $titulo = 'Productos Index';
-        $productos = Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor'])->leftJoin('proveedores', 'productos.proveedor', '=', 'productos.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->orderBy('created_at', 'desc')->get();
+        $productos = Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor'])->leftJoin('proveedores', 'productos.proveedor', '=', 'productos.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->orderBy('created_at', 'desc')->paginate(env('PAGINATION_LENGTH'));
         return view('producto.index', ['titulo' => $titulo, 'productos' => $productos]);
     }
 
@@ -94,6 +94,7 @@ class ProductoController extends Controller
             ]
         );
         $producto->update($data);
+        Registro::create(['operacion' => 'Actualizar registro', 'tabla' => 'productos', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
         return to_route('producto.show', $producto)->with('message', 'Cambios realizados con éxito!');
     }
 

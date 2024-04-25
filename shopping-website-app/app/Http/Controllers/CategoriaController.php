@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Categoria;
 use App\Http\Controllers\Controller;
+use App\Models\Registro;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -15,7 +17,7 @@ class CategoriaController extends Controller
     public function index()
     {
         $titulo = 'Lista de Categorías';
-        $categorias = Categoria::get();
+        $categorias = Categoria::paginate(env('PAGINATION_LENGTH'));
         return view('categoria.index', ['titulo' => $titulo, 'categorias' => $categorias]);
     }
 
@@ -43,6 +45,7 @@ class CategoriaController extends Controller
         );
         //Crear nuevo registro
         $categoria = Categoria::create($data);
+        Registro::create(['operacion' => 'Crear nuevo registro', 'tabla' => 'categorias', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
         return to_route('categoria.index')->with('message', 'Se ha creado un nuevo registro.');
     }
 
@@ -60,7 +63,6 @@ class CategoriaController extends Controller
      */
     public function edit(Categoria $categoria)
     {
-        dump(request());
         $titulo = 'Editando categoría';
         return view('categoria.edit', ['titulo' => $titulo, 'categoria' => $categoria, 'categorias' => Categoria::get()]);
     }

@@ -15,7 +15,7 @@ class Registro extends Model
 
     function getAllRecords()
     {
-        return \DB::table('registros')->select(['registros.*', 'users.name'])->leftJoin('users', 'registros.usuario', '=', 'users.id')->orderBy('ocurrido_en')->get();
+        return \DB::table('registros')->select(['registros.*', 'users.name'])->leftJoin('users', 'registros.usuario', '=', 'users.id')->orderBy('ocurrido_en', 'desc')->paginate(env('PAGINATION_LENGTH'));
     }
 
 

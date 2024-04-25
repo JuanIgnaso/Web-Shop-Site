@@ -37,6 +37,30 @@
     .table-row{
       @apply odd:bg-white  even:bg-turquoiseLight  border-b ;
     }
+
+    .admin-panel-action-button{
+      @apply grid h-10 w-10 place-items-center rounded-xl text-white  md:text-xl;
+    }
+
+    .yellow-gradient{
+      @apply bg-gradient-to-tr from-yellow-600 to-yellow-400;
+    }
+
+    .emerald-gradient{
+      @apply bg-gradient-to-tr from-emerald-600 to-emerald-400;
+    }
+
+    .blue-gradient{
+      @apply bg-gradient-to-tr from-blue-800 to-blue-600;
+    }
+
+    .rose-gradient{
+      @apply bg-gradient-to-tr from-rose-600 to-rose-400;
+    }
+
+    .darkgrey-gradient{
+      @apply bg-gradient-to-tr from-neutral-800 to-neutral-600;
+    }
   }
 
   body *{

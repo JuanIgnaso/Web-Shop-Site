@@ -47,19 +47,24 @@
                 </td>
                 <td class="px-6 py-4">
                     <div class=" flex justify-center gap-2">
-                        <a href="{{route('categoria.edit',$categoria)}}" class="font-medium text-blue-600  hover:underline">Editar</a>
-                        <a href="{{route('categoria.show',$categoria)}}" class="font-medium text-yellow-600  hover:underline">Ver</a>
-                        <form action="{{route('categoria.destroy',$categoria)}}" method="POST">
-                            @csrf
-                            @method('DELETE') <!-- Modificamos método del formulario -->
-                            <button class="font-medium text-red-600  hover:underline">Borrar</button>
-                        </form>
+                        <a href="{{route('categoria.edit',$categoria)}}" class="admin-panel-action-button blue-gradient shadow-blue-600/40"><i class="fa-solid fa-pen-nib"></i></a>
+                            <a href="{{route('categoria.show',$categoria)}}" class="admin-panel-action-button emerald-gradient shadow-emerald-500/40"><i class="fa-solid fa-eye"></i></a>
+                            <form action="{{route('categoria.destroy',$categoria)}}" method="POST">
+                                @csrf
+                                @method('DELETE') <!-- Modificamos método del formulario -->
+                                <button class="admin-panel-action-button rose-gradient shadow-rose-500/40"><i class="fa-solid fa-minus"></i></button>
+                            </form>
                     </div>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+    @if($categorias->hasPages())
+    <footer class="flex justify-center mt-6">
+        {{$categorias->links()}}
+    </footer>
+    @endif
 </div>
 
 </main>

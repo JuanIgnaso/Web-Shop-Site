@@ -54,13 +54,13 @@
                 </td>
                 <td class="px-6 py-4">
                     <div class=" flex justify-center gap-2">
-                        <a href="{{route('proveedor.edit',$proveedor)}}" class="font-medium text-blue-600  hover:underline">Editar</a>
-                        <a href="{{route('proveedor.show',$proveedor)}}" class="font-medium text-yellow-600  hover:underline">Ver</a>
-                        <form action="{{route('proveedor.destroy',$proveedor)}}" method="POST">
-                            @csrf
-                            @method('DELETE') <!-- Modificamos método del formulario -->
-                            <button class="font-medium text-red-600  hover:underline">Borrar</button>
-                        </form>
+                        <a href="{{route('proveedor.edit',$proveedor)}}" class="admin-panel-action-button blue-gradient shadow-blue-600/40"><i class="fa-solid fa-pen-nib"></i></a>
+                            <a href="{{route('proveedor.show',$proveedor)}}" class="admin-panel-action-button emerald-gradient shadow-emerald-500/40"><i class="fa-solid fa-eye"></i></a>
+                            <form action="{{route('proveedor.destroy',$proveedor)}}" method="POST">
+                                @csrf
+                                @method('DELETE') <!-- Modificamos método del formulario -->
+                                <button class="admin-panel-action-button rose-gradient shadow-rose-500/40"><i class="fa-solid fa-minus"></i></button>
+                            </form>
                     </div>
                 </td>
             </tr>

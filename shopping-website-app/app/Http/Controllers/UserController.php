@@ -14,7 +14,7 @@ class UserController extends Controller
     public function index()
     {
         $titulo = 'Panel de Usuarios';
-        return view('usuario.index', ['titulo' => $titulo, 'usuarios' => User::get()]);
+        return view('usuario.index', ['titulo' => $titulo, 'usuarios' => User::paginate(env('PAGINATION_LENGTH'))]);
     }
 
     /**

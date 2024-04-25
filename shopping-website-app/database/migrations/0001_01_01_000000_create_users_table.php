@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('password');
             $table->foreignId('claseUsuario')->constrained('claseUsuario');
             $table->double('wallet')->default(0.0);
+            $table->tinyInteger('activo')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });
