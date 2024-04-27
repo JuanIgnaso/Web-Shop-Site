@@ -22,6 +22,16 @@ export default {
                 'turquoiseLight':'#def2f1',
                 'turquoiseWhite':'#feffff'
             },
+            keyframes: {
+                wiggle: {
+                    '0%, 100%': { transform: 'rotate(-3deg)' },
+                    '50%': { transform: 'rotate(3deg)' },
+                  }
+            },
+            animation: {
+                'fadeSlow': 'wiggle 3s linear infinite',
+            }
+
         },
 
     },

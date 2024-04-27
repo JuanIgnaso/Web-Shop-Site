@@ -15,7 +15,7 @@ class EditorAllowed
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (\Auth::user()->claseUsuario == 1) {
+        if (!\Auth::check() || \Auth::user()->claseUsuario == 1) {
             abort(403);
         }
 

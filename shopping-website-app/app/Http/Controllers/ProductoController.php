@@ -13,6 +13,13 @@ use Illuminate\Validation\Rule;
 
 class ProductoController extends Controller
 {
+
+    public function list()
+    {
+        $titulo = 'Lista de Productos';
+        return view('producto.lists', ['titulo' => $titulo]);
+    }
+
     /**
      * Display a listing of the resource.
      */

@@ -32,7 +32,7 @@
                 <div class="mt-12">
                     {{ $slot }}
                 </div>
-                <div class="text-blue-gray-600">
+                <div class="text-blue-gray-600 rounded-sm">
                     @include('components.footer')
                 </div>
             </main>

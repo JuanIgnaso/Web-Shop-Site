@@ -10,20 +10,10 @@
         <div class="space-y-12">
             <div class="border-b border-gray-900/10 pb-12">
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div class="sm:col-span-3">
-                        <label for="nombreProducto"
-                            class="block text-sm font-medium leading-6 text-gray-900">Nombre</label>
-                        <div class="mt-2">
-                            <input type="text" name="nombreProducto" id="nombreProducto"
-                                value="{{old('nombreProducto',$producto->nombreProducto)}}"
-                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                placeholder="introduce un nombre...">
-                            @if($errors->has('nombreProducto'))
-                            <p class="input-error">{{$errors->first('nombreProducto')}}</p>
-                            @endif
-                        </div>
-                    </div>
 
+                    <div class="sm:col-span-3">
+                        <x-form.inputfield :params="['type'=>'text','name'=>'nombreProducto','value'=>old('nombreProducto',$producto->nombreProducto),'label'=>'Nombre del Producto']"></x-form.inputfield>
+                    </div>
 
                     <div class="sm:col-span-3">
                         <label for="categoria" class="block text-sm font-medium leading-6 text-gray-900">Categoría</label>
@@ -38,8 +28,7 @@
                           <p class="input-error">{{$errors->first('categoria')}}</p>
                         @endif
                         </div>
-                      </div>
-
+                    </div>
 
                       <div class="sm:col-span-3">
                         <label for="proveedor" class="block text-sm font-medium leading-6 text-gray-900">Proveedor</label>
@@ -57,43 +46,15 @@
                       </div>
 
                     <div class="sm:col-span-3">
-                        <label for="unidades"
-                            class="block text-sm font-medium leading-6 text-gray-900">Unidades</label>
-                        <div class="mt-2">
-                            <input type="number" name="unidades" id="unidades"
-                                value="{{old('unidades',$producto->unidades)}}"
-                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                placeholder="introduce un número...">
-                            @if($errors->has('unidades'))
-                            <p class="input-error">{{$errors->first('unidades')}}</p>
-                            @endif
-                        </div>
+                        <x-form.inputfield :params="['type'=>'number','name'=>'unidades','value'=>old('unidades',$producto->unidades),'label'=>'Unidades']"></x-form.inputfield>
                     </div>
 
                     <div class="sm:col-span-3">
-                        <label for="precio"
-                            class="block text-sm font-medium leading-6 text-gray-900">Precio</label>
-                        <div class="mt-2">
-                            <input type="text" name="precio" id="precio"
-                                value="{{old('precio',$producto->precio)}}"
-                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                placeholder="introduce un número...">
-                            @if($errors->has('precio'))
-                            <p class="input-error">{{$errors->first('precio')}}</p>
-                            @endif
-                        </div>
+                        <x-form.inputfield :params="['type'=>'text','name'=>'precio','value'=>old('precio',$producto->precio),'label'=>'Precio']"></x-form.inputfield>
                     </div>
 
                     <div class="col-span-full">
-                        <label for="descripcion"
-                            class="block text-sm font-medium leading-6 text-gray-900">Descripcion</label>
-                        <div class="mt-2">
-                            <textarea id="descripcion" name="descripcion" rows="3"
-                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">{{old('descripcion',$producto->descripcion)}}</textarea>
-                        </div>
-                        @if($errors->has('descripcion'))
-                        <p class="input-error">{{$errors->first('descripcion')}}</p>
-                        @endif
+                        <x-form.textarea :params="['label'=>'Descripción del producto','name'=>'descripcion','value'=>old('descripcion',$producto->descripcion)]"></x-form.textarea>
                     </div>
                 </div>
             </div>

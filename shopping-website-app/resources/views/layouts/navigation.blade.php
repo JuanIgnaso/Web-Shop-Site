@@ -16,6 +16,9 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Inicio') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('contact.index')" :active="request()->routeIs('contact.index')">
+                        {{ __('Contactar') }}
+                    </x-nav-link>
                 </div>
                 @if(Auth::check() && Auth::user()->claseUsuario != 1)
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">

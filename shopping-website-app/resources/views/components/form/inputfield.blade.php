@@ -1,4 +1,11 @@
-<label for="nombreProducto" class="block text-base font-bold leading-6 text-turquoiseMedium">{{$params['label']}}</label>
+
+<!-- Genera un input:
+name -> usado en la id y name
+value -> valor del input
+label -> texto del label
+type -> tipo del input
+-->
+    <label for="nombreProducto" class="block text-base font-bold leading-6 text-turquoiseMedium">{{$params['label']}}</label>
     <div class="mt-2">
         <input type="{{$params['type']}}" name="{{$params['name']}}" id="{{$params['name']}}"
                                 value="{{$params['value']}}"

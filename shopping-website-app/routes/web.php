@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\DashbordController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProveedorController;
@@ -16,6 +17,15 @@ Route::get('/', function () {
     $name = Auth::user()->name ?? '';
     return view('dashboard', ['name' => $name]);
 })->name('dashboard');
+
+//Contact us
+Route::get('/contactar', [HomeController::class, 'contactUs'])->name('contact.index');
+Route::post('/contactar', [HomeController::class, 'store'])->name('contact.store');
+
+
+//Product Listing(provisional)
+Route::get('/productos', [ProductoController::class, 'list'])->name('listaProductos');
+
 
 /*
 index -> GET
