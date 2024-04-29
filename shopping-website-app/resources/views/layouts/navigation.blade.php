@@ -4,10 +4,11 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
+                {{-- url del logo app.logomakr.com/26AYp0 --}}
+                <div class="shrink-0 flex items-center w-20">
                     <a href="{{ route('dashboard') }}">
                         {{-- <img class="block h-12 w-auto "  src="{{Vite::asset('resources/images/moon-logo.png')}}" alt=""> --}}
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                        <img src="{{Vite::asset('resources/images/web-logo.png')}}" alt="logo de la tienda">
                     </a>
                 </div>
 

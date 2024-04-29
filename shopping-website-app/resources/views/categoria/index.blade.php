@@ -60,11 +60,10 @@
             @endforeach
         </tbody>
     </table>
-    @if($categorias->hasPages())
-    <footer class="flex justify-center mt-6">
-        {{$categorias->links()}}
-    </footer>
-    @endif
+
+    {{-- Paginación --}}
+    <x-ui.pagination :source="$categorias"></x-ui.pagination>
+
 </div>
 
 </main>

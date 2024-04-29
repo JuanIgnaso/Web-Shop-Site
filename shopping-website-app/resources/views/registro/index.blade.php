@@ -62,11 +62,8 @@
                 </table>
             </div>
 
-            @if($registros->hasPages())
-            <footer class="flex justify-center mt-6">
-                {{$registros->links()}}
-            </footer>
-            @endif
+            {{-- Paginación --}}
+            <x-ui.pagination :source="$registros"></x-ui.pagination>
 
         </div>
 </x-adminPanel.admin-panel-layout>

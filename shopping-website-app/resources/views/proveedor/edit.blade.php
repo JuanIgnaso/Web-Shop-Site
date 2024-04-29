@@ -12,23 +12,23 @@
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
           <div class="sm:col-span-3">
-            <x-form.inputfield :params="['type'=>'text','name'=>'nombre_proveedor','value'=>old('nombre_proveedor',$proveedor->nombre_proveedor),'label'=>'Nombre del Proveedor']"></x-form.inputfield>
+            <x-form.input :type="'text'" :name="'nombre_proveedor'" :value="old('nombre_proveedor',$proveedor->nombre_proveedor)" :label="'Nombre del Proveedor'"></x-form.input>
           </div>
 
           <div class="sm:col-span-3">
-            <x-form.inputfield :params="['type'=>'text','name'=>'direccion','value'=>old('direccion',$proveedor->direccion),'label'=>'Dirección']"></x-form.inputfield>
+            <x-form.input :type="'text'" :name="'direccion'" :value="old('direccion',$proveedor->direccion)" :label="'Dirección'"></x-form.input>
           </div>
 
           <div class="sm:col-span-3">
-            <x-form.inputfield :params="['type'=>'email','name'=>'email','value'=>old('email',$proveedor->email),'label'=>'Dirección de correo']"></x-form.inputfield>
+            <x-form.input :type="'email'" :name="'email'" :value="old('email',$proveedor->email)" :label="'Dirección de correo'"></x-form.input>
           </div>
 
           <div class="sm:col-span-3">
-            <x-form.inputfield :params="['type'=>'text','name'=>'website','value'=>old('website',$proveedor->website),'label'=>'Página Web']"></x-form.inputfield>
+            <x-form.input :type="'text'" :name="'website'" :value="old('website',$proveedor->website)" :label="'Página Web'"></x-form.input>
           </div>
 
           <div class="col-span-full">
-            <x-form.inputfield :params="['type'=>'text','name'=>'telefono','value'=>old('telefono',$proveedor->telefono),'label'=>'Número de teléfono']"></x-form.inputfield>
+            <x-form.input :type="'text'" :name="'telefono'" :value="old('telefono',$proveedor->telefono)" :label="'Número de teléfono'"></x-form.input>
           </div>
 
         </div>

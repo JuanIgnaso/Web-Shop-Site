@@ -17,7 +17,11 @@ class ProductoController extends Controller
     public function list()
     {
         $titulo = 'Lista de Productos';
-        return view('producto.lists', ['titulo' => $titulo]);
+        return view('producto.lists', [
+            'productos' => Producto::select()->paginate(env('PAGINATION_LENGTH')),
+            'titulo' => $titulo,
+            'proveedores' => Proveedor::select()->get()
+        ]);
     }
 
     /**

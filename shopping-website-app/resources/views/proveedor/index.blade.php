@@ -69,7 +69,9 @@
     </table>
 </div>
 
-</main>
+ {{-- Paginación --}}
+ <x-ui.pagination :source="$proveedores"></x-ui.pagination>
 
+</main>
 
 </x-adminPanel.admin-panel-layout>

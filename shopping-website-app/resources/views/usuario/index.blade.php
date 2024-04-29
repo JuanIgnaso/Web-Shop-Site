@@ -78,10 +78,9 @@
                     </tbody>
                 </table>
             </div>
-            @if($usuarios->hasPages())
-            <footer class="flex justify-center mt-6">
-                {{$usuarios->links()}}
-            </footer>
-            @endif
+
+            {{-- Paginación --}}
+            <x-ui.pagination :source="$usuarios"></x-ui.pagination>
+
         </div>
 </x-adminPanel.admin-panel-layout>

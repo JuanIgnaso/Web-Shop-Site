@@ -17,6 +17,7 @@ export default {
             },
             colors: {
                 'turquoiseDark':'#17242a',
+                'turquoiseMediumDark':'#256664',
                 'turquoiseMedium':'#2b7a77',
                 'turquoiseSemiLight':'#3aafa9',
                 'turquoiseLight':'#def2f1',

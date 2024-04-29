@@ -15,7 +15,7 @@
 
                     <div class="sm:col-span-3">
                         <!-- nombreProducto -->
-                        <x-form.inputfield :params="['type'=>'text','name'=>'nombreProducto','value'=>old('nombreProducto'),'label'=>'Nombre del Producto']"></x-form.inputfield>
+                        <x-form.input :type="'text'" :name="'nombreProducto'" :value="old('nombreProducto')" :label="'Nombre del Producto'"></x-form.input>
                     </div>
 
                     <div class="sm:col-span-3">
@@ -24,7 +24,7 @@
                           <select id="categoria" name="categoria"  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                             <option selected value="" disabled selected>Selecciona Una...</option>
                             @foreach($categorias as $c)
-                            <option value="{{$c->id}}">{{$c->nombre_categoria}}</option>
+                            <option value="{{$c->id}}" {{$c->id == old('categoria') ? 'selected' : ''}}>{{$c->nombre_categoria}}</option>
                             @endforeach
                           </select>
                           @if($errors->has('categoria'))
@@ -40,7 +40,7 @@
                           <select id="proveedor" name="proveedor"  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                             <option selected value="" disabled selected>Selecciona Uno...</option>
                         @foreach ($proveedores as $p)
-                            <option value="{{$p->id}}">{{$p->nombre_proveedor}}</option>
+                            <option value="{{$p->id}}" {{$p->id == old('proveedor') ? 'selected' : ''}}>{{$p->nombre_proveedor}}</option>
                         @endforeach
                         </select>
                           @if($errors->has('proveedor'))
@@ -48,20 +48,19 @@
                         @endif
                         </div>
                       </div>
-
                     <div class="sm:col-span-3">
-                        <!-- Unidades -->
-                        <x-form.inputfield :params="['type'=>'number','name'=>'unidades','value'=>old('unidades'),'label'=>'Unidades']"></x-form.inputfield>
+                        <!-- Unidades  -->
+                        <x-form.input :type="'number'" :name="'unidades'" :value="old('unidades')" :label="'Unidades'"></x-form.input>
                     </div>
 
                     <div class="sm:col-span-3">
                         <!-- Precio -->
-                        <x-form.inputfield :params="['type'=>'text','name'=>'precio','value'=>old('precio'),'label'=>'Precio']"></x-form.inputfield>
+                        <x-form.input :type="'text'" :name="'precio'" :value="old('precio')" :label="'Precio'"></x-form.input>
                     </div>
 
                     <div class="col-span-full">
                         <!-- Descripción -->
-                        <x-form.textarea :params="['label'=>'Descripción del producto','name'=>'descripcion','value'=>old('descripcion')]"></x-form.textarea>
+                        <x-form.textarea :label="'Descripción del producto'" :name="'descripcion'" :value="old('descripcion')"></x-form.textarea>
                     </div>
                 </div>
             </div>

@@ -12,7 +12,7 @@
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                     <div class="sm:col-span-3">
-                        <x-form.inputfield :params="['type'=>'text','name'=>'nombreProducto','value'=>old('nombreProducto',$producto->nombreProducto),'label'=>'Nombre del Producto']"></x-form.inputfield>
+                        <x-form.input :type="'text'" :name="'nombreProducto'" :value="old('nombreProducto',$producto->nombreProducto)" :label="'Nombre del Producto'"></x-form.input>
                     </div>
 
                     <div class="sm:col-span-3">
@@ -46,15 +46,15 @@
                       </div>
 
                     <div class="sm:col-span-3">
-                        <x-form.inputfield :params="['type'=>'number','name'=>'unidades','value'=>old('unidades',$producto->unidades),'label'=>'Unidades']"></x-form.inputfield>
+                        <x-form.input :type="'number'" :name="'unidades'" :value="old('unidades',$producto->unidades)" :label="'Unidades'"></x-form.input>
                     </div>
 
                     <div class="sm:col-span-3">
-                        <x-form.inputfield :params="['type'=>'text','name'=>'precio','value'=>old('precio',$producto->precio),'label'=>'Precio']"></x-form.inputfield>
+                        <x-form.input :type="'text'" :name="'precio'" :value="old('precio',$producto->precio)" :label="'Precio'"></x-form.input>
                     </div>
 
                     <div class="col-span-full">
-                        <x-form.textarea :params="['label'=>'Descripción del producto','name'=>'descripcion','value'=>old('descripcion',$producto->descripcion)]"></x-form.textarea>
+                        <x-form.textarea :label="'Descripción del producto'" :name="'descripcion'" :value="old('descripcion',$producto->descripcion)"></x-form.textarea>
                     </div>
                 </div>
             </div>

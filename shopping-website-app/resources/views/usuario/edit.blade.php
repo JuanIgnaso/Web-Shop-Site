@@ -12,11 +12,11 @@
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                     <div class="sm:col-span-3">
-                        <x-form.inputfield :params="['type'=>'text','name'=>'name','label'=>'Nombre','value'=>old('name',$user->name)]"></x-form.inputfield>
+                        <x-form.input :type="'text'" :name="'name'" :value="old('name',$user->name)" :label="'Nombre'"></x-form.input>
                     </div>
 
                     <div class="sm:col-span-3">
-                        <x-form.inputfield :params="['type'=>'email','name'=>'email','label'=>'Correo electrónico','value'=>old('email',$user->email)]"></x-form.inputfield>
+                        <x-form.input :type="'email'" :name="'email'" :value="old('email',$user->email)" :label="'Correo electrónico'"></x-form.input>
                     </div>
 
                     <div class="sm:col-span-3">
@@ -33,8 +33,6 @@
                         @endif
                         </div>
                       </div>
-
-
                 </div>
             </div>
         </div>
