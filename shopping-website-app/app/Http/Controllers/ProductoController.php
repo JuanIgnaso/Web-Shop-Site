@@ -25,12 +25,21 @@ class ProductoController extends Controller
     }
 
     /**
+     * Mostrar los detalles del producto en el front de la tienda
+     */
+    public function details($id)
+    {
+        $titulo = 'Detalles del Producto';
+        return view('producto.details', ['titulo' => $titulo, 'producto' => Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->find($id)]);
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $titulo = 'Productos Index';
-        $productos = Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor'])->leftJoin('proveedores', 'productos.proveedor', '=', 'productos.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->orderBy('created_at', 'desc')->paginate(env('PAGINATION_LENGTH'));
+        $productos = Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->orderBy('created_at', 'desc')->paginate(env('PAGINATION_LENGTH'));
         return view('producto.index', ['titulo' => $titulo, 'productos' => $productos]);
     }
 

@@ -21,7 +21,9 @@ export default {
                 'turquoiseMedium':'#2b7a77',
                 'turquoiseSemiLight':'#3aafa9',
                 'turquoiseLight':'#def2f1',
-                'turquoiseWhite':'#feffff'
+                'turquoiseWhite':'#feffff',
+                'darkBlue':'#32608E',
+                'darkOrange':'#E39005'
             },
             keyframes: {
                 wiggle: {

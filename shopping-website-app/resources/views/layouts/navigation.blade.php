@@ -20,6 +20,9 @@
                     <x-nav-link :href="route('contact.index')" :active="request()->routeIs('contact.index')">
                         {{ __('Contactar') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('listaProductos')" :active="request()->routeIs('listaProductos')">
+                        {{ __('Productos') }}
+                    </x-nav-link>
                 </div>
                 @if(Auth::check() && Auth::user()->claseUsuario != 1)
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
@@ -34,6 +37,16 @@
             <!-- Settings Dropdown -->
             @if(Auth::check())
             <div class="hidden sm:flex sm:items-center sm:ms-6">
+
+
+                <a href="#" class="flex h-10 items-center px-2 rounded-lg border border-gray-200 hover:border-gray-300 focus:outline-none hover:shadow-inner">
+                    <svg class="h-6 w-6 leading-none text-gray-300 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                    <span class="pl-1 text-gray-500 text-md">0</span>
+                  </a>
+
+
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">

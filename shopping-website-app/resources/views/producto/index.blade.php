@@ -61,7 +61,7 @@
                             {{$producto->nombre_categoria}}
                         </td>
                         <td class="px-6 py-4">
-                            <a href="{{route('proveedor.show',$producto->proveedor)}}">{{$producto->proveedor}}</a>
+                            {{$producto->nombre_proveedor}}
                         </td>
                         <td class="px-6 py-4">
                             {{$producto->precio}}

@@ -25,6 +25,7 @@ Route::post('/contactar', [HomeController::class, 'store'])->name('contact.store
 
 //Product Listing(provisional)
 Route::get('/productos', [ProductoController::class, 'list'])->name('listaProductos');
+Route::get('/productos/{id}/details', [ProductoController::class, 'details'])->name('producto.details');
 
 
 /*
