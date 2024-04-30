@@ -10,7 +10,7 @@
 
 {{-- Productos --}}
 
-<div class="bg-white pb-4 min-h-screen">
+<div class="bg-white pb-6 min-h-screen">
 
 
 
@@ -46,7 +46,7 @@
     <h1 class="p-3 text-center mb-3"  id="open">Categoría del Producto</h1>
 
         <h2 class="sr-only">Products</h2>
-        <div class="flex items-center justify-start mb-3">
+        <div class="flex items-center justify-start mb-6">
 
           <div x-data="{id: 1}">
             <button type="button" " @click="$dispatch('open-dropdown',{id})" class="text-white bg-turquoiseMedium hover:bg-turquoiseMediumDark focus:ring-4 focus:ring-turquoiseSemiLight font-medium rounded-lg text-sm px-5 py-2.5 me-2   focus:outline-none ">Filtrar</button>
