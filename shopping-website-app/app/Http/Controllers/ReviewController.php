@@ -23,8 +23,18 @@ class ReviewController extends Controller
             ]
         );
 
-        $review = Review::create(['cabecera' => $request->input('cabecera'), 'review' => $request->input('review'), 'producto' => $id, 'usuario' => \Auth::id(), 'recomendado' => (int) $request->input('recomendado'), 'puntuacion' => $request->input('puntuacion'), 'fecha_review' => Carbon::now()->toDateTimeString()]);
+        $review = Review::create(['cabecera' => $request->input('cabecera'), 'review' => $request->input('review'), 'producto' => $id, 'usuario' => \Auth::id(), 'recomendado' => $request->input('recomendado'), 'puntuacion' => $request->input('puntuacion'), 'fecha_review' => Carbon::now()->toDateTimeString()]);
         return to_route('producto.details', $id)->with('message', 'Gracias por compartir tu opinión!');
 
     }
+
+    public function destroy($id)
+    {
+        $review = Review::find($id);
+        $review->delete();
+        return redirect(\URL::previous())->with('message', 'Review ha sido borrada');
+
+    }
+
+
 }

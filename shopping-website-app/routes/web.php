@@ -30,8 +30,8 @@ Route::get('/productos/{id}/details', [ProductoController::class, 'details'])->n
 
 
 //Review
-Route::post('/review/{id}/create', [ReviewController::class, 'store'])->name('review.store');
-
+Route::post('/review/{id}/create', [ReviewController::class, 'store'])->name('review.store')->middleware(AccessForbidden::class);
+Route::delete('/review/{id}', [ReviewController::class, 'destroy'])->name('review.destroy');
 
 /*
 index -> GET
@@ -43,9 +43,8 @@ update -> PUT
 destroy -> DELETE
 */
 
-
+#PANEL DE CONTROL - Restringido a usuarios autorizados por middleware
 Route::middleware(EditorAllowed::class)->group(function () {
-    //Panel de control
     Route::get('/panelcontrol', [DashbordController::class, 'index'])->name('panel.index');
 
     //Recuros
