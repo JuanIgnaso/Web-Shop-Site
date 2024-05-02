@@ -61,6 +61,14 @@
     .darkgrey-gradient{
       @apply bg-gradient-to-tr from-neutral-800 to-neutral-600;
     }
+
+    .grey{
+      @apply fill-gray-300;
+    }
+
+    .yellow{
+      @apply fill-yellow-400;
+    }
   }
 
   body *{

@@ -120,37 +120,98 @@
       <section class="space-y-8">
 
         <h2 class="mt-8 mb-6">Opiniones del Producto</h2>
-        <div class="flex flex-col md:flex-row justify-start items-start gap-6">
-            <div class="bg-turquoiseLight aspect-square w-24 md:w-36 rounded-lg grid place-items-center">
-              <p class="text-center text-3xl md:text-4xl font-black">4.3</p>
-              <div class="flex justify-center">
-                <svg class="w-3 h-3 md:w-4 md:h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                </svg>
-                <svg class="w-3 h-3 md:w-4 md:h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                </svg>
-                <svg class="w-3 h-3 md:w-4 md:h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                </svg>
-                <svg class="w-3 h-3 md:w-4 md:h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                </svg>
-                <svg class="w-3 h-3 md:w-4 md:h-4 text-gray-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                </svg>
-              </div>
-              <p class="text-xs md:text-sm">75 Opiniones</p>
+        <div  x-data="{ show: false }">
+              <div class="flex flex-col md:flex-row justify-start items-start gap-6">
+                <div class="bg-turquoiseLight aspect-square w-24 md:w-36 rounded-lg grid place-items-center">
+                  <p class="text-center text-3xl md:text-4xl font-black">4.3</p>
+                  <div class="flex justify-center">
+                    <svg class="w-3 h-3 md:w-4 md:h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                    <svg class="w-3 h-3 md:w-4 md:h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                    <svg class="w-3 h-3 md:w-4 md:h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                    <svg class="w-3 h-3 md:w-4 md:h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                    <svg class="w-3 h-3 md:w-4 md:h-4 text-gray-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                  </div>
+                  <p class="text-xs md:text-sm">75 Opiniones</p>
+                </div>
+
+                <div>
+                    <ol class="space-y-3 ">
+                      <li><h3>Déjanos tu opinión.</h3></li>
+                      <li>Tu opinión nos interesa, solo te llevará un par de minutos!</li>
+                      <li>
+                        <button @click="show = !show" :aria-expanded="show ? 'true' : 'false'" type="button" class="text-white bg-turquoiseSemiLight hover:bg-turquoiseMedium focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="">Añadir Opinión</a></button>
+                      </li>
+                    </ol>
+                </div>
             </div>
 
-            <div>
-                <ol class="space-y-3 ">
-                  <li><h3>Déjanos tu opinión.</h3></li>
-                  <li>Tu opinión nos interesa, solo te llevará un par de minutos!</li>
-                  <li>
-                    <button type="button" class="text-white bg-turquoiseSemiLight hover:bg-turquoiseMedium focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="">Añadir Opinión</a></button>
-                  </li>
-                </ol>
+            <div x-show="show" x-transition class="bg-gray-200 p-2 rounded-lg mt-2">
+              {{-- Formulario para crear review --}}
+              <form action="{{route('review.store',$producto->id)}}" method="POST" class="space-y-2">
+                @csrf
+                <h3 class="mt-4">Qué te parece el producto?</h3>
+                <h4>Cual es tu puntuación?</h4>
+                <div class="flex items-center" id="user-rating">
+                  <label>
+                    <input type="radio" value="1" class="peer hidden" name="puntuacion">
+                    <svg class="w-3 h-3 md:w-4 md:h-4 text-gray-300 peer-checked:text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                  </label>
+
+                  <label>
+                    <input type="radio" value="2" class="peer hidden" name="puntuacion">
+                    <svg class="w-3 h-3 md:w-4 md:h-4 text-gray-300 peer-checked:text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                  </label>
+
+                  <label>
+                    <input type="radio" value="3" class="peer hidden" name="puntuacion">
+                    <svg class="w-3 h-3 md:w-4 md:h-4 text-gray-300 peer-checked:text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                  </label>
+
+                  <label>
+                    <input type="radio" value="4" class="peer hidden" name="puntuacion">
+                    <svg class="w-3 h-3 md:w-4 md:h-4 text-gray-300 peer-checked:text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                  </label>
+
+                  <label>
+                    <input type="radio" value="5" class="peer hidden" name="puntuacion">
+                    <svg class="w-3 h-3 md:w-4 md:h-4 text-gray-300 peer-checked:text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                  </label>
+
+                </div>
+
+
+
+                <script src="{{Vite::asset('resources/js/aaa.js')}}"></script>
+
+                <x-form.input :name="'cabecera'" :type="'text'" :value="old('cabecera')" :label="'Cabecera de la review'"></x-form.input>
+                <x-form.textarea :name="'review'" :value="old('review')" :label="'Tu opinión'" ></x-form.textarea>
+                <h4>Recomendarías el producto?</h4>
+                <div class="flex gap-4">
+                  <x-form.checkbox :type="'radio'" :name="'recomendado'" :label="'Si'" value="'1'"></x-form.checkbox>
+                  <x-form.checkbox :type="'radio'" :name="'recomendado'" :label="'No'" value="'0'"></x-form.checkbox>
+                </div>
+                <button type="submit" class="text-white bg-turquoiseSemiLight hover:bg-turquoiseMedium focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none">Enviar mi Opinión</button>
+              </form>
             </div>
         </div>
 
@@ -159,9 +220,17 @@
         <div>
         <h3 class="text-2xl mb-6">Opiniones de los Usuarios</h3>
           {{-- Hacer aquí foreach de la tabla de reviews que coincidan con la id del producto --}}
-            <x-product.user-review></x-product.user-review>
+          @if($reviews->count() != 0)
+                  @foreach ($reviews as $review)
+                    <x-product.user-review :review="$review"></x-product.user-review>
+                  @endforeach
+          @else
+              <p class="text-turquoiseMediumDark font-black text-center text-xl">No hay ninguna review aún, se tú el primero!</p>
+          @endif
         </div>
       </section>
+
+      {{-- Paginación --}}
 
     </div>
   </div>

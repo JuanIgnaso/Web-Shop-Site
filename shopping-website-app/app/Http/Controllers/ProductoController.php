@@ -7,6 +7,7 @@ use App\Models\Producto;
 use App\Http\Controllers\Controller;
 use App\Models\Proveedor;
 use App\Models\Registro;
+use App\Models\Review;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -30,7 +31,8 @@ class ProductoController extends Controller
     public function details($id)
     {
         $titulo = 'Detalles del Producto';
-        return view('producto.details', ['titulo' => $titulo, 'producto' => Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->find($id)]);
+        $reviews = Review::select(['reviews.*', 'users.name', 'users.created_at'])->leftJoin('users', 'reviews.usuario', '=', 'users.id')->where('producto', '=', $id)->orderBy('fecha_review', 'desc')->get();
+        return view('producto.details', ['titulo' => $titulo, 'producto' => Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->find($id), 'reviews' => $reviews]);
     }
 
     /**

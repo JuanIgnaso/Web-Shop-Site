@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\RegistroController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AccessForbidden;
 use App\Http\Middleware\AdminAccess;
@@ -26,6 +27,10 @@ Route::post('/contactar', [HomeController::class, 'store'])->name('contact.store
 //Product Listing(provisional)
 Route::get('/productos', [ProductoController::class, 'list'])->name('listaProductos');
 Route::get('/productos/{id}/details', [ProductoController::class, 'details'])->name('producto.details');
+
+
+//Review
+Route::post('/review/{id}/create', [ReviewController::class, 'store'])->name('review.store');
 
 
 /*
