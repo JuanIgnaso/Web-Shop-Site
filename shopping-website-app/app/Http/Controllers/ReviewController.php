@@ -12,7 +12,6 @@ class ReviewController extends Controller
 {
     public function store(Request $request, $id)
     {
-        //validar
         $data = $request->validate(
             [
                 'puntuacion' => ['required', 'min:1', 'max:5'],
@@ -23,7 +22,15 @@ class ReviewController extends Controller
             ]
         );
 
-        $review = Review::create(['cabecera' => $request->input('cabecera'), 'review' => $request->input('review'), 'producto' => $id, 'usuario' => \Auth::id(), 'recomendado' => $request->input('recomendado'), 'puntuacion' => $request->input('puntuacion'), 'fecha_review' => Carbon::now()->toDateTimeString()]);
+        $review = new Review();
+
+        //Si el producto ya tiene una review del usuario se le notifica al usuario con un error.
+        if ($review->isProductReviewed($id)) {
+            return to_route('producto.details', $id)->with('error', 'Ya has opinado sobre este producto!');
+        }
+
+        //Si el usuario aún no ha opinado sobre el producto
+        $review->create(['cabecera' => $request->input('cabecera'), 'review' => $request->input('review'), 'producto' => $id, 'usuario' => \Auth::id(), 'recomendado' => $request->input('recomendado'), 'puntuacion' => $request->input('puntuacion'), 'fecha_review' => Carbon::now()->toDateTimeString()]);
         return to_route('producto.details', $id)->with('message', 'Gracias por compartir tu opinión!');
 
     }
@@ -31,9 +38,12 @@ class ReviewController extends Controller
     public function destroy($id)
     {
         $review = Review::find($id);
-        $review->delete();
-        return redirect(\URL::previous())->with('message', 'Review ha sido borrada');
-
+        if ($review->usuario == \Auth::id()) {
+            $review->delete();
+            return redirect(\URL::previous())->with('message', 'Review ha sido borrada');
+        } else {
+            abort(403);
+        }
     }
 
 

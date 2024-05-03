@@ -30,7 +30,7 @@
                 </header>
             @endif
             @include('components.alerts')
-            <!-- Page Content -->
+            <!-- Contenido de la página -->
             <main>
                 {{ $slot }}
             </main>

@@ -31,7 +31,7 @@ class ProductoController extends Controller
     public function details($id)
     {
         $titulo = 'Detalles del Producto';
-        $reviews = Review::select(['reviews.*', 'users.name', 'users.created_at'])->leftJoin('users', 'reviews.usuario', '=', 'users.id')->where('producto', '=', $id)->orderBy('fecha_review', 'desc')->get();
+        $reviews = Review::select(['reviews.*', 'users.name', 'users.created_at'])->leftJoin('users', 'reviews.usuario', '=', 'users.id')->where('producto', '=', $id)->orderBy('fecha_review', 'desc')->paginate(env('PAGINATION_LENGTH'));
         return view('producto.details', ['titulo' => $titulo, 'producto' => Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->find($id), 'reviews' => $reviews]);
     }
 
