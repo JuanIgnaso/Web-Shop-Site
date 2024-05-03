@@ -123,23 +123,21 @@
         <div  x-data="{ show: false }">
               <div class="flex flex-col md:flex-row justify-start items-start gap-6">
                 <div class="bg-turquoiseLight aspect-square w-24 md:w-36 rounded-lg grid place-items-center">
-                  <p class="text-center text-3xl md:text-4xl font-black">{{$reviews->sum('puntuacion') / $reviews->count()}}</p>
+                  <p class="text-center text-3xl md:text-4xl font-black">@if($reviews->count() == 0) {{'0'}} @else {{$reviews->sum('puntuacion') / $reviews->count()}}@endif</p>
                   <div class="flex justify-center">
-                    <svg class="w-3 h-3 md:w-4 md:h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                    </svg>
-                    <svg class="w-3 h-3 md:w-4 md:h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                    </svg>
-                    <svg class="w-3 h-3 md:w-4 md:h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                    </svg>
-                    <svg class="w-3 h-3 md:w-4 md:h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                    </svg>
-                    <svg class="w-3 h-3 md:w-4 md:h-4 text-gray-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                    </svg>
+                    {{-- Printar las estrellas --}}
+
+                    @if ($reviews->count() > 0)
+                    @for ($i = 0; $i < 5; $i++)
+                        @if ($i < $reviews->sum('puntuacion') / $reviews->count())
+                            <x-ui.yellow-star></x-ui.yellow-star>
+                        @else
+                            <x-ui.grey-star></x-ui.grey-star>
+                        @endif
+                  @endfor
+                @else
+                <x-ui.grey-star></x-ui.grey-star><x-ui.grey-star></x-ui.grey-star><x-ui.grey-star></x-ui.grey-star><x-ui.grey-star></x-ui.grey-star><x-ui.grey-star></x-ui.grey-star>
+                @endif
                   </div>
                   <p class="text-xs md:text-sm">{{$reviews->count()}} Opiniones</p>
                 </div>
@@ -199,16 +197,14 @@
 
                 </div>
 
-
-
                 <script src="{{Vite::asset('resources/js/aaa.js')}}"></script>
 
                 <x-form.input :name="'cabecera'" :type="'text'" :value="old('cabecera')" :label="'Cabecera de la review'"></x-form.input>
                 <x-form.textarea :name="'review'" :value="old('review')" :label="'Tu opinión'" ></x-form.textarea>
                 <h4>Recomendarías el producto?</h4>
                 <div class="flex gap-4">
-                  <x-form.checkbox :type="'radio'" :name="'recomendado'" :label="'Si'" value="'1'"></x-form.checkbox>
-                  <x-form.checkbox :type="'radio'" :name="'recomendado'" :label="'No'" value="'0'"></x-form.checkbox>
+                  <x-form.checkbox :type="'radio'" :name="'recomendado'" :label="'Si'" :value="1"></x-form.checkbox>
+                  <x-form.checkbox :type="'radio'" :name="'recomendado'" :label="'No'" :value="0"></x-form.checkbox>
                 </div>
                 <button type="submit" class="text-white bg-turquoiseSemiLight hover:bg-turquoiseMedium focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none">Enviar mi Opinión</button>
               </form>
