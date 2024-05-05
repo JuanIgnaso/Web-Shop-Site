@@ -19,6 +19,9 @@
       @apply text-lg;
       @apply font-bold;
     }
+    h5{
+      @apply font-bold;
+    }
     body{
       @apply font-normal;
     }

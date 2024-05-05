@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-darkBlue border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -20,7 +20,7 @@
                     <x-nav-link :href="route('contact.index')" :active="request()->routeIs('contact.index')">
                         {{ __('Contactar') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('listaProductos')" :active="request()->routeIs('listaProductos')">
+                    <x-nav-link :href="route('producto.categorias')" :active="request()->routeIs('producto.categorias')">
                         {{ __('Productos') }}
                     </x-nav-link>
                 </div>
@@ -36,7 +36,7 @@
 
             <!-- Settings Dropdown -->
             @if(Auth::check())
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden sm:flex sm:items-center gap-2 sm:ms-6">
 
 
                 <a href="#" class="flex h-10 items-center px-2 rounded-lg border border-gray-200 hover:border-gray-300 focus:outline-none hover:shadow-inner">

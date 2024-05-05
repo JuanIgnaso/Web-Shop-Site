@@ -25,9 +25,9 @@ Route::post('/contactar', [HomeController::class, 'store'])->name('contact.store
 
 
 //Product Listing(provisional)
-Route::get('/productos', [ProductoController::class, 'list'])->name('listaProductos');
+Route::get('/productos/{id}/list', [ProductoController::class, 'list'])->name('producto.list');
 Route::get('/productos/{id}/details', [ProductoController::class, 'details'])->name('producto.details');
-
+Route::get('/productos/categorias', [ProductoController::class, 'productCategories'])->name('producto.categorias');
 
 //Review
 Route::post('/review/{id}/create', [ReviewController::class, 'store'])->name('review.store')->middleware(AccessForbidden::class);

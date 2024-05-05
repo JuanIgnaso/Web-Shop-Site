@@ -21,7 +21,7 @@
               </a>
             </li>
             <li>
-              <x-breadcrumb.list-element :text="'Productos'" :url="route('listaProductos')"></x-breadcrumb.list-element>
+              <x-breadcrumb.list-element :text="'Productos'" :url="route('producto.list',$producto->categoria)"></x-breadcrumb.list-element>
             </li>
             <li aria-current="page">
               <div class="flex items-center">
@@ -69,7 +69,7 @@
           </div>
         </div>
         <div class="md:flex-1 px-4">
-          <h2 class="mb-2 leading-tight tracking-tight font-extrabold text-turquoiseDark text-2xl md:text-3xl">{{ucfirst($producto->nombreProducto)}}</h2>
+          <h2 class="mb-2 leading-tight tracking-tight font-extrabold text-turquoiseMediumDark text-2xl md:text-3xl">{{ucfirst($producto->nombreProducto)}}</h2>
 
 
           {{-- Rating --}}
@@ -222,7 +222,7 @@
                     <x-product.user-review :review="$review"></x-product.user-review>
                   @endforeach
           @else
-              <p class="text-turquoiseMediumDark font-black text-center text-xl">No hay ninguna review aún, se tú el primero!</p>
+              <p class="text-turquoiseMediumDark font-bold text-center text-xl">No hay ninguna review aún, se tú el primero!</p>
           @endif
         </div>
       </section>

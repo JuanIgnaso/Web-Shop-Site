@@ -860,6 +860,10 @@ h4 {
   font-weight: 700;
 }
 
+h5 {
+  font-weight: 700;
+}
+
 body {
   font-weight: 400;
 }
@@ -1851,6 +1855,10 @@ body {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .\!flex-row {
   flex-direction: row !important;
 }
@@ -2147,6 +2155,11 @@ body {
   border-color: rgb(50 96 142 / var(--tw-border-opacity));
 }
 
+.border-darkOrange {
+  --tw-border-opacity: 1;
+  border-color: rgb(227 144 5 / var(--tw-border-opacity));
+}
+
 .border-gray-100 {
   --tw-border-opacity: 1;
   border-color: rgb(243 244 246 / var(--tw-border-opacity));
@@ -2193,6 +2206,10 @@ body {
   border-color: rgb(255 255 255 / 0.2);
 }
 
+.border-gray-400\/50 {
+  border-color: rgb(156 163 175 / 0.5);
+}
+
 .border-t-transparent {
   border-top-color: transparent;
 }
@@ -2209,6 +2226,11 @@ body {
 .bg-blue-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
+}
+
+.bg-darkBlue {
+  --tw-bg-opacity: 1;
+  background-color: rgb(50 96 142 / var(--tw-bg-opacity));
 }
 
 .bg-gray-100 {
@@ -2715,6 +2737,11 @@ body {
   line-height: 1rem;
 }
 
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+
 .font-black {
   font-weight: 900;
 }
@@ -2837,6 +2864,11 @@ body {
   color: rgb(59 130 246 / var(--tw-text-opacity));
 }
 
+.text-blue-800 {
+  --tw-text-opacity: 1;
+  color: rgb(30 64 175 / var(--tw-text-opacity));
+}
+
 .text-blue-900 {
   --tw-text-opacity: 1;
   color: rgb(30 58 138 / var(--tw-text-opacity));
@@ -2941,11 +2973,6 @@ body {
   color: rgb(153 27 27 / var(--tw-text-opacity));
 }
 
-.text-rose-700 {
-  --tw-text-opacity: 1;
-  color: rgb(190 18 60 / var(--tw-text-opacity));
-}
-
 .text-turquoiseDark {
   --tw-text-opacity: 1;
   color: rgb(23 36 42 / var(--tw-text-opacity));
@@ -2979,11 +3006,6 @@ body {
 .text-yellow-600 {
   --tw-text-opacity: 1;
   color: rgb(202 138 4 / var(--tw-text-opacity));
-}
-
-.text-blue-800 {
-  --tw-text-opacity: 1;
-  color: rgb(30 64 175 / var(--tw-text-opacity));
 }
 
 .underline {
@@ -4237,6 +4259,10 @@ body *{
 
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .md\:flex-row {

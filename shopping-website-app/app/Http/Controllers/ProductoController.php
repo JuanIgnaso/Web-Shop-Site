@@ -18,11 +18,19 @@ class ProductoController extends Controller
     /**
      * Muestra la lista de productos en la tienda
      */
-    public function list()
+
+    public function productCategories()
     {
-        $titulo = 'Lista de Productos';
+        $titulo = 'Categorías';
+        return view('producto.categories', ['titulo' => $titulo, 'tree' => Categoria::tree(), 'categorias' => Categoria::select()->orderBy('id', 'desc')->get()]);
+    }
+
+
+    public function list($id)
+    {
+        $titulo = ucfirst(Categoria::find($id)->nombre_categoria);
         return view('producto.lists', [
-            'productos' => Producto::select()->paginate(env('PAGINATION_LENGTH')),
+            'productos' => Producto::select()->where('categoria', '=', $id)->paginate(env('PAGINATION_LENGTH')),
             'titulo' => $titulo,
             'proveedores' => Proveedor::select()->get()
         ]);

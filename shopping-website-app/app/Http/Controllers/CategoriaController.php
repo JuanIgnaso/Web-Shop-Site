@@ -93,8 +93,11 @@ class CategoriaController extends Controller
     public function destroy($id)
     {
         try {
-            if (Categoria::hasDependencies($id) || Producto::getByCategory($id)->count() != 0) {
-                return to_route('categoria.index')->with('error', 'Error, aún hay registros que dependen de esta Categoría');
+            if (Categoria::hasDependencies($id)) {
+                return to_route('categoria.index')->with('error', 'No se puede borrar esta Categoría porque otras Categorías dependen de ella.');
+            }
+            if (Producto::getByCategory($id)->count() != 0) {
+                return to_route('categoria.index')->with('error', 'Hay productos que dependen de esta Categoría.');
             }
             Categoria::find($id)->delete();
             $insert = Registro::create(['operacion' => 'Eliminar registro', 'tabla' => 'categorias', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
