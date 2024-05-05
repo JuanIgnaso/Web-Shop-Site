@@ -52,7 +52,7 @@
                             <form action="{{route('categoria.destroy',$categoria)}}" method="POST">
                                 @csrf
                                 @method('DELETE') <!-- Modificamos método del formulario -->
-                                <button class="admin-panel-action-button rose-gradient shadow-rose-500/40"><i class="fa-solid fa-minus"></i></button>
+                                <button type="submit" class="admin-panel-action-button rose-gradient shadow-rose-500/40"><i class="fa-solid fa-minus"></i></button>
                             </form>
                     </div>
                 </td>

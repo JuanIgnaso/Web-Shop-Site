@@ -16,7 +16,7 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        $proveedores = Proveedor::query()->orderBy('created_at', 'desc')->paginate(20);
+        $proveedores = Proveedor::query()->orderBy('created_at', 'desc')->paginate(env('PAGINATION_LENGTH'));
         return view('proveedor.index', ['proveedores' => $proveedores]);
     }
 

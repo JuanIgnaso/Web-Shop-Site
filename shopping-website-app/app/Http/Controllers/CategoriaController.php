@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Categoria;
 use App\Http\Controllers\Controller;
+use App\Models\Producto;
 use App\Models\Registro;
 use Carbon\Carbon;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -17,7 +19,7 @@ class CategoriaController extends Controller
     public function index()
     {
         $titulo = 'Lista de Categorías';
-        $categorias = Categoria::paginate(env('PAGINATION_LENGTH'));
+        $categorias = Categoria::select()->paginate(env('PAGINATION_LENGTH'));
         return view('categoria.index', ['titulo' => $titulo, 'categorias' => $categorias]);
     }
 
@@ -27,7 +29,7 @@ class CategoriaController extends Controller
     public function create()
     {
         $titulo = 'Crear nueva Categoria';
-        $categorias = Categoria::query()->orderBy('created_at', 'desc')->paginate(20);
+        $categorias = Categoria::query()->orderBy('created_at', 'desc')->get();
         return view('categoria.create', ['titulo' => $titulo, 'categorias' => $categorias]);
     }
 
@@ -88,9 +90,18 @@ class CategoriaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Categoria $categoria)
+    public function destroy($id)
     {
-        $categoria->delete();
-        return to_route('categoria.index')->with('message', 'Registro eliminado correctamente');
+        try {
+            if (Categoria::hasDependencies($id) || Producto::getByCategory($id)->count() != 0) {
+                return to_route('categoria.index')->with('error', 'Error, aún hay registros que dependen de esta Categoría');
+            }
+            Categoria::find($id)->delete();
+            $insert = Registro::create(['operacion' => 'Eliminar registro', 'tabla' => 'categorias', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
+            return to_route('categoria.index')->with('message', 'Registro eliminado correctamente');
+        } catch (\Error $e) {
+            return to_route('categoria.index')->with('error', $e->getMessage());
+        }
+
     }
 }

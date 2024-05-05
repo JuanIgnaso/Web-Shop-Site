@@ -15,6 +15,9 @@ use Illuminate\Validation\Rule;
 class ProductoController extends Controller
 {
 
+    /**
+     * Muestra la lista de productos en la tienda
+     */
     public function list()
     {
         $titulo = 'Lista de Productos';
@@ -26,7 +29,7 @@ class ProductoController extends Controller
     }
 
     /**
-     * Mostrar los detalles del producto en el front de la tienda
+     * Muestra los detalles del producto en el front de la tienda
      */
     public function details($id)
     {

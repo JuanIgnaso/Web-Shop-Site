@@ -16,4 +16,10 @@ class Producto extends Model
     {
         return \DB::table('productos')->select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor'])->leftJoin('proveedores', 'productos.proveedor', '=', 'productos.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->where('productos.id', '=', $id)->orderBy('created_at', 'desc')->get()->first();
     }
+
+    static function getByCategory($category)
+    {
+        return \DB::table('productos')->select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor'])->leftJoin('proveedores', 'productos.proveedor', '=', 'productos.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->where('productos.categoria', '=', $category)->orderBy('created_at', 'desc')->get();
+    }
+
 }
