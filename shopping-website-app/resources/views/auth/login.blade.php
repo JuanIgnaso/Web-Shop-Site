@@ -1,4 +1,5 @@
 <x-guest-layout>
+    @include('components.alerts')
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
