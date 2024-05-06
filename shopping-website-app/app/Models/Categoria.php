@@ -21,21 +21,36 @@ class Categoria extends Model
 
     public static function tree()
     {
-        $categorias = Categoria::get();//recoger todas las categorías
+        $allCategories = Categoria::get();//recoger todas las categorías
 
-        $categoriasRaiz = $categorias->whereNull('categoriaPadre');
+        $rootCategories = $allCategories->whereNull('categoriaPadre');
 
-        foreach ($categoriasRaiz as $catRaiz) {
-            $catRaiz->children = $categorias->where('categoriaPadre', $catRaiz->id);
-        }
+        self::formatTree($rootCategories, $allCategories);
 
-        return $categoriasRaiz;
+        return $rootCategories;
 
     }
 
-
-    public function subCategory()
+    private static function formatTree($categorias, $allCategories)
     {
-        return $this->hasMany(Categoria::class, 'categoriaPadre');
+
+        foreach ($categorias as $categoria) {
+            $categoria->children = $allCategories->where('categoriaPadre', $categoria->id)->values();
+
+            //Si la categoría en cuestión tiene hijos se llama al método de nuevo
+            if ($categoria->children->isNotEmpty()) {
+                self::formatTree($categoria->children, $allCategories);
+            }
+        }
     }
+
+    /**
+     * Devuele un booleano en función de si la categoría tiene una categoría padre.
+     * @return bool
+     */
+    public function isChild(): bool
+    {
+        return $this->categoriaPadre !== NULL;
+    }
+
 }

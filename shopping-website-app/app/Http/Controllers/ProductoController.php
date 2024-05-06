@@ -22,7 +22,7 @@ class ProductoController extends Controller
     public function productCategories()
     {
         $titulo = 'Categorías';
-        return view('producto.categories', ['titulo' => $titulo, 'tree' => Categoria::tree(), 'categorias' => Categoria::select()->orderBy('id', 'desc')->get()]);
+        return view('producto.categories', ['titulo' => $titulo, 'categorias' => Categoria::tree()]);
     }
 
 
