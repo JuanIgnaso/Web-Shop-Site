@@ -54,27 +54,28 @@ class CategoriaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Categoria $categoria)
+    public function show($id)
     {
-        $titulo = 'Categoria ID:' . $categoria->id;
-        return view('categoria.show', ['titulo' => $titulo, 'categoria' => $categoria]);
+        $titulo = 'Categoria ID:' . Categoria::find($id)->id;
+        return view('categoria.show', ['titulo' => $titulo, 'categoria' => Categoria::find($id)]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Categoria $categoria)
+    public function edit($id)
     {
         $titulo = 'Editando categoría';
-        return view('categoria.edit', ['titulo' => $titulo, 'categoria' => $categoria, 'categorias' => Categoria::get()]);
+        return view('categoria.edit', ['titulo' => $titulo, 'categoria' => Categoria::find($id), 'categorias' => Categoria::get()]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Categoria $categoria)
+    public function update(Request $request, $id)
     {
 
+        $categoria = Categoria::find($id);
         $data = $request->validate(
             [
                 'nombre_categoria' => ['required'],
@@ -84,7 +85,8 @@ class CategoriaController extends Controller
         );
 
         $categoria->update($data);
-        return to_route('categoria.show', $categoria)->with('message', 'Registro actualizado');
+        $insert = Registro::create(['operacion' => 'Modificar registro', 'tabla' => 'categorias', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
+        return to_route('categoria.show', $categoria->id)->with('message', 'Registro actualizado');
     }
 
     /**

@@ -71,4 +71,13 @@ class UserController extends Controller
     {
         //
     }
+
+    /**
+     * Desactivar o activar usuario
+     */
+    public function toggle($id)
+    {
+        User::find($id)->toggleUser();
+        return to_route('user.index')->with('info', 'Usuario actualizado');
+    }
 }

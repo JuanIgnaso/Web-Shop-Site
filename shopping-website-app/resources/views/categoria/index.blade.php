@@ -47,8 +47,8 @@
                 </td>
                 <td class="px-6 py-4">
                     <div class=" flex justify-center gap-2">
-                        <a href="{{route('categoria.edit',$categoria)}}" class="admin-panel-action-button blue-gradient shadow-blue-600/40"><i class="fa-solid fa-pen-nib"></i></a>
-                            <a href="{{route('categoria.show',$categoria)}}" class="admin-panel-action-button emerald-gradient shadow-emerald-500/40"><i class="fa-solid fa-eye"></i></a>
+                        <a href="{{route('categoria.edit',$categoria->id)}}" class="admin-panel-action-button blue-gradient shadow-blue-600/40"><i class="fa-solid fa-pen-nib"></i></a>
+                            <a href="{{route('categoria.show',$categoria->id)}}" class="admin-panel-action-button emerald-gradient shadow-emerald-500/40"><i class="fa-solid fa-eye"></i></a>
                             <form action="{{route('categoria.destroy',$categoria)}}" method="POST">
                                 @csrf
                                 @method('DELETE') <!-- Modificamos método del formulario -->

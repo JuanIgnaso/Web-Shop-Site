@@ -55,6 +55,8 @@ Route::middleware(EditorAllowed::class)->group(function () {
 
     //Solo acceso como admin
     Route::resource('/panelcontrol/user', UserController::class)->middleware(AdminAccess::class);
+    Route::put('/panelcontrol/user/toggle/{id}', [UserController::class, 'toggle'])->name('user.toggle')->middleware(AdminAccess::class);
+
 });
 
 Route::middleware('auth')->group(function () {

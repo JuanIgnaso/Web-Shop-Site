@@ -64,10 +64,18 @@
                                 @if(Auth::user()->id != $usuario->id)
                                 <div class=" flex justify-center gap-2">
                                     <a class="admin-panel-action-button emerald-gradient shadow-emerald-500/40" href="{{route('user.show',$usuario)}}"><i class="fa-solid fa-eye"></i></a>
-                                    @if(Auth::user()->activo == 1)
-                                    <a class="admin-panel-action-button yellow-gradient shadow-yellow-500/40" href=""><i class="fa-solid fa-toggle-on"></i></a>
+                                    @if($usuario->activo == 1)
+                                        <form action="{{route('user.toggle',$usuario->id)}}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="admin-panel-action-button yellow-gradient shadow-yellow-500/40" href=""><i class="fa-solid fa-toggle-on"></i></button>
+                                        </form>
                                     @else
-                                    <a class="admin-panel-action-button darkgrey-gradient shadow-neutral-500/40" href=""><i class="fa-solid fa-toggle-off"></i></a>
+                                        <form action="{{route('user.toggle',$usuario->id)}}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                        <button type="submit" class="admin-panel-action-button darkgrey-gradient shadow-neutral-500/40" href=""><i class="fa-solid fa-toggle-off"></i></button>
+                                        </form>
                                     @endif
                                     <a class="admin-panel-action-button blue-gradient shadow-blue-600/40" href="{{route('user.edit',$usuario)}}"><i class="fa-solid fa-pen-nib"></i></a>
                                 </div>

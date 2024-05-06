@@ -45,4 +45,18 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Activa o desactiva un usuario
+     */
+    public function toggleUser()
+    {
+        if ($this->activo == 1) {
+            $this->activo = 0;
+            $this->save();
+        } else {
+            $this->activo = 1;
+            $this->save();
+        }
+    }
 }
