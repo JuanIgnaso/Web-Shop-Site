@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProveedorRequest;
 use App\Models\Proveedor;
 use App\Http\Controllers\Controller;
 use App\Models\Registro;
@@ -32,18 +33,10 @@ class ProveedorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProveedorRequest $request)
     {
         //validar request
-        $data = $request->validate(
-            [
-                'nombre_proveedor' => ['required', 'unique:proveedores,nombre', 'between:2,50'],
-                'direccion' => ['required', 'unique:proveedores,direccion', 'between:3,100'],
-                'email' => ['required', 'unique:proveedores,email', 'email'],
-                'website' => ['url'],
-                'telefono' => ['regex:/[0-9]{9}/']
-            ]
-        );
+        $data = $request->validated();
 
         //Crear nuevo registro
         $proveedor = Proveedor::create($data);

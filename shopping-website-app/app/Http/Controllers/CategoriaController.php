@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCategoriaRequest;
 use App\Models\Categoria;
 use App\Http\Controllers\Controller;
 use App\Models\Producto;
@@ -36,15 +37,11 @@ class CategoriaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoriaRequest $request)
     {
         //validamos request
-        $data = $request->validate(
-            [
-                'nombre_categoria' => ['required', 'unique:categorias,nombre'],
-                'categoriaPadre' => ['exists:categorias,id', 'nullable']
-            ]
-        );
+        $data = $request->validated();
+
         //Crear nuevo registro
         $categoria = Categoria::create($data);
         Registro::create(['operacion' => 'Crear nuevo registro', 'tabla' => 'categorias', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);

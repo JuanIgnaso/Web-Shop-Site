@@ -11,7 +11,7 @@
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
           <div class="sm:col-span-3">
-            <x-form.input :type="'text'" :name="'nombre_categoria'" :value="old('nombre_categoria')" :label="'Nombre de categoría'"></x-form.input>
+            <x-form.input :type="'text'" :name="'nombre_categoria'" :value="old('nombre_categoria')" :label="'Nombre de Categoría'"></x-form.input>
           </div>
 
           <div class="sm:col-span-3">

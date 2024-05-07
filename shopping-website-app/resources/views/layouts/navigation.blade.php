@@ -79,15 +79,15 @@
                 </x-dropdown>
             </div>
 @else
-    <div class="flex justify-center items-center gap-4">
-        <a href="{{route('login')}}">login</a>
-        <a href="{{route('register')}}">register</a>
+    <div class="flex justify-center items-center gap-4 text-white">
+        <a href="{{route('login')}}">Inciar Sesión</a>
+        <a href="{{route('register')}}">Registrarse</a>
     </div>
 @endif
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                <button @click="open = ! open" class="bg-darkBlue inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:border-2 hover:bg-darkBlue hover:border-white focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -103,6 +103,17 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('contact.index')" :active="request()->routeIs('contact.index')">
+                {{ __('Contactar') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('producto.categorias')" :active="request()->routeIs('producto.categorias')">
+                {{ __('Productos') }}
+            </x-responsive-nav-link>
+            @if(Auth::check() && Auth::user()->claseUsuario != 1)
+            <x-responsive-nav-link :href="route('panel.index')" :active="request()->routeIs('panel.index')">
+                {{ __('Panel de Control') }}
+            </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
@@ -110,7 +121,7 @@
             @if(Auth::check())
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800">{{Auth::user()->name ?? 'Default Name'}}</div>
-                <div class="font-medium text-sm text-gray-500">{{Auth::user()->email ?? 'Default Name'}}</div>
+                <div class="font-medium text-sm text-darkOrange">{{Auth::user()->email ?? 'Default Name'}}</div>
             </div>
 
 

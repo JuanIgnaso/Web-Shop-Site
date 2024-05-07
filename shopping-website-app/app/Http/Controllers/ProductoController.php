@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProductoRequest;
 use App\Models\Categoria;
 use App\Models\Producto;
 use App\Http\Controllers\Controller;
@@ -70,23 +71,17 @@ class ProductoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProductoRequest $request)
     {
-        $data = $request->validate(
-            [
-                'nombreProducto' => ['required', 'unique:productos,nombreProducto'],
-                'categoria' => ['required', 'exists:categorias,id'],
-                'proveedor' => ['required', 'exists:proveedores,id'],
-                'unidades' => ['required', 'numeric', 'min:0'],
-                'precio' => ['required', 'numeric', 'min:0'],
-                'descripcion' => ['nullable', 'max:5000']
-            ]
-        );
+        //Validar producto
+        $data = $request->validated();
 
         $producto = Producto::create($data);
+
         Registro::create(['operacion' => 'Crear nuevo registro', 'tabla' => 'productos', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
         return to_route('producto.index')->with('message', 'Se ha creado un nuevo registro');
     }
+
 
     /**
      * Display the specified resource.
@@ -117,7 +112,7 @@ class ProductoController extends Controller
             [
                 'nombreProducto' => [
                     'required',
-                    Rule::unique('productos', 'nombreProducto')->ignore($producto),
+                    Rule::unique('productos', 'nombreProducto')->ignore($producto->id),
                 ],
                 'categoria' => ['required', 'exists:categorias,id'],
                 'proveedor' => ['required', 'exists:proveedores,id'],

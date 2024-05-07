@@ -31,7 +31,7 @@ class AuthenticatedSessionController extends Controller
         //Comprueba que la cuenta del usuario se encuentra activa
         if (Auth::user()->activo == 0) {
             $request->session()->invalidate();
-            return redirect('/login')->with('error', 'La cuenta con la que intentas loguearte no se encuentra activa');
+            return redirect('/login')->with('error', 'La cuenta con la que intentas loguearte se encuentra actualmente desactivada.');
         }
 
         return redirect()->intended(route('dashboard', absolute: false));
