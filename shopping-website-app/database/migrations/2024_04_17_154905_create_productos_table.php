@@ -13,9 +13,10 @@ return new class extends Migration {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
             $table->string('nombreProducto')->unique();
-            $table->text('descripcion')->default('Sin descripción');
+            $table->text('descripcion')->default(null);
             $table->foreignId('categoria')->constrained('categorias');
             $table->foreignId('proveedor')->constrained('proveedores');
+            $table->string('marca')->default(NULL);
             $table->double('precio');
             $table->integer('unidades')->default(0);
             $table->timestamps();

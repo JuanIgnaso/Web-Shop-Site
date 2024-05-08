@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClaseUsuario;
+use App\Models\Registro;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -61,7 +64,16 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $data = $request->validate(
+            [
+                'name' => ['required', Rule::unique('users', 'name')->ignore($user->id)],
+                'email' => ['required', Rule::unique('users', 'email')->ignore($user->id), 'email'],
+                'claseUsuario' => ['required', 'exists:claseUsuario,id']
+            ]
+        );
+        $user->update($data);
+        Registro::create(['operacion' => 'Actualizar registro', 'tabla' => 'users', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
+        return to_route('user.index')->with('message', 'Información del usuario actualizada.');
     }
 
     /**

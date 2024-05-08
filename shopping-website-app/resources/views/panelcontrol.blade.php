@@ -18,7 +18,7 @@
           </div>
           <div class="border-t border-blue-gray-50 p-4">
             <p class="block antialiased font-sans text-sm leading-relaxed font-normal text-blue-gray-600">
-              <strong class="text-green-500">Último registro </strong>&nbsp;{{$data['productos']['ultimo'][0]['created_at']}}
+              <strong class="text-green-500">Último registro </strong>&nbsp;{{count($data['productos']['ultimo']) == 0 ? 'Sin registros' : $data['productos']['ultimo'][0]['created_at']}}
             </p>
           </div>
         </div>
@@ -33,7 +33,7 @@
           </div>
           <div class="border-t border-blue-gray-50 p-4">
             <p class="block antialiased font-sans text-sm leading-relaxed font-normal text-blue-gray-600">
-              <strong class="text-green-500">Último registro </strong>&nbsp;{{$data['categorias']['ultimo'][0]['created_at']}}
+              <strong class="text-green-500">Último registro </strong>&nbsp;{{count($data['categorias']['ultimo']) == 0 ? 'Sin registros' : $data['categorias']['ultimo'][0]['created_at']}}
             </p>
           </div>
         </div>
@@ -48,7 +48,7 @@
           </div>
           <div class="border-t border-blue-gray-50 p-4">
             <p class="block antialiased font-sans text-sm leading-relaxed font-normal text-blue-gray-600">
-              <strong class="text-green-500">Último registro </strong>&nbsp;{{$data['proveedores']['ultimo'][0]['created_at']}}
+              <strong class="text-green-500">Último registro </strong>&nbsp;{{count($data['proveedores']['ultimo']) == 0 ? 'Sin registros' : $data['proveedores']['ultimo'][0]['created_at']}}
             </p>
           </div>
         </div>
@@ -63,7 +63,7 @@
           </div>
           <div class="border-t border-blue-gray-50 p-4">
             <p class="block antialiased font-sans text-sm leading-relaxed font-normal text-blue-gray-600">
-              <strong class="text-green-500">Último registro </strong>&nbsp;{{$data['usuarios']['ultimo'][0]['created_at']}}
+              <strong class="text-green-500">Último registro </strong>&nbsp;{{count($data['usuarios']['ultimo']) == 0 ? 'Sin registros' : $data['usuarios']['ultimo'][0]['created_at']}}
             </p>
           </div>
         </div>

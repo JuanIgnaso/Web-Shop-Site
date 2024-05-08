@@ -27,13 +27,14 @@ class ProductoController extends Controller
     }
 
 
-    public function list($id)
+    public function list($categoria)
     {
-        $titulo = ucfirst(Categoria::find($id)->nombre_categoria);
+        $titulo = ucfirst(Categoria::find($categoria)->nombre_categoria);
         return view('producto.lists', [
-            'productos' => Producto::select()->where('categoria', '=', $id)->paginate(env('PAGINATION_LENGTH')),
+            'productos' => Producto::select()->where('categoria', '=', $categoria)->paginate(env('PAGINATION_LENGTH')),
             'titulo' => $titulo,
-            'proveedores' => Proveedor::select()->get()
+            'proveedores' => Producto::select('productos.proveedor', 'proveedores.id', 'proveedores.nombre_proveedor')->distinct()->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->where('categoria', '=', $categoria)->get(),
+            'marcas' => Producto::select(['marca'])->distinct()->where('categoria', '=', $categoria)->get()
         ]);
     }
 
@@ -44,7 +45,7 @@ class ProductoController extends Controller
     {
         $titulo = 'Detalles del Producto';
         $reviews = Review::select(['reviews.*', 'users.name', 'users.created_at'])->leftJoin('users', 'reviews.usuario', '=', 'users.id')->where('producto', '=', $id)->orderBy('fecha_review', 'desc')->paginate(env('PAGINATION_LENGTH'));
-        return view('producto.details', ['titulo' => $titulo, 'producto' => Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->find($id), 'reviews' => $reviews]);
+        return view('producto.details', ['titulo' => $titulo, 'producto' => Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor', 'proveedores.website'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->find($id), 'reviews' => $reviews]);
     }
 
     /**
@@ -76,7 +77,7 @@ class ProductoController extends Controller
         //Validar producto
         $data = $request->validated();
 
-        $producto = Producto::create($data);
+        Producto::create($data);
 
         Registro::create(['operacion' => 'Crear nuevo registro', 'tabla' => 'productos', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
         return to_route('producto.index')->with('message', 'Se ha creado un nuevo registro');
@@ -117,6 +118,7 @@ class ProductoController extends Controller
                 'categoria' => ['required', 'exists:categorias,id'],
                 'proveedor' => ['required', 'exists:proveedores,id'],
                 'unidades' => ['required', 'numeric', 'min:0'],
+                'marca' => ['required', 'max:50'],
                 'precio' => ['required', 'numeric', 'min:0'],
                 'descripcion' => ['nullable', 'max:5000']
             ]

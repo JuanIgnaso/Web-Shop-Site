@@ -26,6 +26,7 @@ class StoreProductoRequest extends FormRequest
             'categoria' => ['required', 'exists:categorias,id'],
             'proveedor' => ['required', 'exists:proveedores,id'],
             'unidades' => ['required', 'numeric', 'min:0'],
+            'marca' => ['required', 'max:50'],
             'precio' => ['required', 'numeric', 'min:0'],
             'descripcion' => ['nullable', 'max:5000']
         ];

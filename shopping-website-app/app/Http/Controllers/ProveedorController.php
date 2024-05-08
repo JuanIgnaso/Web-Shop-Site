@@ -40,7 +40,7 @@ class ProveedorController extends Controller
 
         //Crear nuevo registro
         $proveedor = Proveedor::create($data);
-        $insert = Registro::create(['operacion' => 'Crear nuevo registro', 'tabla' => 'proveedores', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
+        Registro::create(['operacion' => 'Crear nuevo registro', 'tabla' => 'proveedores', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
         return to_route('proveedor.show', $proveedor)->with('message', 'Se ha creado un nuevo registro.');
     }
 
@@ -101,7 +101,7 @@ class ProveedorController extends Controller
     public function destroy(Proveedor $proveedor)
     {
         $proveedor->delete();
-        $insert = Registro::create(['operacion' => 'Eliminar registro', 'tabla' => 'proveedores', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
+        Registro::create(['operacion' => 'Eliminar registro', 'tabla' => 'proveedores', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
         return to_route('proveedor.index')->with('message', 'Registro eliminado correctamente');
     }
 }

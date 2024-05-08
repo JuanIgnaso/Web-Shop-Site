@@ -60,11 +60,13 @@ x-data="{ isOpen: false }" :class="{'':isOpen,'pointer-events-none':!isOpen}" cl
                   </ol>
 
                   <h3 class="border-b-2 border-gray-300 pb-1 mb-2">Marca</h3>
+                  @if (!$marcas->isEmpty())
                   <ol class="mb-4 space-y-2">
-                    <li><label ><input type="checkbox" name="" id="" class="h-4 w-4 rounded border-gray-300 text-turquoiseSemiLight focus:ring-turquoiseMedium"> Marca Uno</label></li>
-                    <li><label ><input type="checkbox" name="" id="" class="h-4 w-4 rounded border-gray-300 text-turquoiseSemiLight focus:ring-turquoiseMedium"> Marca Dos</label></li>
-                    <li><label ><input type="checkbox" name="" id="" class="h-4 w-4 rounded border-gray-300 text-turquoiseSemiLight focus:ring-turquoiseMedium"> Marca Tres</label></li>
+                    @foreach ($marcas as $m)
+                    <li><label><input type="checkbox" value="{{$m->marca}}" name="marca[]" id="" class="h-4 w-4 rounded border-gray-300 text-turquoiseSemiLight focus:ring-turquoiseMedium"> {{ucfirst($m->marca)}}</label></li>
+                    @endforeach
                   </ol>
+                  @endif
 
                   <h3  class="border-b-2 border-gray-300 pb-1 mb-2">Disponibilidad</h3>
                   <ol class="mb-4 space-y-2">
@@ -77,7 +79,7 @@ x-data="{ isOpen: false }" :class="{'':isOpen,'pointer-events-none':!isOpen}" cl
                   @if (!$proveedores->isEmpty())
                   <ol class="mb-4 space-y-2">
                     @foreach ($proveedores as $p)
-                    <li><label><input type="checkbox" value="{{$p->id}}" name="" id="" class="h-4 w-4 rounded border-gray-300 text-turquoiseSemiLight focus:ring-turquoiseMedium"> {{ucfirst($p->nombre_proveedor)}}</label></li>
+                    <li><label><input type="checkbox" value="{{$p->id}}" name="proveedor[]" id="" class="h-4 w-4 rounded border-gray-300 text-turquoiseSemiLight focus:ring-turquoiseMedium"> {{ucfirst($p->nombre_proveedor)}}</label></li>
                     @endforeach
                   </ol>
                   @endif

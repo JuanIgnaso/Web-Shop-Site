@@ -46,6 +46,10 @@
                       </div>
 
                     <div class="sm:col-span-3">
+                        <x-form.input :type="'text'" :name="'marca'" :value="old('marca',$producto->marca)" :label="'Marca'"></x-form.input>
+                    </div>
+
+                    <div class="sm:col-span-3">
                         <x-form.input :type="'number'" :name="'unidades'" :value="old('unidades',$producto->unidades)" :label="'Unidades'"></x-form.input>
                     </div>
 
@@ -61,10 +65,10 @@
         </div>
 
         <div class="mt-6 flex items-center justify-end gap-x-6">
-            <button type="button" class="text-sm font-semibold leading-6 text-gray-900"><a
+            <button type="button" class="form-button bg-darkOrange hover:bg-orange-500"><a
                     href="{{route('producto.index')}}">Cancelar</a></button>
             <button type="submit"
-                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Guardar</button>
+                class="form-button bg-turquoiseMedium  hover:bg-turquoiseMediumDark">Guardar</button>
         </div>
     </form>
 

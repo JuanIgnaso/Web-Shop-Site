@@ -27,15 +27,15 @@ class DashbordController extends Controller
             ],
             'categorias' => [
                 'totales' => Categoria::count(),
-                'ultimo' => Categoria::select(['created_at'])->latest('created_at')->get()
+                'ultimo' => Categoria::select()->latest('created_at')->get()
             ],
             'proveedores' => [
                 'totales' => Proveedor::count(),
-                'ultimo' => Proveedor::select(['created_at'])->latest('created_at')->get()
+                'ultimo' => Proveedor::select()->latest('created_at')->get()
             ],
             'usuarios' => [
                 'totales' => User::count(),
-                'ultimo' => User::select(['created_at'])->latest('created_at')->get()
+                'ultimo' => User::select()->latest('created_at')->get()
             ],
             'registros' => [
                 'ultimos' => Registro::select(['registros.*', 'users.name'])->leftJoin('users', 'registros.usuario', '=', 'users.id')->latest('ocurrido_en')->limit(6)->get(),

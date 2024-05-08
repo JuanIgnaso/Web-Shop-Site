@@ -45,7 +45,7 @@ class CategoriaController extends Controller
         //Crear nuevo registro
         $categoria = Categoria::create($data);
         Registro::create(['operacion' => 'Crear nuevo registro', 'tabla' => 'categorias', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
-        return to_route('categoria.index')->with('message', 'Se ha creado un nuevo registro.');
+        return to_route('categoria.show', $categoria->id)->with('message', 'Se ha creado un nuevo registro.');
     }
 
     /**
@@ -82,7 +82,7 @@ class CategoriaController extends Controller
         );
 
         $categoria->update($data);
-        $insert = Registro::create(['operacion' => 'Modificar registro', 'tabla' => 'categorias', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
+        Registro::create(['operacion' => 'Modificar registro', 'tabla' => 'categorias', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
         return to_route('categoria.show', $categoria->id)->with('message', 'Registro actualizado');
     }
 

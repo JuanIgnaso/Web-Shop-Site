@@ -76,7 +76,7 @@
           <x-ui.element-rating :review="$reviews"></x-ui.element-rating>
           {{-- ------ --}}
 
-          <p class="text-gray-500 text-sm">By <a href="#" class="text-turquoiseMedium hover:underline">{{ucfirst($producto->nombre_proveedor)}}</a></p>
+          <p class="text-gray-500 text-sm">By <a href="{{$producto->website == NULL ? '' : $producto->website}}" class="text-turquoiseMedium hover:underline">{{ucfirst($producto->nombre_proveedor)}}</a> | Marca del Producto</p>
 
           <div class="flex items-center space-x-4 my-4">
             <div>

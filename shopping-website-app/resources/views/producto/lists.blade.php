@@ -6,7 +6,7 @@
 
 {{-- Slider de Filtros --}}
 
-<x-product.filter-slider :proveedores="$proveedores"></x-product.filter-slider>
+<x-product.filter-slider :proveedores="$proveedores" :marcas="$marcas"></x-product.filter-slider>
 
 {{-- Productos --}}
 
