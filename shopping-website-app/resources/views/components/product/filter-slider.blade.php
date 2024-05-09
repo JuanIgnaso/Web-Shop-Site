@@ -51,12 +51,36 @@ x-data="{ isOpen: false }" :class="{'':isOpen,'pointer-events-none':!isOpen}" cl
               </div>
               <div class="relative mt-6 flex-1 px-4 sm:px-6">
                 {{-- Provisional --}}
-                <form action="">
-
+                <form action="{{route('producto.list',$categoria)}}" method="post">
+                  @csrf
                   <h3 class="border-b-2 border-gray-300 pb-1 mb-2">Rango de Precio</h3>
                   <ol class="mb-4 space-y-2">
-                    <li><label class="flex items-center gap-2"><input type="range" name="" id="">Mínimo</label></li>
-                    <li><label class="flex items-center gap-2"><input type="range" name="" id="">Máximo</label></li>
+                    <li><label class="flex items-center gap-2 font-bold text-turquoiseMediumDark"><input class="w-2/3 accent-darkBlue" type="range" name="minimo" id="minimo" min="0" max="9999">Mínimo <input type="text" class="font-black border-0 text-darkOrange w-1/3" id="val-minimo" name="val-minimo"></input></label></li>
+                    <li><label class="flex items-center gap-2 font-bold text-turquoiseMediumDark"><input class="w-2/3 accent-darkBlue" type="range" name="maximo" id="maximo" min="0" max="9999">Máximo <input type="text" class="font-black border-0 text-darkOrange w-1/3" id="val-maximo" name="val-maximo"></input></label></li>
+                    <script>
+                      let minimo = document.querySelector("#minimo");
+                      let maximo = document.querySelector("#maximo");
+
+                      minimo.addEventListener('change',function(){
+                        showNumber('#val-minimo',this.value);
+                      })
+
+                      maximo.addEventListener('change',function(){
+                        showNumber('#val-maximo',this.value);
+                      })
+
+                      document.querySelector('#val-maximo').addEventListener('keyup',function(){
+                        maximo.value = this.value;
+                      })
+
+                      document.querySelector('#val-minimo').addEventListener('keyup',function(){
+                        minimo.value = this.value;
+                      })
+
+                      function showNumber(element,val){
+                        document.querySelector(element).value = val;
+                      }
+                    </script>
                   </ol>
 
                   <h3 class="border-b-2 border-gray-300 pb-1 mb-2">Marca</h3>
@@ -67,6 +91,9 @@ x-data="{ isOpen: false }" :class="{'':isOpen,'pointer-events-none':!isOpen}" cl
                     @endforeach
                   </ol>
                   @endif
+
+                  <h3  class="border-b-2 border-gray-300 pb-1 mb-2">Nombre</h3>
+                  <input type="text" id="nombre" name="nombre" class="mb-4 mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-turquoiseSemiLight focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="Buscar producto..." required />
 
                   <h3  class="border-b-2 border-gray-300 pb-1 mb-2">Disponibilidad</h3>
                   <ol class="mb-4 space-y-2">
@@ -79,12 +106,12 @@ x-data="{ isOpen: false }" :class="{'':isOpen,'pointer-events-none':!isOpen}" cl
                   @if (!$proveedores->isEmpty())
                   <ol class="mb-4 space-y-2">
                     @foreach ($proveedores as $p)
-                    <li><label><input type="checkbox" value="{{$p->id}}" name="proveedor[]" id="" class="h-4 w-4 rounded border-gray-300 text-turquoiseSemiLight focus:ring-turquoiseMedium"> {{ucfirst($p->nombre_proveedor)}}</label></li>
+                    <li><label><input type="checkbox" value={{$p->id}} name="proveedor[]" id="" class="h-4 w-4 rounded border-gray-300 text-turquoiseSemiLight focus:ring-turquoiseMedium"> {{ucfirst($p->nombre_proveedor)}}</label></li>
                     @endforeach
                   </ol>
                   @endif
 
-                  <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Aplicar Filtros</button>
+                  <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Aplicar Filtros</button>
                 </form>
               </div>
             </div>

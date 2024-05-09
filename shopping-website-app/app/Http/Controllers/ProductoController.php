@@ -27,15 +27,51 @@ class ProductoController extends Controller
     }
 
 
-    public function list($categoria)
+    public function list(Request $request, $categoria)
     {
-        $titulo = ucfirst(Categoria::find($categoria)->nombre_categoria);
-        return view('producto.lists', [
-            'productos' => Producto::select()->where('categoria', '=', $categoria)->paginate(env('PAGINATION_LENGTH')),
-            'titulo' => $titulo,
+
+        $data = [
+            'titulo' => ucfirst(Categoria::find($categoria)->nombre_categoria),
             'proveedores' => Producto::select('productos.proveedor', 'proveedores.id', 'proveedores.nombre_proveedor')->distinct()->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->where('categoria', '=', $categoria)->get(),
-            'marcas' => Producto::select(['marca'])->distinct()->where('categoria', '=', $categoria)->get()
-        ]);
+            'marcas' => Producto::select(['marca'])->distinct()->where('categoria', '=', $categoria)->get(),
+            'categoria' => $categoria,
+            'filters' => NULL,
+            'productos' => Producto::select()->where('categoria', '=', $categoria)
+        ];
+
+        //Como saber que método está recibiendo la request
+        if ($request->isMethod('post')) {
+            $data['productos'] = $this->filter($data['productos'], $request->all());
+            $data['filters'] = $request->all();
+
+        }
+
+        $data['productos'] = $data['productos']->paginate(env('PAGINATION_LENGTH'));
+
+        return view('producto.lists', ['data' => $data]);
+
+
+    }
+
+
+    /**
+     * Se aplican los filtros para buscar productos
+     */
+    private function filter($products, $filters)
+    {
+        if (isset($filters['val-minimo'])) {
+            $products = $products->where('precio', '>=', $filters['val-minimo']);
+        }
+        if (isset($filters['val-maximo']) && $filters['val-maximo'] >= $filters['val-minimo']) {
+            $products = $products->where('precio', '<=', $filters['maximo']);
+        }
+        if (isset($filters['proveedor']) && count($filters['proveedor']) != 0) {
+            $products = $products->whereIn('proveedor', $filters['proveedor']);
+        }
+        if (isset($filters['marca']) && count($filters['marca']) != 0) {
+            $products = $products->whereIn('marca', $filters['marca']);
+        }
+        return $products;
     }
 
     /**
@@ -77,10 +113,10 @@ class ProductoController extends Controller
         //Validar producto
         $data = $request->validated();
 
-        Producto::create($data);
+        $producto = Producto::create($data);
 
         Registro::create(['operacion' => 'Crear nuevo registro', 'tabla' => 'productos', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
-        return to_route('producto.index')->with('message', 'Se ha creado un nuevo registro');
+        return to_route('producto.show', $producto)->with('message', 'Se ha creado un nuevo registro');
     }
 
 
