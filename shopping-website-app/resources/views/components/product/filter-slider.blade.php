@@ -51,36 +51,14 @@ x-data="{ isOpen: false }" :class="{'':isOpen,'pointer-events-none':!isOpen}" cl
               </div>
               <div class="relative mt-6 flex-1 px-4 sm:px-6">
                 {{-- Provisional --}}
-                <form action="{{route('producto.list',$categoria)}}" method="post">
+                <form action="" method="get">
                   @csrf
                   <h3 class="border-b-2 border-gray-300 pb-1 mb-2">Rango de Precio</h3>
                   <ol class="mb-4 space-y-2">
-                    <li><label class="flex items-center gap-2 font-bold text-turquoiseMediumDark"><input class="w-2/3 accent-darkBlue" type="range" name="minimo" id="minimo" min="0" max="9999">Mínimo <input type="text" class="font-black border-0 text-darkOrange w-1/3" id="val-minimo" name="val-minimo"></input></label></li>
-                    <li><label class="flex items-center gap-2 font-bold text-turquoiseMediumDark"><input class="w-2/3 accent-darkBlue" type="range" name="maximo" id="maximo" min="0" max="9999">Máximo <input type="text" class="font-black border-0 text-darkOrange w-1/3" id="val-maximo" name="val-maximo"></input></label></li>
-                    <script>
-                      let minimo = document.querySelector("#minimo");
-                      let maximo = document.querySelector("#maximo");
-
-                      minimo.addEventListener('change',function(){
-                        showNumber('#val-minimo',this.value);
-                      })
-
-                      maximo.addEventListener('change',function(){
-                        showNumber('#val-maximo',this.value);
-                      })
-
-                      document.querySelector('#val-maximo').addEventListener('keyup',function(){
-                        maximo.value = this.value;
-                      })
-
-                      document.querySelector('#val-minimo').addEventListener('keyup',function(){
-                        minimo.value = this.value;
-                      })
-
-                      function showNumber(element,val){
-                        document.querySelector(element).value = val;
-                      }
-                    </script>
+                    <li><label class="flex items-center gap-2 font-bold text-turquoiseMediumDark"><input class="w-2/3 accent-darkBlue" type="range"  id="minimo" min="0" max="9999">Mínimo <input type="text" class="font-black border-0 text-darkOrange w-1/3" id="val_minimo" name="val_minimo" value="{{Request::get('val_minimo') ?? '' }}"></input></label></li>
+                    <li><label class="flex items-center gap-2 font-bold text-turquoiseMediumDark"><input class="w-2/3 accent-darkBlue" type="range"  id="maximo" min="0" max="9999">Máximo <input type="text" class="font-black border-0 text-darkOrange w-1/3" id="val_maximo" name="val_maximo" value="{{Request::get('val_maximo') ?? '' }}"></input></label></li>
+                    {{-- Actualizar valores de mínimo y máximo --}}
+                    <script src="{{Vite::asset('resources/js/updateFilterPrice.js')}}"></script>
                   </ol>
 
                   <h3 class="border-b-2 border-gray-300 pb-1 mb-2">Marca</h3>
@@ -93,7 +71,7 @@ x-data="{ isOpen: false }" :class="{'':isOpen,'pointer-events-none':!isOpen}" cl
                   @endif
 
                   <h3  class="border-b-2 border-gray-300 pb-1 mb-2">Nombre</h3>
-                  <input type="text" id="nombre" name="nombre" class="mb-4 mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-turquoiseSemiLight focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="Buscar producto..." required />
+                  <input type="text" id="nombre" value="{{Request::get('nombre') ?? ''}}" name="nombre" class="mb-4 mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-turquoiseSemiLight focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="Buscar producto..."  />
 
                   <h3  class="border-b-2 border-gray-300 pb-1 mb-2">Disponibilidad</h3>
                   <ol class="mb-4 space-y-2">
@@ -106,7 +84,7 @@ x-data="{ isOpen: false }" :class="{'':isOpen,'pointer-events-none':!isOpen}" cl
                   @if (!$proveedores->isEmpty())
                   <ol class="mb-4 space-y-2">
                     @foreach ($proveedores as $p)
-                    <li><label><input type="checkbox" value={{$p->id}} name="proveedor[]" id="" class="h-4 w-4 rounded border-gray-300 text-turquoiseSemiLight focus:ring-turquoiseMedium"> {{ucfirst($p->nombre_proveedor)}}</label></li>
+                    <li><label><input type="checkbox" value={{$p->id}}  name="proveedor[]" {{Request::get('proveedor') == $p->id ? 'checked' : ''}}  id="" class="h-4 w-4 rounded border-gray-300 text-turquoiseSemiLight focus:ring-turquoiseMedium"> {{ucfirst($p->nombre_proveedor)}}</label></li>
                     @endforeach
                   </ol>
                   @endif

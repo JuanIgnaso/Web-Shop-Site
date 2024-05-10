@@ -27,7 +27,7 @@ class ProductoController extends Controller
     }
 
 
-    public function list(Request $request, $categoria)
+    public function filterBy(Request $request, $categoria)
     {
 
         $data = [
@@ -36,17 +36,25 @@ class ProductoController extends Controller
             'marcas' => Producto::select(['marca'])->distinct()->where('categoria', '=', $categoria)->get(),
             'categoria' => $categoria,
             'filters' => NULL,
-            'productos' => Producto::select()->where('categoria', '=', $categoria)
+            'productos' => Producto::select()->when($request->val_minimo >= 0 && isset($request->val_minimo), function ($query) use ($request) {
+                return $query->where('precio', '>=', $request->val_minimo);
+            })->when($request->val_maximo >= $request->val_minimo && isset($request->val_maximo), function ($query) use ($request) {
+                return $query->where('precio', '<=', $request->val_maximo);
+            })->when(isset($request->proveedor), function ($query) use ($request) {
+                return $query->whereIn('proveedor', $request->proveedor);
+            })->when(isset($request->nombre), function ($query) use ($request) {
+                return $query->where('nombreProducto', 'LIKE', "%{$request->nombre}%");
+            })
         ];
 
-        //Como saber que método está recibiendo la request
-        if ($request->isMethod('post')) {
-            $data['productos'] = $this->filter($data['productos'], $request->all());
-            $data['filters'] = $request->all();
 
-        }
+        // //Como saber que método está recibiendo la request
+        // if ($request->isMethod('get')) {
+        //     $data['productos'] = $this->filter($data['productos'], $request->all());
+        //     $data['filters'] = $request->all();
+        // }
 
-        $data['productos'] = $data['productos']->paginate(env('PAGINATION_LENGTH'));
+        $data['productos'] = $data['productos']->where('categoria', '=', $categoria)->paginate(env('PAGINATION_LENGTH'));
 
         return view('producto.lists', ['data' => $data]);
 
@@ -70,6 +78,9 @@ class ProductoController extends Controller
         }
         if (isset($filters['marca']) && count($filters['marca']) != 0) {
             $products = $products->whereIn('marca', $filters['marca']);
+        }
+        if (isset($filters['nombre'])) {
+            $products = $products->where(['nombre'], 'LIKE', "%" . $filters['nombre'] . "%");
         }
         return $products;
     }

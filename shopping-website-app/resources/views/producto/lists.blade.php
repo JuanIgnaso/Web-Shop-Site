@@ -88,6 +88,10 @@
 
     </div>
 
+    @if(isset($data['filters']))
+    @dump($data['filters'])
+    @endif
+
     {{-- Paginación --}}
     <x-ui.pagination :source="$data['productos']"></x-ui.pagination>
 
