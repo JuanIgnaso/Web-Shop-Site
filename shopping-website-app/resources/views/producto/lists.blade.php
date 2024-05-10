@@ -39,7 +39,7 @@
             <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
             </svg>
-            <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">Productos</span>
+            <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">{{ $data['titulo']}}</span>
           </div>
         </li>
       </ol>
@@ -55,21 +55,6 @@
             <button type="button" " @click="$dispatch('open-dropdown',{id})" class="text-white bg-turquoiseMedium hover:bg-turquoiseMediumDark focus:ring-4 focus:ring-turquoiseSemiLight font-medium rounded-lg text-sm px-5 py-2.5 me-2   focus:outline-none ">Filtrar</button>
             <button type="button" class="text-white bg-turquoiseMedium hover:bg-turquoiseMediumDark focus:ring-4 focus:ring-turquoiseSemiLight font-medium rounded-lg text-sm px-5 py-2.5 me-2 focus:outline-none"><a href="{{URL::current()}}">Limpiar Filtros</a></button>
           </div>
-
-          {{-- Buscador --}}
-{{--
-          <form class="flex items-center max-w-sm mx-auto">
-            <label for="simple-search" class="sr-only">Search</label>
-            <div class="relative w-full">
-                <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-turquoiseSemiLight focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="Buscar producto..." required />
-            </div>
-            <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-turquoiseMedium rounded-lg  hover:bg-turquoiseMediumDark focus:ring-4 focus:outline-none focus:ring-blue-300 ">
-                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                </svg>
-                <span class="sr-only">Search</span>
-            </button>
-          </form> --}}
         </div>
 
       {{-- Mostrar productos --}}

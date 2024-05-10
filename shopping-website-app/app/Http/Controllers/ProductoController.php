@@ -29,60 +29,35 @@ class ProductoController extends Controller
 
     public function filterBy(Request $request, $categoria)
     {
-
         $data = [
             'titulo' => ucfirst(Categoria::find($categoria)->nombre_categoria),
             'proveedores' => Producto::select('productos.proveedor', 'proveedores.id', 'proveedores.nombre_proveedor')->distinct()->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->where('categoria', '=', $categoria)->get(),
             'marcas' => Producto::select(['marca'])->distinct()->where('categoria', '=', $categoria)->get(),
             'categoria' => $categoria,
-            'filters' => NULL,
-            'productos' => Producto::select()->when($request->val_minimo >= 0 && isset($request->val_minimo), function ($query) use ($request) {
-                return $query->where('precio', '>=', $request->val_minimo);
-            })->when($request->val_maximo >= $request->val_minimo && isset($request->val_maximo), function ($query) use ($request) {
-                return $query->where('precio', '<=', $request->val_maximo);
-            })->when(isset($request->proveedor), function ($query) use ($request) {
-                return $query->whereIn('proveedor', $request->proveedor);
-            })->when(isset($request->nombre), function ($query) use ($request) {
-                return $query->where('nombreProducto', 'LIKE', "%{$request->nombre}%");
-            })
+            'productos' => $this->filter($request)->where('categoria', '=', $categoria)->paginate(env('PAGINATION_LENGTH'))
         ];
-
-
-        // //Como saber que método está recibiendo la request
-        // if ($request->isMethod('get')) {
-        //     $data['productos'] = $this->filter($data['productos'], $request->all());
-        //     $data['filters'] = $request->all();
-        // }
-
-        $data['productos'] = $data['productos']->where('categoria', '=', $categoria)->paginate(env('PAGINATION_LENGTH'));
-
         return view('producto.lists', ['data' => $data]);
-
-
     }
-
 
     /**
      * Se aplican los filtros para buscar productos
      */
-    private function filter($products, $filters)
+    private function filter($request)
     {
-        if (isset($filters['val-minimo'])) {
-            $products = $products->where('precio', '>=', $filters['val-minimo']);
-        }
-        if (isset($filters['val-maximo']) && $filters['val-maximo'] >= $filters['val-minimo']) {
-            $products = $products->where('precio', '<=', $filters['maximo']);
-        }
-        if (isset($filters['proveedor']) && count($filters['proveedor']) != 0) {
-            $products = $products->whereIn('proveedor', $filters['proveedor']);
-        }
-        if (isset($filters['marca']) && count($filters['marca']) != 0) {
-            $products = $products->whereIn('marca', $filters['marca']);
-        }
-        if (isset($filters['nombre'])) {
-            $products = $products->where(['nombre'], 'LIKE', "%" . $filters['nombre'] . "%");
-        }
-        return $products;
+        return Producto::select()->when($request->val_minimo >= 0 && isset($request->val_minimo), function ($query) use ($request) {
+            return $query->where('precio', '>=', $request->val_minimo);
+        })->when($request->val_maximo >= $request->val_minimo && isset($request->val_maximo), function ($query) use ($request) {
+            return $query->where('precio', '<=', $request->val_maximo);
+        })->when(isset($request->proveedor), function ($query) use ($request) {
+            return $query->whereIn('proveedor', $request->proveedor);
+        })->when(isset($request->marca), function ($query) use ($request) {
+            return $query->whereIn('marca', $request->marca);
+        })->when(isset($request->categoria), function ($query) use ($request) {
+            return $query->whereIn('categoria', $request->categoria);
+        })->when(isset($request->nombre), function ($query) use ($request) {
+            return $query->where('nombreProducto', 'LIKE', "%{$request->nombre}%");
+        });
+        //AVERIGUADO COMO HACERLO CON CHECKBOXES, FALTARÍA SABER COMO CON SELECT MÚLTIPLES
     }
 
     /**

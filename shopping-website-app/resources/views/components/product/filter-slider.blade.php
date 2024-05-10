@@ -65,7 +65,7 @@ x-data="{ isOpen: false }" :class="{'':isOpen,'pointer-events-none':!isOpen}" cl
                   @if (!$marcas->isEmpty())
                   <ol class="mb-4 space-y-2">
                     @foreach ($marcas as $m)
-                    <li><label><input type="checkbox" value="{{$m->marca}}" name="marca[]" id="" class="h-4 w-4 rounded border-gray-300 text-turquoiseSemiLight focus:ring-turquoiseMedium"> {{ucfirst($m->marca)}}</label></li>
+                    <li><label><input type="checkbox" value="{{$m->marca}}" {{Request::get('marca') !== null && in_array($m->marca,Request::get('marca')) ? 'checked' : ''}} name="marca[]" id="" class="h-4 w-4 rounded border-gray-300 text-turquoiseSemiLight focus:ring-turquoiseMedium"> {{ucfirst($m->marca)}}</label></li>
                     @endforeach
                   </ol>
                   @endif
@@ -84,7 +84,7 @@ x-data="{ isOpen: false }" :class="{'':isOpen,'pointer-events-none':!isOpen}" cl
                   @if (!$proveedores->isEmpty())
                   <ol class="mb-4 space-y-2">
                     @foreach ($proveedores as $p)
-                    <li><label><input type="checkbox" value={{$p->id}}  name="proveedor[]" {{Request::get('proveedor') == $p->id ? 'checked' : ''}}  id="" class="h-4 w-4 rounded border-gray-300 text-turquoiseSemiLight focus:ring-turquoiseMedium"> {{ucfirst($p->nombre_proveedor)}}</label></li>
+                    <li><label><input type="checkbox" value={{$p->id}} {{Request::get('proveedor') !== null && in_array($p->id,Request::get('proveedor')) ? 'checked' : ''}}  name="proveedor[]"  id="" class="h-4 w-4 rounded border-gray-300 text-turquoiseSemiLight focus:ring-turquoiseMedium"> {{ucfirst($p->nombre_proveedor)}}</label></li>
                     @endforeach
                   </ol>
                   @endif

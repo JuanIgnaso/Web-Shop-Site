@@ -17,11 +17,27 @@ class CategoriaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+
         $titulo = 'Lista de Categorías';
-        $categorias = Categoria::select()->paginate(env('PAGINATION_LENGTH'));
-        return view('categoria.index', ['titulo' => $titulo, 'categorias' => $categorias]);
+        $categorias = $this->filter($request);
+        return view('categoria.index', ['titulo' => $titulo, 'categorias' => $categorias, 'categoriaPadre' => Categoria::select()->get()]);
+    }
+
+    private function filter($request)
+    {
+        return Categoria::select()->when(
+            isset($request->nombre_categoria),
+            function ($query) use ($request) {
+                return $query->where('nombre_categoria', 'LIKE', "%{$request->nombre_categoria}%");
+            }
+        )->when(
+                isset($request->categoriaPadre),
+                function ($query) use ($request) {
+                    return $query->where('categoriaPadre', $request->categoriaPadre);
+                }
+            )->paginate(env('PAGINATION_LENGTH'));
     }
 
     /**

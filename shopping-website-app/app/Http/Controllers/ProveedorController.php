@@ -15,10 +15,31 @@ class ProveedorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $proveedores = Proveedor::query()->orderBy('created_at', 'desc')->paginate(env('PAGINATION_LENGTH'));
-        return view('proveedor.index', ['proveedores' => $proveedores]);
+        $proveedores = $this->filter($request)->orderBy('created_at', 'desc')->paginate(env('PAGINATION_LENGTH'));
+        return view('proveedor.index', ['proveedores' => $proveedores, 'titulo' => 'Proveedores']);
+    }
+
+    private function filter($request)
+    {
+        return Proveedor::query()->when(
+            isset($request->nombre_proveedor),
+            function ($query) use ($request) {
+                return $query->where('nombre_proveedor', 'LIKE', "%{$request->nombre_proveedor}%");
+            }
+        )->when(
+                isset($request->email),
+                function ($query) use ($request) {
+                    return $query->where('email', 'LIKE', "%{$request->email}%");
+                }
+            )
+            ->when(
+                isset($request->website),
+                function ($query) use ($request) {
+                    return $query->where('website', 'LIKE', "%{$request->website}%");
+                }
+            );
     }
 
     /**
