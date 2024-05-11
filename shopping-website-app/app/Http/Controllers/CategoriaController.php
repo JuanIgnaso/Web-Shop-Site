@@ -35,7 +35,7 @@ class CategoriaController extends Controller
         )->when(
                 isset($request->categoriaPadre),
                 function ($query) use ($request) {
-                    return $query->where('categoriaPadre', $request->categoriaPadre);
+                    return $query->whereIn('categoriaPadre', $request->categoriaPadre);
                 }
             )->paginate(env('PAGINATION_LENGTH'));
     }

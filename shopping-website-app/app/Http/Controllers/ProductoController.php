@@ -34,7 +34,7 @@ class ProductoController extends Controller
             'proveedores' => Producto::select('productos.proveedor', 'proveedores.id', 'proveedores.nombre_proveedor')->distinct()->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->where('categoria', '=', $categoria)->get(),
             'marcas' => Producto::select(['marca'])->distinct()->where('categoria', '=', $categoria)->get(),
             'categoria' => $categoria,
-            'productos' => $this->filter($request)->where('categoria', '=', $categoria)->paginate(env('PAGINATION_LENGTH'))
+            'productos' => $this->filter($request, ['*'])->where('categoria', '=', $categoria)->paginate(env('PAGINATION_LENGTH'))
         ];
         return view('producto.lists', ['data' => $data]);
     }
@@ -42,9 +42,9 @@ class ProductoController extends Controller
     /**
      * Se aplican los filtros para buscar productos
      */
-    private function filter($request)
+    private function filter($request, $fields)
     {
-        return Producto::select()->when($request->val_minimo >= 0 && isset($request->val_minimo), function ($query) use ($request) {
+        return Producto::select($fields)->when($request->val_minimo >= 0 && isset($request->val_minimo), function ($query) use ($request) {
             return $query->where('precio', '>=', $request->val_minimo);
         })->when($request->val_maximo >= $request->val_minimo && isset($request->val_maximo), function ($query) use ($request) {
             return $query->where('precio', '<=', $request->val_maximo);
@@ -54,8 +54,8 @@ class ProductoController extends Controller
             return $query->whereIn('marca', $request->marca);
         })->when(isset($request->categoria), function ($query) use ($request) {
             return $query->whereIn('categoria', $request->categoria);
-        })->when(isset($request->nombre), function ($query) use ($request) {
-            return $query->where('nombreProducto', 'LIKE', "%{$request->nombre}%");
+        })->when(isset($request->nombreProducto), function ($query) use ($request) {
+            return $query->where('nombreProducto', 'LIKE', "%{$request->nombreProducto}%");
         });
         //AVERIGUADO COMO HACERLO CON CHECKBOXES, FALTARÍA SABER COMO CON SELECT MÚLTIPLES
     }
@@ -73,11 +73,20 @@ class ProductoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $titulo = 'Productos Index';
-        $productos = Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->orderBy('created_at', 'desc')->paginate(env('PAGINATION_LENGTH'));
-        return view('producto.index', ['titulo' => $titulo, 'productos' => $productos]);
+        $productos = $this->filter($request, ['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->orderBy('created_at', 'desc')->paginate(env('PAGINATION_LENGTH'));
+        //Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->orderBy('created_at', 'desc')->paginate(env('PAGINATION_LENGTH'));
+        return view(
+            'producto.index',
+            [
+                'titulo' => $titulo,
+                'productos' => $productos,
+                'proveedor' => Proveedor::select()->orderBy('id', 'desc')->get(),
+                'categoria' => Categoria::select()->orderBy('id', 'desc')->get()
+            ]
+        );
     }
 
     /**

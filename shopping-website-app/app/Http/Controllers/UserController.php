@@ -18,7 +18,11 @@ class UserController extends Controller
     public function index()
     {
         $titulo = 'Panel de Usuarios';
-        return view('usuario.index', ['titulo' => $titulo, 'usuarios' => User::paginate(env('PAGINATION_LENGTH'))]);
+        return view('usuario.index', [
+            'titulo' => $titulo,
+            'usuarios' => User::paginate(env('PAGINATION_LENGTH')),
+            'clases' => ClaseUsuario::query()->orderBy('id', 'desc')->get()
+        ]);
     }
 
     /**

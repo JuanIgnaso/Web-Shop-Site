@@ -14,6 +14,32 @@
      </button>
     <div class="mb-16">
         <div class="w-[90%] lg:w-[80%] m-auto relative overflow-x-auto mt-4 sm:rounded-lg">
+
+            <section x-data="{ show: false,open: 'v',closed: '>' }" class="mb-4">
+                <h2 @click="show = !show" :aria-expanded="show ? 'true' : 'false'" class="text-2xl cursor-pointer text-turquoiseMediumDark">Filtros <span class="text-darkOrange" x-text="show ? open : closed"> </span></h2>
+                <form x-show="show" x-transition action="" method="get" class="mb-8 border-b-2 border-b-gray-200/50">
+                @csrf
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+                        <x-form.input :type="'text'" :name="'nombreProducto'" :label="'Nombre'" :value="Request::get('nombreProducto')"></x-form.input>
+                        <x-form.input :type="'text'" :name="'val_minimo'" :label="'Mínimo Precio'" :value="Request::get('val_minimo')"></x-form.input>
+                        <x-form.input :type="'text'" :name="'val_maximo'" :label="'Máximo Precio'" :value="Request::get('val_maximo')"></x-form.input>
+                        <div>
+                            {{-- Selector de categorías --}}
+                            <x-form.select :label="'Categoría'" :name="'categoria'" :multiple="true" :show="'nombre_categoria'" :values="$categoria"></x-form.select>
+                        </div>
+
+                        <div>
+                            {{-- Selector de proveedores --}}
+                            <x-form.select :label="'Proveedor'" :name="'proveedor'" :multiple="true" :show="'nombre_proveedor'" :values="$proveedor"></x-form.select>
+                        </div>
+                    </div>
+                    <div class="flex justify-center md:justify-end space-x-2 mb-4">
+                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none ">Aplicar Filtros</button>
+                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="{{URL::current()}}">Limpiar Filtros</a></button>
+                    </div>
+                </form>
+            </section>
+
             <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="{{route('producto.create')}}">Añadir nuevo</a></button>
 
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">

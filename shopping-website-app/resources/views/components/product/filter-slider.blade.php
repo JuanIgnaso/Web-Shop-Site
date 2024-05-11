@@ -50,11 +50,12 @@ x-data="{ isOpen: false }" :class="{'':isOpen,'pointer-events-none':!isOpen}" cl
                 <h2 class=" font-semibold leading-6 text-gray-900" id="slide-over-title">Panel de Filtros</h2>
               </div>
               <div class="relative mt-6 flex-1 px-4 sm:px-6">
-                {{-- Provisional --}}
+
                 <form action="" method="get">
                   @csrf
                   <h3 class="border-b-2 border-gray-300 pb-1 mb-2">Rango de Precio</h3>
                   <ol class="mb-4 space-y-2">
+                    {{-- Precio mínimo y máximo --}}
                     <li><label class="flex items-center gap-2 font-bold text-turquoiseMediumDark"><input class="w-2/3 accent-darkBlue" type="range"  id="minimo" min="0" max="9999">Mínimo <input type="text" class="font-black border-0 text-darkOrange w-1/3" id="val_minimo" name="val_minimo" value="{{Request::get('val_minimo') ?? '' }}"></input></label></li>
                     <li><label class="flex items-center gap-2 font-bold text-turquoiseMediumDark"><input class="w-2/3 accent-darkBlue" type="range"  id="maximo" min="0" max="9999">Máximo <input type="text" class="font-black border-0 text-darkOrange w-1/3" id="val_maximo" name="val_maximo" value="{{Request::get('val_maximo') ?? '' }}"></input></label></li>
                     {{-- Actualizar valores de mínimo y máximo --}}
@@ -70,8 +71,9 @@ x-data="{ isOpen: false }" :class="{'':isOpen,'pointer-events-none':!isOpen}" cl
                   </ol>
                   @endif
 
+                  {{-- Buscar por nombre --}}
                   <h3  class="border-b-2 border-gray-300 pb-1 mb-2">Nombre</h3>
-                  <input type="text" id="nombre" value="{{Request::get('nombre') ?? ''}}" name="nombre" class="mb-4 mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-turquoiseSemiLight focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="Buscar producto..."  />
+                  <input type="text" id="nombreProducto" value="{{Request::get('nombreProducto') ?? ''}}" name="nombreProducto" class="mb-4 mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-turquoiseSemiLight focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="Buscar producto..."  />
 
                   <h3  class="border-b-2 border-gray-300 pb-1 mb-2">Disponibilidad</h3>
                   <ol class="mb-4 space-y-2">
