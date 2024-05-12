@@ -15,14 +15,30 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $titulo = 'Panel de Usuarios';
         return view('usuario.index', [
             'titulo' => $titulo,
-            'usuarios' => User::paginate(env('PAGINATION_LENGTH')),
+            'usuarios' => $this->filter($request, ['users.*', 'claseUsuario.clase'])->leftJoin('claseUsuario', 'claseUsuario.id', '=', 'users.claseUsuario')->paginate(env('PAGINATION_LENGTH')),
             'clases' => ClaseUsuario::query()->orderBy('id', 'desc')->get()
         ]);
+    }
+
+
+    //Filtrar
+    private function filter(Request $request, $fields)
+    {
+        return User::select($fields)->when(isset($request->name), function ($query) use ($request) {
+            return $query->where('name', 'LIKE', "%{$request->name}%");
+        })->when(
+                isset($request->email),
+                function ($query) use ($request) {
+                    return $query->where('email', 'LIKE', "%{$request->email}%");
+                }
+            )->when(isset($request->clase), function ($query) use ($request) {
+                return $query->whereIn('claseUsuario', $request->clase);
+            });
     }
 
     /**

@@ -23,7 +23,10 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
                             <x-form.input :type="'text'" :name="'name'" :label="'Nombre'" :value="Request::get('name')"></x-form.input>
                             <x-form.input :type="'text'" :name="'email'" :label="'Dirección de correo'" :value="Request::get('email')"></x-form.input>
-                            <x-form.input :type="'text'" :name="'claseUsuario'" :label="'Tipo de usuario'" :value="Request::get('claseUsuario')"></x-form.input>
+                            <div>
+                                {{-- Selector de proveedores --}}
+                                <x-form.select :label="'Clase de usuario'" :name="'clase'" :multiple="true" :show="'clase'" :values="$clases"></x-form.select>
+                            </div>
                         </div>
                         <div class="flex justify-center md:justify-end space-x-2 mb-4">
                             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none ">Aplicar Filtros</button>

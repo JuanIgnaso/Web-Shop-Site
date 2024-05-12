@@ -25,7 +25,7 @@ class CategoriaController extends Controller
         return view('categoria.index', ['titulo' => $titulo, 'categorias' => $categorias, 'categoriaPadre' => Categoria::select()->get()]);
     }
 
-    private function filter($request)
+    private function filter(Request $request)
     {
         return Categoria::select()->when(
             isset($request->nombre_categoria),
