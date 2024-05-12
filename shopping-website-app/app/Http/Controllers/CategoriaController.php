@@ -87,7 +87,6 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $categoria = Categoria::find($id);
         $data = $request->validate(
             [

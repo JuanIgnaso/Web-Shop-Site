@@ -38,7 +38,7 @@ class ReviewController extends Controller
     public function destroy($id)
     {
         $review = Review::find($id);
-        if ($review->usuario == \Auth::id()) {
+        if ($review->usuario == \Auth::id() || \Auth::user()->claseUsuario == 3) {
             $review->delete();
             return redirect(\URL::previous())->with('message', 'Review ha sido borrada');
         } else {
@@ -46,5 +46,13 @@ class ReviewController extends Controller
         }
     }
 
+    public function index(Request $request)
+    {
+        $titulo = 'Panel de reviews';
+        return view('review.index', [
+            'titulo' => $titulo,
+            'reviews' => Review::select('reviews.*', 'users.name', 'productos.nombreProducto')->leftJoin('users', 'reviews.usuario', '=', 'users.id')->leftJoin('productos', 'reviews.producto', '=', 'productos.id')->orderBy('id', 'desc')->paginate(env('PAGINATION_LENGTH'))
+        ]);
+    }
 
 }

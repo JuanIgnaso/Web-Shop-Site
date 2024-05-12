@@ -170,30 +170,13 @@
                 <h4>Cual es tu puntuación?</h4>
 
                 <div class="flex items-center" id="user-rating">
+                  @for ($i = 1; $i <= 5; $i++)
                   <label>
-                    <input type="radio" value="1" class="peer hidden" name="puntuacion">
+                    <input type="radio" value="{{$i}}" class="peer hidden" name="puntuacion">
                     <x-ui.star :color="'text-gray-300'" :attr="'peer-checked:text-yellow-300'"></x-ui.star>
                   </label>
-
-                  <label>
-                    <input type="radio" value="2" class="peer hidden" name="puntuacion">
-                    <x-ui.star :color="'text-gray-300'" :attr="'peer-checked:text-yellow-300'"></x-ui.star>
-                  </label>
-
-                  <label>
-                    <input type="radio" value="3" class="peer hidden" name="puntuacion">
-                    <x-ui.star :color="'text-gray-300'" :attr="'peer-checked:text-yellow-300'"></x-ui.star>
-                  </label>
-
-                  <label>
-                    <input type="radio" value="4" class="peer hidden" name="puntuacion">
-                    <x-ui.star :color="'text-gray-300'" :attr="'peer-checked:text-yellow-300'"></x-ui.star>
-                  </label>
-
-                  <label>
-                    <input type="radio" value="5" class="peer hidden" name="puntuacion">
-                    <x-ui.star :color="'text-gray-300'" :attr="'peer-checked:text-yellow-300'"></x-ui.star>
-                  </label>
+                  @endfor
+                  <p class="ml-2" id="score"></p>
                 </div>
 
                 <script src="{{Vite::asset('resources/js/aaa.js')}}"></script>

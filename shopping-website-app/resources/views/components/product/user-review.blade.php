@@ -34,10 +34,12 @@
         @endif
 
         {{-- Acción del usuario en función de si es el autor de la review --}}
-        @if(\Auth::id() == $review->usuario)
+        @if(\Auth::id() == $review->usuario || \Auth::user()->claseUsuario == 3)
         <aside>
             <div class="flex items-center gap-2 mt-3">
+                @if(\Auth::id() == $review->usuario)
                 <a href="#" class="px-2 py-1.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border-2 border-darkBlue hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 ">Editar</a>
+                @endif
                 <form action="{{route('review.destroy',$review->id)}}" method="POST">
                     @csrf
                     @method('DELETE')

@@ -3,7 +3,7 @@ var c = document.querySelectorAll('#user-rating input[type="radio"]');
 c.forEach(element => {
     element.addEventListener('click',function(){
         var index = [].indexOf.call(c, element);
-        console.log(element.value);
+        document.querySelector('#score').innerHTML = `${element.value} Estrella/s`;
     });
 });
 

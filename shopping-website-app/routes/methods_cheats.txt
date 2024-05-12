@@ -1,0 +1,9 @@
+/*
+index -> GET
+create -> GET
+store -> POST
+show -> GET
+edit -> GET
+update -> PUT
+destroy -> DELETE
+*/

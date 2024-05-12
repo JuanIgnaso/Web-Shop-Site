@@ -31,9 +31,12 @@
         <li>
           <x-adminPanel.list-element :params="['url'=>route('proveedor.index'),'text'=>'Proveedores','icono'=>'fa-solid fa-truck-ramp-box']"></x-adminPanel.list-element>
         </li>
+        {{-- Mostrar solo para los admins --}}
+        @if(Auth::user()->claseUsuario == 3)
         <li>
           <x-adminPanel.list-element :params="['url'=>route('user.index'),'text'=>'Usuarios','icono'=>'fa-solid fa-user']"></x-adminPanel.list-element>
         </li>
+        @endif
       </ul>
 
 
@@ -47,5 +50,19 @@
         </li>
       </ul>
       <!-- --------------- -->
+
+      @if (Auth::user()->claseUsuario == 3)
+          <!-- REVIEWS ------->
+          <ul class="mb-4 flex flex-col gap-1">
+            <li class="mx-3.5 mt-4 mb-2">
+              <p class="block antialiased font-sans text-sm leading-normal text-white font-black uppercase opacity-75">Reviews de productos</p>
+            </li>
+            <li>
+              <x-adminPanel.list-element :params="['url'=>route('review.index'),'text'=>'Reviews','icono'=>'fa-solid fa-gavel']"></x-adminPanel.list-element>
+            </li>
+          </ul>
+      <!-- --------------- -->
+      @endif
+
     </div>
   </aside>

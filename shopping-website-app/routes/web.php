@@ -24,9 +24,8 @@ Route::get('/contactar', [HomeController::class, 'contactUs'])->name('contact.in
 Route::post('/contactar', [HomeController::class, 'store'])->name('contact.store');
 
 
-//Product Listing(provisional)
+//Listar Productos
 Route::get('/productos/{id}/list', [ProductoController::class, 'filterBy'])->name('producto.list');
-// Route::post('/productos/{id}/list', [ProductoController::class, 'filterBy'])->name('producto.list');
 Route::get('/productos/{id}/details', [ProductoController::class, 'details'])->name('producto.details');
 Route::get('/productos/categorias', [ProductoController::class, 'productCategories'])->name('producto.categorias');
 
@@ -34,17 +33,9 @@ Route::get('/productos/categorias', [ProductoController::class, 'productCategori
 Route::post('/review/{id}/create', [ReviewController::class, 'store'])->name('review.store')->middleware(AccessForbidden::class);
 Route::delete('/review/{id}', [ReviewController::class, 'destroy'])->name('review.destroy');
 
-/*
-index -> GET
-create -> GET
-store -> POST
-show -> GET
-edit -> GET
-update -> PUT
-destroy -> DELETE
-*/
+//cheats para saber que métodos usar -> methods_cheats.txt
 
-#PANEL DE CONTROL - Restringido a usuarios autorizados por middleware
+#PANEL DE CONTROL - Restringido a usuarios editores y administradores
 Route::middleware(EditorAllowed::class)->group(function () {
     Route::get('/panelcontrol', [DashbordController::class, 'index'])->name('panel.index');
 
@@ -53,11 +44,13 @@ Route::middleware(EditorAllowed::class)->group(function () {
     Route::resource('/panelcontrol/categoria', CategoriaController::class);
     Route::resource('/panelcontrol/producto', ProductoController::class);
     Route::get('/panelcontrol/registros', [RegistroController::class, 'index'])->name('registros.index');
+});
 
-    //Solo acceso como admin
+//Acceso restringido a solo Admin
+Route::middleware(AdminAccess::class)->group(function () {
     Route::resource('/panelcontrol/user', UserController::class)->middleware(AdminAccess::class);
     Route::put('/panelcontrol/user/toggle/{id}', [UserController::class, 'toggle'])->name('user.toggle')->middleware(AdminAccess::class);
-
+    Route::get('/panelcontrol/review', [ReviewController::class, 'index'])->name('review.index')->middleware(AdminAccess::class);
 });
 
 Route::middleware('auth')->group(function () {

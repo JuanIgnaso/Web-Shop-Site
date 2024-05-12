@@ -167,6 +167,5 @@ class ProductoController extends Controller
         $producto->delete();
         Registro::create(['operacion' => 'Eliminar registro', 'tabla' => 'productos', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
         return to_route('producto.index')->with('message', 'Registro eliminado correctamente');
-
     }
 }
