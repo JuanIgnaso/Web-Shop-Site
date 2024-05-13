@@ -38,16 +38,10 @@
             @if(Auth::check())
             <div class="hidden sm:flex sm:items-center gap-2 sm:ms-6">
 
+                {{-- Carrito --}}
+                <x-ui.shopping-cart.main></x-ui.shopping-cart.main>
 
-                <a href="#" class="flex h-10 items-center px-2 rounded-lg border border-gray-200 hover:border-gray-300 focus:outline-none hover:shadow-inner">
-                    <svg class="h-6 w-6 leading-none text-gray-300 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                    </svg>
-                    <span class="pl-1 text-gray-500 text-md">0</span>
-                  </a>
-
-
-                <x-dropdown align="right" width="48">
+                  <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div> {{Auth::user()->name}} </div>
@@ -121,8 +115,17 @@
             @if(Auth::check())
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800">{{Auth::user()->name ?? 'Default Name'}}</div>
-                <div class="font-medium text-sm text-darkOrange">{{Auth::user()->email ?? 'Default Name'}}</div>
+                <div class="font-medium text-sm text-darkOrange flex items-center gap-2">{{Auth::user()->email ?? 'Default Name'}}
+
+                {{-- Botón del carrito --}}
+
+                 {{-- Carrito --}}
+                 <x-ui.shopping-cart.main></x-ui.shopping-cart.main>
+                {{--  --}}
+                </div>
+
             </div>
+
 
 
             <div class="mt-3 space-y-1">

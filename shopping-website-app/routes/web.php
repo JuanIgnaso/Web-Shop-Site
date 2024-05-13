@@ -39,7 +39,7 @@ Route::delete('/review/{id}', [ReviewController::class, 'destroy'])->name('revie
 Route::middleware(EditorAllowed::class)->group(function () {
     Route::get('/panelcontrol', [DashbordController::class, 'index'])->name('panel.index');
 
-    //Recuros
+    //Recursos
     Route::resource('/panelcontrol/proveedor', ProveedorController::class);
     Route::resource('/panelcontrol/categoria', CategoriaController::class);
     Route::resource('/panelcontrol/producto', ProductoController::class);
@@ -48,9 +48,9 @@ Route::middleware(EditorAllowed::class)->group(function () {
 
 //Acceso restringido a solo Admin
 Route::middleware(AdminAccess::class)->group(function () {
-    Route::resource('/panelcontrol/user', UserController::class)->middleware(AdminAccess::class);
-    Route::put('/panelcontrol/user/toggle/{id}', [UserController::class, 'toggle'])->name('user.toggle')->middleware(AdminAccess::class);
-    Route::get('/panelcontrol/review', [ReviewController::class, 'index'])->name('review.index')->middleware(AdminAccess::class);
+    Route::resource('/panelcontrol/user', UserController::class);
+    Route::put('/panelcontrol/user/toggle/{id}', [UserController::class, 'toggle'])->name('user.toggle');
+    Route::get('/panelcontrol/review', [ReviewController::class, 'index'])->name('review.index');
 });
 
 Route::middleware('auth')->group(function () {

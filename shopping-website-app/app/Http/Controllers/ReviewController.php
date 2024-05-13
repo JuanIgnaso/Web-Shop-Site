@@ -7,6 +7,7 @@ use App\Models\Producto;
 use App\Models\Review;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class ReviewController extends Controller
 {
@@ -48,11 +49,28 @@ class ReviewController extends Controller
 
     public function index(Request $request)
     {
+        //cabecera,review,usuario,producto
+
         $titulo = 'Panel de reviews';
         return view('review.index', [
             'titulo' => $titulo,
-            'reviews' => Review::select('reviews.*', 'users.name', 'productos.nombreProducto')->leftJoin('users', 'reviews.usuario', '=', 'users.id')->leftJoin('productos', 'reviews.producto', '=', 'productos.id')->orderBy('id', 'desc')->paginate(env('PAGINATION_LENGTH'))
+            'reviews' => $this->filter($request, ['reviews.*', 'users.name', 'productos.nombreProducto']),
+            'usuarios' => User::select()->get(),
+            'productos' => Producto::select()->get()
         ]);
+    }
+
+    private function filter(Request $request, $fields)
+    {
+        return Review::select($fields)->when(isset($request->cabecera), function ($query) use ($request) {
+            return $query->where('cabecera', 'LIKE', "%{$request->cabecera}%");
+        })->when(isset($request->review), function ($query) use ($request) {
+            return $query->where('review', 'LIKE', "%{$request->review}%");
+        })->when(isset($request->usuario), function ($query) use ($request) {
+            return $query->whereIn('usuario', $request->usuario);
+        })->when(isset($request->producto), function ($query) use ($request) {
+            return $query->whereIn('producto', $request->producto);
+        })->leftJoin('users', 'reviews.usuario', '=', 'users.id')->leftJoin('productos', 'reviews.producto', '=', 'productos.id')->orderBy('id', 'desc')->paginate(env('PAGINATION_LENGTH'));
     }
 
 }
