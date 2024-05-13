@@ -96,12 +96,10 @@
           <div class="flex py-4 space-x-4">
             <div class="relative">
               <div class="text-center left-0 pt-2 right-0 absolute block text-xs uppercase text-gray-400 tracking-wide font-semibold">Ud.</div>
-              <select class="cursor-pointer appearance-none rounded-xl border border-gray-200 pl-4 pr-8 h-14 flex items-end pb-1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+              <select id="cant-producto" class="cursor-pointer appearance-none rounded-xl border border-gray-200 pl-4 pr-8 h-14 flex items-end pb-1">
+                 @for($i = 1; $i < 11; $i++)
+                 <option value="{{$i}}">{{$i}}</option>
+                 @endfor
               </select>
 
               <svg class="w-5 h-5 text-gray-400 absolute right-0 bottom-0 mb-2 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -109,9 +107,10 @@
               </svg>
             </div>
 
-            <button type="button" class="h-14 px-6 py-2 font-semibold rounded-xl bg-turquoiseSemiLight hover:bg-turquoiseMedium text-white">
+            <button id="add-to-cart" type="button" onclick="storeProduct({{$producto}})" class="h-14 px-6 py-2 font-semibold rounded-xl bg-turquoiseSemiLight hover:bg-turquoiseMedium text-white">
               Añadir al carrito
             </button>
+            <script src="{{Vite::asset('resources/js/addtoCart.js')}}"></script>
           </div>
         </div>
       </section>

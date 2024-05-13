@@ -1783,6 +1783,10 @@ body {
   width: 16rem;
 }
 
+.w-0 {
+  width: 0px;
+}
+
 .min-w-\[200px\] {
   min-width: 200px;
 }
