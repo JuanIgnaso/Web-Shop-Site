@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->foreignId('usuario')->constrained('users');
             $table->tinyInteger('recomendado');
             $table->integer('puntuacion');
-            $table->timestamp('fecha_review');
+            $table->timestamps();
         });
     }
 

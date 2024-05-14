@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
-    public $timestamps = false;
     protected $table = 'reviews';
-    protected $fillable = ['cabecera', 'review', 'producto', 'usuario', 'recomendado', 'puntuacion', 'fecha_review'];
+    protected $fillable = ['cabecera', 'review', 'producto', 'usuario', 'recomendado', 'puntuacion'];
 
     use HasFactory;
 

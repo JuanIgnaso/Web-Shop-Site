@@ -23,19 +23,19 @@ class DashbordController extends Controller
         $data = [
             'productos' => [
                 'totales' => Producto::count(),
-                'ultimo' => Producto::select(['created_at'])->latest('created_at')->get()
+                'ultimo' => Carbon::parse((Producto::latest()->first())->created_at)->diffForHumans()
             ],
             'categorias' => [
                 'totales' => Categoria::count(),
-                'ultimo' => Categoria::select()->latest('created_at')->get()
+                'ultimo' => Carbon::parse((Categoria::latest()->first())->created_at)->diffForHumans()
             ],
             'proveedores' => [
                 'totales' => Proveedor::count(),
-                'ultimo' => Proveedor::select()->latest('created_at')->get()
+                'ultimo' => Carbon::parse((Proveedor::latest()->first())->created_at)->diffForHumans()
             ],
             'usuarios' => [
                 'totales' => User::count(),
-                'ultimo' => User::select()->latest('created_at')->get()
+                'ultimo' => Carbon::parse((User::latest()->first())->created_at)->diffForHumans()
             ],
             'registros' => [
                 'ultimos' => Registro::select(['registros.*', 'users.name'])->leftJoin('users', 'registros.usuario', '=', 'users.id')->latest('ocurrido_en')->limit(6)->get(),

@@ -32,7 +32,7 @@ Route::get('/productos/categorias', [ProductoController::class, 'productCategori
 //Review
 Route::post('/review/{id}/create', [ReviewController::class, 'store'])->name('review.store')->middleware(AccessForbidden::class);
 Route::delete('/review/{id}', [ReviewController::class, 'destroy'])->name('review.destroy');
-
+Route::put('/review/{id}', [ReviewController::class, 'update'])->name('review.update')->middleware(AccessForbidden::class);
 //cheats para saber que métodos usar -> methods_cheats.txt
 
 #PANEL DE CONTROL - Restringido a usuarios editores y administradores

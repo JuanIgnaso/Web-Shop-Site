@@ -5,7 +5,7 @@
                 <div class="flex items-center mb-4">
                     <img class="w-10 h-10 me-4 rounded-full object-cover" src="{{Vite::asset('resources/images/pfp_example_foto.jpg')}}" alt="">
                     <div class="font-medium ">
-                        <p>{{$review->name}} <time datetime="2014-08-16 19:00" class="block text-sm text-gray-500 ">Miembro desde {{$review->created_at}}</time></p>
+                        <p>{{$review->name}} <time datetime="2014-08-16 19:00" class="block text-sm text-gray-500 ">Miembro desde {{Carbon\Carbon::parse($review->registro_usuario)->isoFormat('LL')}}</time></p>
                     </div>
                 </div>
                 <div class="flex items-center mb-1 space-x-1 rtl:space-x-reverse">
@@ -25,7 +25,11 @@
                     {{-- -- --}}
                     <h3 class="ms-2 text-sm font-semibold text-gray-900 ">{{$review->cabecera}}</h3>
                 </div>
-                <footer class="mb-3 text-sm text-gray-500 "><p>Opinión hecha en <time datetime="2017-03-03 19:00">{{$review->fecha_review}}</time></p></footer>
+                {{--
+                    Si se quiere poner en un formato como: ej dia mes y año  Carbon\Carbon::parse($obj->fecha)->isoFormat('LL')
+                    Si se quiere poner la diferencia de la fecha con el tiempo de ahora se usa ->diffForHumans()
+                    --}}
+                <footer class="mb-3 text-sm text-gray-500 "><p><span>{{Carbon\Carbon::parse($review->fecha_review)->diffForHumans()}}</span> - <span class="italic">{{$review->editado_en != $review->fecha_review ? ' Editado: '. Carbon\Carbon::parse($review->editado_en)->diffForHumans() : ''}}</span></p></footer>
                 <p class="mb-2 text-gray-500 ">{{$review->review}}</p>
 
                 {{-- Recomendación del usuario --}}
@@ -53,7 +57,7 @@
             </div>
             {{-- Editar review --}}
             <div x-show="edit" id="editUserReview">
-                <form action="" method="POST" class="space-y-2">
+                <form action="{{route('review.update',$review->id)}}" method="POST" class="space-y-2">
                     @csrf
                     @method('PUT')
                     <h3 class="mt-4">Editando tu review</h3>
@@ -72,14 +76,23 @@
 
                     <script src="{{Vite::asset('resources/js/aaa.js')}}"></script>
 
-                    <x-form.input :name="'cabecera'" :type="'text'" :value="$review->cabecera" :label="'Cabecera de la review'"></x-form.input>
+                    <x-form.input :name="'cabecera'" :type="'text'" :value="old('cabecera',$review->cabecera)" :label="'Cabecera de la review'"></x-form.input>
 
-                    <x-form.textarea :name="'review'" :value="$review->review" :label="'Tu opinión'" ></x-form.textarea>
+                    <x-form.textarea :name="'review'" :value="old('review',$review->review)" :label="'Tu opinión'" ></x-form.textarea>
 
                     <h4>Recomendarías el producto?</h4>
                     <div class="flex gap-4">
-                      <x-form.checkbox :type="'radio'" :name="'recomendado'" :label="'Si'" :value="1"></x-form.checkbox>
-                      <x-form.checkbox :type="'radio'" :name="'recomendado'" :label="'No'" :value="0"></x-form.checkbox>
+                        <label for="recomendado" class="flex items-center gap-3 text-base font-bold leading-6 text-turquoiseMedium">
+                            Sí
+                            <input type="radio" name="recomendado" id="recomendado" value="1" {{$review->recomendado == 1 ? 'checked' : ''}} class="block rounded-md border-0 py-1.5 text-turquoiseMedium shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  sm:text-sm sm:leading-6">
+                        </label>
+                        <label for="recomendado" class="flex items-center gap-3 text-base font-bold leading-6 text-turquoiseMedium">
+                            No
+                            <input type="radio" name="recomendado" id="recomendado" value="0" {{$review->recomendado == 0 ? 'checked' : ''}} class="block rounded-md border-0 py-1.5 text-turquoiseMedium shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  sm:text-sm sm:leading-6">
+                        </label>
+                        @if($errors->has('recomendado'))
+                            <p class="input-error">{{$errors->first('recomendado')}}</p>
+                        @endif
                     </div>
                     <footer>
                         <button type="submit" class="text-white bg-turquoiseSemiLight hover:bg-turquoiseMedium focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none">Enviar mi Opinión</button>

@@ -13,6 +13,7 @@ class ReviewController extends Controller
 {
     public function store(Request $request, $id)
     {
+
         $data = $request->validate(
             [
                 'puntuacion' => ['required', 'min:1', 'max:5'],
@@ -31,8 +32,9 @@ class ReviewController extends Controller
         }
 
         //Si el usuario aún no ha opinado sobre el producto
-        $review->create(['cabecera' => $request->input('cabecera'), 'review' => $request->input('review'), 'producto' => $id, 'usuario' => \Auth::id(), 'recomendado' => $request->input('recomendado'), 'puntuacion' => $request->input('puntuacion'), 'fecha_review' => Carbon::now()->toDateTimeString()]);
+        $review->create(['cabecera' => $request->input('cabecera'), 'review' => $request->input('review'), 'producto' => $id, 'usuario' => \Auth::id(), 'recomendado' => $request->input('recomendado'), 'puntuacion' => $request->input('puntuacion')]);
         return to_route('producto.details', $id)->with('message', 'Gracias por compartir tu opinión!');
+
 
     }
 
@@ -45,6 +47,31 @@ class ReviewController extends Controller
         } else {
             abort(403);
         }
+    }
+
+    /**
+     * Actualiza la review del usuario
+     * @param Request $request - Petición entrante
+     * @param $id - ID de la review a modificars
+     */
+    public function update(Request $request, $id)
+    {
+        $review = Review::find($id);
+        if ($review->usuario == \Auth::id()) {
+            $data = $request->validate(
+                [
+                    'cabecera' => ['required', 'max:120'],
+                    'review' => ['required', 'max:2000'],
+                    'recomendado' => ['required'],
+                    'puntuacion' => ['required', 'min:1', 'max:5']
+                ]
+            );
+            $review->update($data);
+            return redirect(\URL::previous())->with('message', 'Review actualizada!');
+        } else {
+            return redirect(\URL::previous())->with('error', 'No puedes modificar reviews hechas por otros usuarios!.');
+        }
+
     }
 
     public function index(Request $request)

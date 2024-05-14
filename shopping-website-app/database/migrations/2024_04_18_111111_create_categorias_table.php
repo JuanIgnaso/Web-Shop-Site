@@ -17,10 +17,12 @@ return new class extends Migration {
             $table->timestamps();
         });
 
+        //Insertar campos de ejemplo
         \DB::table('categorias')->insert(
             [
                 ['nombre_categoria' => 'Sin Categoria', 'categoriaPadre' => NULL],
-                ['nombre_categoria' => 'test', 'categoriaPadre' => 1]
+                ['nombre_categoria' => 'test', 'categoriaPadre' => 1],
+                ['nombre_categoria' => 'categoria ejemplo', 'categoriaPadre' => NULL]
             ]
         );
     }
