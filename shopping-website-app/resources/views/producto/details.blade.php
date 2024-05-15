@@ -107,9 +107,13 @@
               Añadir al carrito
             </button>
             {{--  Añadir productos al carro de compra --}}
-            <script src="{{Vite::asset('resources/js/addtoCart.js')}}"></script>
           </div>
+        <p class="text-sm text-red-500" id="error"></p>
+
         </div>
+
+        <script src="{{Vite::asset('resources/js/addtoCart.js')}}"></script>
+
       </section>
 
       {{-- SECCIÓN DE REVIEWS DE LOS USUARIOS --}}

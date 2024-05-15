@@ -65,21 +65,14 @@ class ProductoController extends Controller
      */
     public function details($id)
     {
-        $titulo = 'Detalles del Producto';
-        $reviews = Review::select([
-            'reviews.id',
-            'reviews.cabecera',
-            'reviews.review',
-            'reviews.producto',
-            'reviews.usuario',
-            'reviews.recomendado',
-            'reviews.puntuacion',
-            'reviews.created_at as fecha_review',
-            'reviews.updated_at as editado_en',
-            'users.name',
-            'users.created_at as registro_usuario'
-        ])->leftJoin('users', 'reviews.usuario', '=', 'users.id')->where('producto', '=', $id)->orderBy('fecha_review', 'desc')->paginate(env('PAGINATION_LENGTH'));
-        return view('producto.details', ['titulo' => $titulo, 'producto' => Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor', 'proveedores.website'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->find($id), 'reviews' => $reviews]);
+        return view(
+            'producto.details',
+            [
+                'titulo' => 'Detalles del Producto',
+                'producto' => Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor', 'proveedores.website'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->find($id),
+                'reviews' => Review::getProductReviews($id)
+            ]
+        );
     }
 
     /**

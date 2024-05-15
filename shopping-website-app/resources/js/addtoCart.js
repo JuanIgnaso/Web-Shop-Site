@@ -3,6 +3,7 @@ let add = document.querySelector('#add-to-cart');
 const shopCartStorage = window.localStorage;
 let productList = [];
 let cantidad = document.querySelector('#cant-producto');
+let error = document.querySelector('#error');
 
 
 //Cargar el localStorage si este existe
@@ -22,16 +23,18 @@ function storeProduct(producto){
         if(Number(cantidad.value) <= producto.unidades){
             productList.push({producto:producto,cant: Number(cantidad.value)});
             saveInStorage();
+            error.innerHTML = '';
         }else{
-            console.log('El producto no tiene suficientes unidades en stock ahora mismo');
+            error.innerHTML = 'El producto no tiene suficientes unidades en stock ahora mismo';
         }
     }else{
         let index = productList.indexOf(found);
-        if(productList[index].cant + Number(cantidad.value) <= productList[index].producto.unidades){
+        if(productList[index].cant + Number(cantidad.value) <= producto.unidades){
             productList[index].cant = productList[index].cant + Number(cantidad.value);
             saveInStorage();
+            document.querySelector('#error').innerHTML = '';
         }else{
-            console.log('El producto no tiene suficientes unidades en stock ahora mismo');
+            document.querySelector('#error').innerHTML = 'El producto no tiene suficientes unidades en stock ahora mismo';
         }
     }
     console.log(productList);
