@@ -63,14 +63,14 @@ class ProductoController extends Controller
     /**
      * Muestra los detalles del producto en el front de la tienda
      */
-    public function details($id)
+    public function details($producto)
     {
         return view(
             'producto.details',
             [
                 'titulo' => 'Detalles del Producto',
-                'producto' => Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor', 'proveedores.website'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->find($id),
-                'reviews' => Review::getProductReviews($id)
+                'producto' => Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor', 'proveedores.website'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->find($producto),
+                'reviews' => Review::getProductReviews($producto)
             ]
         );
     }

@@ -4,6 +4,7 @@ const shopCartStorage = window.localStorage;
 let productList = [];
 let cantidad = document.querySelector('#cant-producto');
 let error = document.querySelector('#error');
+let productCount = document.querySelectorAll('.cart-product-count');
 
 
 //Cargar el localStorage si este existe
@@ -24,6 +25,9 @@ function storeProduct(producto){
             productList.push({producto:producto,cant: Number(cantidad.value)});
             saveInStorage();
             error.innerHTML = '';
+            productCount.forEach(element => {
+                element.innerHTML = JSON.parse(window.localStorage.getItem('cart')).length;
+            });
         }else{
             error.innerHTML = 'El producto no tiene suficientes unidades en stock ahora mismo';
         }

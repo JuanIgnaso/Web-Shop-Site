@@ -9,12 +9,15 @@ if(window.localStorage.getItem('cart') != null){
                 loadProduct(element,products[index]);
             }
     });
+    document.querySelectorAll('.cart-product-count').forEach(element => {
+       element.innerHTML = JSON.parse(window.localStorage.getItem('cart')).length;
+    });
 }
 
 function loadProduct(target,element){
     target.innerHTML +=
     `
-    <div id="id${element.producto.id}" class="p-2 flex bg-white hover:bg-gray-100 cursor-pointer border-b border-gray-100" style="">
+    <div id="id${element.producto.id}" class="cart-element p-2 flex bg-white hover:bg-gray-100 cursor-pointer border-b border-gray-100" style="">
     <div class="p-2 w-12"><img src="https://dummyimage.com/50x50/bababa/0011ff&amp;text=50x50" alt="img product"></div>
     <div class="flex-auto text-sm w-32">
         <div class="font-bold">${element.producto.nombreProducto}</div>
@@ -39,4 +42,7 @@ function removeFromCart(id){
     document.querySelector(`#id${id}`).remove();
     let cartUpdated = (JSON.parse(window.localStorage.getItem('cart')).filter((obj) => obj.producto.id != id));
     window.localStorage.setItem('cart',JSON.stringify(cartUpdated));
+    document.querySelectorAll('.cart-product-count').forEach(element => {
+        element.innerHTML = JSON.parse(window.localStorage.getItem('cart')).length;
+     });
 }
