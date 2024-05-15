@@ -101,26 +101,23 @@
                  <option value="{{$i}}">{{$i}}</option>
                  @endfor
               </select>
-
-              <svg class="w-5 h-5 text-gray-400 absolute right-0 bottom-0 mb-2 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-              </svg>
             </div>
 
             <button id="add-to-cart" type="button" onclick="storeProduct({{$producto}})" class="h-14 px-6 py-2 font-semibold rounded-xl bg-turquoiseSemiLight hover:bg-turquoiseMedium text-white">
               Añadir al carrito
             </button>
+            {{--  Añadir productos al carro de compra --}}
             <script src="{{Vite::asset('resources/js/addtoCart.js')}}"></script>
           </div>
         </div>
       </section>
 
-      {{-- Sección de Reviews --}}
+      {{-- SECCIÓN DE REVIEWS DE LOS USUARIOS --}}
       <section class="space-y-8">
 
         <h2 class="mt-8 mb-6">Opiniones del Producto</h2>
         <div  x-data="{ show: false }">
-              <div class="flex flex-col md:flex-row justify-start items-start gap-6">
+              <div class="flex flex-col md:flex-row justify-start items-start gap-6 border-b-2 border-gray-300/50 pb-6">
                 <div class="bg-turquoiseLight aspect-square w-24 md:w-36 rounded-lg grid place-items-center">
                   <p class="text-center text-3xl md:text-4xl font-black">@if($reviews->count() == 0) {{'0'}} @else {{$reviews->sum('puntuacion') / $reviews->count()}}@endif</p>
                   <div class="flex justify-center">
@@ -195,7 +192,7 @@
         </div>
 
 
-        {{-- Reviews de los usuarios --}}
+        {{-- SE MUESTRAN LAS REVIEWS AQUÍ --}}
         <div>
         <h3 class="text-2xl mb-6">Opiniones de los Usuarios</h3>
           {{-- Hacer aquí foreach de la tabla de reviews que coincidan con la id del producto --}}

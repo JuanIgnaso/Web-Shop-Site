@@ -2276,6 +2276,14 @@ body {
   border-color: rgb(255 255 255 / 0.2);
 }
 
+.border-gray-200\/50 {
+  border-color: rgb(229 231 235 / 0.5);
+}
+
+.border-gray-300\/50 {
+  border-color: rgb(209 213 219 / 0.5);
+}
+
 .border-b-gray-200\/50 {
   border-bottom-color: rgb(229 231 235 / 0.5);
 }

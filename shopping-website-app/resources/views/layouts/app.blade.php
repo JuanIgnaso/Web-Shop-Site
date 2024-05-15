@@ -38,6 +38,7 @@
 
 
 @include('components.footer')
+<script src="{{Vite::asset('resources/js/loadToCart.js')}}"></script>
 
     </body>
 </html>

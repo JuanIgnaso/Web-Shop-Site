@@ -74,7 +74,7 @@
             </div>
 @else
     <div class="flex justify-center items-center gap-4 text-white">
-        <a href="{{route('login')}}">Inciar Sesión</a>
+        <a href="{{route('login')}}">Iniciar Sesión</a>
         <a href="{{route('register')}}">Registrarse</a>
     </div>
 @endif

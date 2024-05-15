@@ -1,5 +1,5 @@
                 {{-- Botón del carrito --}}
-                <div x-data="{show: false}" class="relative scursor-pointer flex h-10 items-center px-2 rounded-lg border border-gray-200 hover:border-gray-300 focus:outline-none hover:shadow-inner">
+                <div x-data="{show: false}" class="shopping-cart relative scursor-pointer flex h-10 items-center px-2 rounded-lg border border-gray-200 hover:border-gray-300 focus:outline-none hover:shadow-inner">
                     <svg
                     @click="show = !show" :aria-expanded="show ? 'true' : 'false'"
                      class="h-6 w-6 cursor-pointer leading-none text-gray-300 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -14,13 +14,13 @@
                     x-transition:leave-start="opacity-100"
                     x-transition:leave-end="opacity-0"
                     class="absolute w-full top-full left-[-50%] translate-x-[-50%] mt-6 rounded-md border-t-0 z-50">
-                        <div class="shadow-xl w-64 bg-white ">
+                        <div class="shadow-xl w-64 bg-white text-black">
                             <button class="p-2" @click="show = !show" :aria-expanded="show ? 'true' : 'false'">
                                 <i class="fa-solid fa-xmark text-xl text-rose-500"></i>
                             </button>
                             {{-- Elementos del carrito --}}
-                            <x-ui.shopping-cart.product></x-ui.shopping-cart.product>
-                            <x-ui.shopping-cart.product></x-ui.shopping-cart.product>
+                            <div class="product-container">
+                            </div>
                             {{--  --}}
                             <div class="p-4 justify-center  flex bg-white">
                                 <button class="text-base  undefined  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer
@@ -33,4 +33,5 @@
                         </div>
                     </div>
                 </div>
+                <script></script>
               {{--  --}}

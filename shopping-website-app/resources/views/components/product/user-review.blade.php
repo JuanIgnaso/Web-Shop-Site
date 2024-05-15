@@ -5,7 +5,7 @@
                 <div class="flex items-center mb-4">
                     <img class="w-10 h-10 me-4 rounded-full object-cover" src="{{Vite::asset('resources/images/pfp_example_foto.jpg')}}" alt="">
                     <div class="font-medium ">
-                        <p>{{$review->name}} <time datetime="2014-08-16 19:00" class="block text-sm text-gray-500 ">Miembro desde {{Carbon\Carbon::parse($review->registro_usuario)->isoFormat('LL')}}</time></p>
+                        <p class="font-black">{{$review->name}} <time datetime="2014-08-16 19:00" class="block text-sm text-gray-600 ">Miembro desde {{Carbon\Carbon::parse($review->registro_usuario)->isoFormat('LL')}}</time></p>
                     </div>
                 </div>
                 <div class="flex items-center mb-1 space-x-1 rtl:space-x-reverse">
@@ -29,14 +29,14 @@
                     Si se quiere poner en un formato como: ej dia mes y año  Carbon\Carbon::parse($obj->fecha)->isoFormat('LL')
                     Si se quiere poner la diferencia de la fecha con el tiempo de ahora se usa ->diffForHumans()
                     --}}
-                <footer class="mb-3 text-sm text-gray-500 "><p><span>{{Carbon\Carbon::parse($review->fecha_review)->diffForHumans()}}</span> - <span class="italic">{{$review->editado_en != $review->fecha_review ? ' Editado: '. Carbon\Carbon::parse($review->editado_en)->diffForHumans() : ''}}</span></p></footer>
-                <p class="mb-2 text-gray-500 ">{{$review->review}}</p>
+                <footer class="mb-3 text-sm text-gray-600 "><p><span>{{Carbon\Carbon::parse($review->fecha_review)->diffForHumans()}}</span> - <span class="italic">{{$review->editado_en != $review->fecha_review ? ' Editado: '. Carbon\Carbon::parse($review->editado_en)->diffForHumans() : ''}}</span></p></footer>
+                <p class="mb-2 text-gray-900 ">{{$review->review}}</p>
 
                 {{-- Recomendación del usuario --}}
                 @if ((int)$review->recomendado == 1)
-                    <p class="text-green-400"><i class="fa-solid fa-thumbs-up text-xl"></i> Recomienda este producto</p>
+                    <p class="text-green-500"><i class="fa-solid fa-thumbs-up text-xl"></i> Recomienda este producto</p>
                 @else
-                    <p class="text-red-400"><i class="fa-solid fa-thumbs-down text-xl"></i>  No recomienda este producto</p>
+                    <p class="text-red-500"><i class="fa-solid fa-thumbs-down text-xl"></i>  No recomienda este producto</p>
                 @endif
 
                 {{-- Acción del usuario en función de si es el autor de la review --}}

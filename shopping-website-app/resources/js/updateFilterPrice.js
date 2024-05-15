@@ -1,3 +1,8 @@
+/*
+Función del script: actualizar los valores de los inputs cuando el usuario maneja
+los inputs tipo 'range' en el filtro de productos.
+*/
+
 let minimo = document.querySelector("#minimo");
 let maximo = document.querySelector("#maximo");
 
