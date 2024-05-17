@@ -112,7 +112,6 @@
 
         </div>
 
-        <script src="{{Vite::asset('resources/js/addtoCart.js')}}"></script>
 
       </section>
 
