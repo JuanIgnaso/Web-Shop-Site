@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\DashbordController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
@@ -28,6 +29,10 @@ Route::post('/contactar', [HomeController::class, 'store'])->name('contact.store
 Route::get('/productos/{id}/list', [ProductoController::class, 'filterBy'])->name('producto.list');
 Route::get('/productos/{id}/details', [ProductoController::class, 'details'])->name('producto.details');
 Route::get('/productos/categorias', [ProductoController::class, 'productCategories'])->name('producto.categorias');
+
+//Subir imagenes
+Route::get('/subirFotos', [FileController::class, 'index'])->name('files.index');
+Route::put('/subirFotos', [FileController::class, 'store'])->name('files.store');
 
 //Review
 Route::post('/review/{id}/create', [ReviewController::class, 'store'])->name('review.store')->middleware(AccessForbidden::class);

@@ -30,16 +30,19 @@ return [
 
     'disks' => [
 
+        //Especificar nombre de disco para subir o descargar archivos
         'local' => [
-            'driver' => 'local',
-            'root' => storage_path('app'),
+            //local no es accesible desde el navegador
+            'driver' => 'local', //local <- se refiere al mismo disco donde esta el server
+            'root' => storage_path('app'), //directorio raiz dentro de storage donde se va a guardar
             'throw' => false,
         ],
 
+        //diferente path pero este si es accesible por el navegador
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
         ],

@@ -38,4 +38,5 @@
             </main>
         </div>
     </body>
+<script src="{{Vite::asset('resources/js/loadToCart.js')}}"></script>
 </html>

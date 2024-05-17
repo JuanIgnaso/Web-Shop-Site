@@ -29,47 +29,63 @@
           <x-adminPanel.list-element :params="['url'=>route('panel.index'),'text'=>'Dashboard','icono'=>'fa-solid fa-house']"></x-adminPanel.list-element>
         </li>
       </ul>
-      <ul class="mb-4 flex flex-col gap-1">
+      <ul x-data="{show : false}" class="mb-4 flex flex-col gap-1">
         <li class="mx-3.5 mt-4 mb-2">
-          <p class="block antialiased font-sans text-sm leading-normal text-white font-black uppercase opacity-75">Elementos</p>
+          <p @click="show = !show" class="cursor-pointer block antialiased font-sans text-sm leading-normal text-white font-black uppercase opacity-75">Elementos</p>
         </li>
         <li>
-          <x-adminPanel.list-element :params="['url'=>route('producto.index'),'text'=>'Productos','icono'=>'fa-solid fa-boxes-packing']"></x-adminPanel.list-element>
+            <ul x-show="show">
+                <li>
+                  <x-adminPanel.list-element :params="['url'=>route('producto.index'),'text'=>'Productos','icono'=>'fa-solid fa-boxes-packing']"></x-adminPanel.list-element>
+                </li>
+                <li>
+                  <x-adminPanel.list-element :params="['url'=>route('categoria.index'),'text'=>'Categorias','icono'=>'fa-solid fa-icons']"></x-adminPanel.list-element>
+                </li>
+                <li>
+                  <x-adminPanel.list-element :params="['url'=>route('proveedor.index'),'text'=>'Proveedores','icono'=>'fa-solid fa-truck-ramp-box']"></x-adminPanel.list-element>
+                </li>
+                <li>
+                  <x-adminPanel.list-element :params="['url'=>route('files.index'),'text'=>'Fotos','icono'=>'fa-solid fa-photo-film']"></x-adminPanel.list-element>
+                </li>
+                {{-- Mostrar solo para los admins --}}
+                @if(Auth::user()->claseUsuario == 3)
+                <li>
+                  <x-adminPanel.list-element :params="['url'=>route('user.index'),'text'=>'Usuarios','icono'=>'fa-solid fa-user']"></x-adminPanel.list-element>
+                </li>
+                @endif
+            </ul>
         </li>
-        <li>
-          <x-adminPanel.list-element :params="['url'=>route('categoria.index'),'text'=>'Categorias','icono'=>'fa-solid fa-icons']"></x-adminPanel.list-element>
-        </li>
-        <li>
-          <x-adminPanel.list-element :params="['url'=>route('proveedor.index'),'text'=>'Proveedores','icono'=>'fa-solid fa-truck-ramp-box']"></x-adminPanel.list-element>
-        </li>
-        {{-- Mostrar solo para los admins --}}
-        @if(Auth::user()->claseUsuario == 3)
-        <li>
-          <x-adminPanel.list-element :params="['url'=>route('user.index'),'text'=>'Usuarios','icono'=>'fa-solid fa-user']"></x-adminPanel.list-element>
-        </li>
-        @endif
+
       </ul>
 
 
       <!-- REGISTROS ------->
-      <ul class="mb-4 flex flex-col gap-1">
+      <ul x-data="{show : false}" class="mb-4 flex flex-col gap-1">
         <li class="mx-3.5 mt-4 mb-2">
-          <p class="block antialiased font-sans text-sm leading-normal text-white font-black uppercase opacity-75">Registros</p>
+          <p @click="show = !show" class="cursor-pointer block antialiased font-sans text-sm leading-normal text-white font-black uppercase opacity-75">Registros</p>
         </li>
         <li>
-          <x-adminPanel.list-element :params="['url'=>route('registros.index'),'text'=>'Tabla de registros','icono'=>'fa-solid fa-clipboard-list']"></x-adminPanel.list-element>
+          <ul x-show="show">
+            <li>
+              <x-adminPanel.list-element :params="['url'=>route('registros.index'),'text'=>'Tabla de registros','icono'=>'fa-solid fa-clipboard-list']"></x-adminPanel.list-element>
+            </li>
+          </ul>
         </li>
       </ul>
       <!-- --------------- -->
 
       @if (Auth::user()->claseUsuario == 3)
           <!-- REVIEWS ------->
-          <ul class="mb-4 flex flex-col gap-1">
+          <ul x-data="{show : false}" class="mb-4 flex flex-col gap-1">
             <li class="mx-3.5 mt-4 mb-2">
-              <p class="block antialiased font-sans text-sm leading-normal text-white font-black uppercase opacity-75">Reviews de productos</p>
+              <p @click="show = !show" class="cursor-pointer block antialiased font-sans text-sm leading-normal text-white font-black uppercase opacity-75 ">Reviews de productos</p>
             </li>
             <li>
-              <x-adminPanel.list-element :params="['url'=>route('review.index'),'text'=>'Reviews','icono'=>'fa-solid fa-gavel']"></x-adminPanel.list-element>
+              <ul x-show="show">
+                <li>
+                  <x-adminPanel.list-element :params="['url'=>route('review.index'),'text'=>'Reviews','icono'=>'fa-solid fa-gavel']"></x-adminPanel.list-element>
+                </li>
+              </ul>
             </li>
           </ul>
       <!-- --------------- -->
