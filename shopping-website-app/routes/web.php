@@ -30,9 +30,7 @@ Route::get('/productos/{id}/list', [ProductoController::class, 'filterBy'])->nam
 Route::get('/productos/{id}/details', [ProductoController::class, 'details'])->name('producto.details');
 Route::get('/productos/categorias', [ProductoController::class, 'productCategories'])->name('producto.categorias');
 
-//Subir imagenes
-Route::get('/subirFotos', [FileController::class, 'index'])->name('files.index');
-Route::put('/subirFotos', [FileController::class, 'store'])->name('files.store');
+
 
 //Review
 Route::post('/review/{id}/create', [ReviewController::class, 'store'])->name('review.store')->middleware(AccessForbidden::class);
@@ -49,6 +47,10 @@ Route::middleware(EditorAllowed::class)->group(function () {
     Route::resource('/panelcontrol/categoria', CategoriaController::class);
     Route::resource('/panelcontrol/producto', ProductoController::class);
     Route::get('/panelcontrol/registros', [RegistroController::class, 'index'])->name('registros.index');
+
+    //Subir imagenes
+    Route::get('panelcontrol/subirFotos', [FileController::class, 'index'])->name('files.index');
+    Route::put('panelcontrol/subirFotos', [FileController::class, 'store'])->name('files.store');
 });
 
 //Acceso restringido a solo Admin

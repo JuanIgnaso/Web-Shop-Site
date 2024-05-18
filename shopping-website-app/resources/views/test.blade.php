@@ -3,7 +3,7 @@
     {{ $titulo}}
 @endsection
 <x-adminPanel.admin-panel-layout>
-    <h1>Subir archivos test</h1>
+    <h1 class="text-center">{{$titulo}}</h1>
     <form enctype="multipart/form-data" action="{{route('files.store')}}" method="POST"  class="element-form">
         @csrf
         @method('PUT')
@@ -16,7 +16,7 @@
                         <p class="input-error">{{$errors->first('imagen')}}</p>
                     @endif
                     <div>
-                        <x-form.select :name="'producto'" :multiple="'false'" :label="'Producto'" :values="$productos" :show="'nombreProducto'"></x-form.select>
+                        <x-form.select :name="'producto'" :multiple="false" :label="'Producto'" :values="$productos" :show="'nombreProducto'"></x-form.select>
                         @if($errors->has('producto'))
                             <p class="input-error">{{$errors->first('producto')}}</p>
                         @endif
@@ -30,4 +30,16 @@
         <button type="submit" class="form-button bg-turquoiseMedium  hover:bg-turquoiseMediumDark">Subir Imagen</button>
 
     </form>
+    <section>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 mb-6">
+            @foreach($imagenes as $imagen)
+            <div class="group relative">
+                <img src="{{ url('storage/'.$imagen->imagen) }}" class="h-auto max-w-full rounded-lg" alt="{{$imagen->alt}}">
+                <p class="group-hover:block group-hover:bg-slate-800/75 rounded-b-lg hidden absolute bottom-0 text-sm w-full text-center text-white">{{$imagen->alt}}</p>
+            </div>
+            @endforeach
+
+        </div>
+
+    </section>
 </x-adminPanel.admin-panel-layout>
