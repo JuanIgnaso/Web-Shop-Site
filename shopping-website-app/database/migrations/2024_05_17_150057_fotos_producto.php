@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('imagen');
             $table->text('alt');
-            $table->foreignId('producto')->constrained('productos');
+            $table->foreignId('producto')->constrained('productos')->onDelete('cascade');
             $table->timestamps();
         });
     }

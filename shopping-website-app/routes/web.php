@@ -49,8 +49,9 @@ Route::middleware(EditorAllowed::class)->group(function () {
     Route::get('/panelcontrol/registros', [RegistroController::class, 'index'])->name('registros.index');
 
     //Subir imagenes
-    Route::get('panelcontrol/subirFotos', [FileController::class, 'index'])->name('files.index');
-    Route::put('panelcontrol/subirFotos', [FileController::class, 'store'])->name('files.store');
+    Route::get('panelcontrol/fotos', [FileController::class, 'index'])->name('files.index');
+    Route::put('panelcontrol/fotos', [FileController::class, 'store'])->name('files.store');
+    Route::delete('panelcontrol/fotos/{id}', [FileController::class, 'destroy'])->name('files.destroy');
 });
 
 //Acceso restringido a solo Admin
