@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\FileManager;
 use App\Http\Controllers\Controller;
-use App\Models\FileManager;
+use App\Models\fotosProducto;
 use App\Models\Producto;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
     public function index()
     {
-        return view('imagenes.index', ['titulo' => 'Panel de fotos de productos', 'productos' => Producto::get(), 'imagenes' => FileManager::paginate(10)]);
+        return view('imagenes.index', ['titulo' => 'Panel de fotos de productos', 'productos' => Producto::get(), 'imagenes' => fotosProducto::paginate(10)]);
     }
 
     public function store(Request $request)
@@ -25,8 +25,15 @@ class FileController extends Controller
 
         if ($request->hasFile(key: 'imagen')) {
             $imageName = time() . '.' . $request->imagen->getClientOriginalExtension();
-            $path = $request->file(key: 'imagen')->storeAs('images/product_id_' . $request->producto, $imageName, 'public'); //especificas el disk (ver filesystems.php)
-            FileManager::create(['imagen' => $path, 'alt' => $request->alt, 'producto' => $request->producto]);
+            $path = FileManager::saveFile(
+                [
+                    'file' => $request->file(key: 'imagen'), //request que contiene el archivo
+                    'path' => 'images/product_id_' . $request->producto, //ruta donde se guarda
+                    'fileName' => $imageName, //nombre archivo
+                    'disk' => 'public', //disco donde guardar
+                ]
+            );
+            fotosProducto::create(['imagen' => $path, 'alt' => $request->alt, 'producto' => $request->producto]);
         }
 
         return redirect()->route('files.index')->with('message', 'La imagen se ha subido correctamente!');
@@ -34,7 +41,7 @@ class FileController extends Controller
 
     public function destroy($id)
     {
-        if (FileManager::deleteImage($id)) {
+        if (fotosProducto::deleteImage($id)) {
             return redirect()->route('files.index')->with('message', 'Archivo subido correctamente!');
         } else {
             return redirect()->route('files.index')->with('error', 'No se ha podido completar la operación.');
