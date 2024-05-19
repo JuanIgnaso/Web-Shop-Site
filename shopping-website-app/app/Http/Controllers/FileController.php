@@ -10,9 +10,19 @@ use Illuminate\Http\Request;
 
 class FileController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('imagenes.index', ['titulo' => 'Panel de fotos de productos', 'productos' => Producto::get(), 'imagenes' => fotosProducto::paginate(10)]);
+        return view('imagenes.index', ['titulo' => 'Panel de fotos de productos', 'productos' => Producto::get(), 'imagenes' => $this->filter($request)]);
+    }
+
+    private function filter(Request $request)
+    {
+        return fotosProducto::query()->when(
+            isset($request->producto),
+            function ($query) use ($request) {
+                return $query->whereIn('producto', $request->producto);
+            }
+        )->paginate(10);
     }
 
     public function store(Request $request)

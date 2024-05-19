@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\FileManager;
 use App\Http\Requests\StoreProductoRequest;
 use App\Models\Categoria;
+use App\Models\fotosProducto;
 use App\Models\Producto;
 use App\Http\Controllers\Controller;
 use App\Models\Proveedor;
@@ -169,6 +171,18 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
+        /*
+        eliminar reviews y fotos asociadas con el producto antes de borrar el registro
+        */
+        $fotos = fotosProducto::getProductImages($producto->id);
+        if (count($fotos) != 0) {
+            foreach ($fotos as $foto) {
+                FileManager::deleteFile('public', 'images/product_id_' . $producto->id, $foto->imagen);
+                $foto->delete();
+            }
+        }
+
+
         $producto->delete();
         Registro::create(['operacion' => 'Eliminar registro', 'tabla' => 'productos', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
         return to_route('producto.index')->with('message', 'Registro eliminado correctamente');

@@ -37,4 +37,9 @@ class fotosProducto extends Model
             return false;
         }
     }
+
+    public static function getProductImages($id)
+    {
+        return self::query()->where('producto', '=', $id)->get();
+    }
 }

@@ -37,9 +37,11 @@ class FileManager extends Storage
 
     /**
      * Guarda un archivo y devuelve su ruta relativa.
+     * @param array $params - array con archivo,ruta,nombre de archivo y disco
      */
     public static function saveFile(array $params)
     {
+        //(Temporal) - Queda pendiente el poder hacerlo con la propia clase Storage //
         return $params['file']->storeAs($params['path'], $params['fileName'], $params['disk']);
     }
 
