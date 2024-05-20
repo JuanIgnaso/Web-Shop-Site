@@ -31,11 +31,18 @@ Route::get('/productos/{id}/details', [ProductoController::class, 'details'])->n
 Route::get('/productos/categorias', [ProductoController::class, 'productCategories'])->name('producto.categorias');
 
 
+//Acciones que requiren ser un USUARIO REGISTRADO
+Route::middleware(AccessForbidden::class)->group(function () {
+    //Review
+    Route::post('/review/{id}/create', [ReviewController::class, 'store'])->name('review.store');
+    Route::delete('/review/{id}', [ReviewController::class, 'destroy'])->name('review.destroy');
+    Route::put('/review/{id}', [ReviewController::class, 'update'])->name('review.update');
+    Route::get('/checkout', function () {
+        return view('checkout.checkout', ['titulo' => 'Finalizar Compra']);
+    })->name('checkout.index');
+});
 
-//Review
-Route::post('/review/{id}/create', [ReviewController::class, 'store'])->name('review.store')->middleware(AccessForbidden::class);
-Route::delete('/review/{id}', [ReviewController::class, 'destroy'])->name('review.destroy');
-Route::put('/review/{id}', [ReviewController::class, 'update'])->name('review.update')->middleware(AccessForbidden::class);
+
 //cheats para saber que métodos usar -> methods_cheats.txt
 
 #PANEL DE CONTROL - Restringido a usuarios editores y administradores
@@ -48,7 +55,7 @@ Route::middleware(EditorAllowed::class)->group(function () {
     Route::resource('/panelcontrol/producto', ProductoController::class);
     Route::get('/panelcontrol/registros', [RegistroController::class, 'index'])->name('registros.index');
 
-    //Subir imagenes
+    //Control de imagenes
     Route::get('panelcontrol/fotos', [FileController::class, 'index'])->name('files.index');
     Route::put('panelcontrol/fotos', [FileController::class, 'store'])->name('files.store');
     Route::delete('panelcontrol/fotos/{id}', [FileController::class, 'destroy'])->name('files.destroy');
@@ -56,8 +63,10 @@ Route::middleware(EditorAllowed::class)->group(function () {
 
 //Acceso restringido a solo Admin
 Route::middleware(AdminAccess::class)->group(function () {
+    //Usuarios
     Route::resource('/panelcontrol/user', UserController::class);
     Route::put('/panelcontrol/user/toggle/{id}', [UserController::class, 'toggle'])->name('user.toggle');
+    //Reviews
     Route::get('/panelcontrol/review', [ReviewController::class, 'index'])->name('review.index');
 });
 

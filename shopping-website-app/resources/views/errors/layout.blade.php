@@ -41,7 +41,7 @@
             }
         </style>
     </head>
-    <body>
+    <body class="bg-indigo-50">
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div class="title">

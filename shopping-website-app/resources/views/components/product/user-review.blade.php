@@ -40,7 +40,7 @@
                 @endif
 
                 {{-- Acción del usuario en función de si es el autor de la review --}}
-                @if(\Auth::id() == $review->usuario || \Auth::user()->claseUsuario == 3)
+                @if(\Auth::check() && (\Auth::id() == $review->usuario || \Auth::user()->claseUsuario == 3))
                 <aside>
                     <div class="flex items-center gap-2 mt-3">
                         @if(\Auth::id() == $review->usuario)

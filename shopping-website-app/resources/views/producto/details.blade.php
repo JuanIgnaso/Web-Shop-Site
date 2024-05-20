@@ -41,20 +41,22 @@
             <div class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4">
 
               <div x-show="image === 1" class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                <img src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg" class="h-full w-full object-cover rounded-lg" alt="">
+                <img src="{{ isset($imagenes[0]->imagen) ? url('storage/'.$imagenes[0]->imagen) : Vite::asset('resources/images/web-logo.png') }}" class="h-full w-full object-cover rounded-lg" alt="{{$imagenes[0]->alt}}">
               </div>
 
               <div x-show="image === 2" class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                <img src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg" class="h-full w-full object-cover rounded-lg" alt="">
+                <img src="{{ isset($imagenes[1]->imagen)  ? url('storage/'.$imagenes[1]->imagen) : Vite::asset('resources/images/web-logo.png') }}" class="h-full w-full object-cover rounded-lg" alt="{{$imagenes[1]->alt}}">
               </div>
 
               <div x-show="image === 3" class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                <img src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg" class="h-full w-full object-cover rounded-lg" alt="">
+                <img src="{{ isset($imagenes[2]) ? url('storage/'.$imagenes[2]->imagen) : Vite::asset('resources/images/web-logo.png') }}" class="h-full w-full object-cover rounded-lg" alt="{{$imagenes[2]->alt}}">
               </div>
 
               <div x-show="image === 4" class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                <img src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg" class="h-full w-full object-cover rounded-lg" alt="">
+                <img src="{{ isset($imagenes[3]->imagen) ? url('storage/'.$imagenes[3]->imagen) : Vite::asset('resources/images/web-logo.png') }}" class="h-full w-full object-cover rounded-lg" alt="{{$imagenes[3]->alt}}">
               </div>
+
+
             </div>
 
             <div class="flex -mx-2 mb-4">
@@ -80,7 +82,7 @@
 
           <div class="flex items-center space-x-4 my-4">
             <div>
-              <div class="rounded-lg bg-gray-100 flex py-2 px-3">
+              <div class="rounded-lg  flex py-2 px-3">
                 <span class="text-darkBlue mr-1 mt-1">$</span>
                 <span class="font-bold text-darkBlue text-3xl">{{$producto->precio}}</span>
               </div>

@@ -28,7 +28,7 @@
                                 bg-teal-100
                                 text-teal-700
                                 border duration-200 ease-in-out
-                                border-teal-600 transition"><a href="" class="total-purchase"></a></button>
+                                border-teal-600 transition"><a href="{{route('checkout.index')}}" class="total-purchase"></a></button>
                             </div>
                         </div>
                     </div>

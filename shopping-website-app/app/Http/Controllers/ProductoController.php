@@ -71,6 +71,7 @@ class ProductoController extends Controller
             'producto.details',
             [
                 'titulo' => 'Detalles del Producto',
+                'imagenes' => fotosProducto::getProductImages($producto),
                 'producto' => Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor', 'proveedores.website'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->find($producto),
                 'reviews' => Review::getProductReviews($producto)
             ]
@@ -172,9 +173,15 @@ class ProductoController extends Controller
     public function destroy(Producto $producto)
     {
         /*
-        eliminar reviews y fotos asociadas con el producto antes de borrar el registro
+        Para borrar un producto primero borramos las dependencias:
+        1º-encontrar todas las fotos y borrarlas junto con los registros de la BBDD
+        2º-encontrar y borrar las reviews asociadas al producto
+        3º-borrar el producto.
         */
+
         $fotos = fotosProducto::getProductImages($producto->id);
+
+        //1º
         if (count($fotos) != 0) {
             foreach ($fotos as $foto) {
                 FileManager::deleteFile('public', 'images/product_id_' . $producto->id, $foto->imagen);
@@ -182,8 +189,12 @@ class ProductoController extends Controller
             }
         }
 
+        //2º
+        Review::where('producto', '=', $producto->id)->delete();
 
+        //3º
         $producto->delete();
+
         Registro::create(['operacion' => 'Eliminar registro', 'tabla' => 'productos', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
         return to_route('producto.index')->with('message', 'Registro eliminado correctamente');
     }

@@ -4,7 +4,7 @@
 @endsection
 <x-adminPanel.admin-panel-layout>
     <h1 class="mb-6">{{$titulo}}</h1>
-    <section class="mb-8  grid grid-cols-2 gap-4">
+    <section class="mb-8  grid grid-cols-1 md:grid-cols-2 gap-4">
 
         {{-- Subir Fotos --}}
         <form x-data="{ show: false,open: 'v',closed: '>' }" enctype="multipart/form-data" action="{{route('files.store')}}" method="POST">

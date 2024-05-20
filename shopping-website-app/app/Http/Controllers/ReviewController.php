@@ -45,7 +45,7 @@ class ReviewController extends Controller
             $review->delete();
             return redirect(\URL::previous())->with('message', 'Review ha sido borrada');
         } else {
-            abort(403);
+            return redirect(\URL::previous())->with('error', 'No puedes borrar reviews hechas por otros usuarios!.');
         }
     }
 

@@ -15,7 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js','resources/css/fontawesome/css/all.css'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-50/50">
+        <div class="min-h-screen bg-indigo-50">
 
 
 
@@ -23,7 +23,7 @@
             @include('components.adminPanel.dashboard-aside')
 
             <!-- Main content -->
-            <main class="p-4 xl:ml-80 bg-turquoiseWhite">
+            <main class="p-4 xl:ml-80 ">
             @include('layouts.navigation')
 
              <!-- Alertas -->
