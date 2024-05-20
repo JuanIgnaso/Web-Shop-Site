@@ -71,7 +71,7 @@ class ProductoController extends Controller
             'producto.details',
             [
                 'titulo' => 'Detalles del Producto',
-                'imagenes' => fotosProducto::getProductImages($producto),
+                'imagenes' => (fotosProducto::getProductImages($producto))->toArray(),
                 'producto' => Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor', 'proveedores.website'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->find($producto),
                 'reviews' => Review::getProductReviews($producto)
             ]

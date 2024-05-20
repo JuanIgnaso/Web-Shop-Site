@@ -41,19 +41,19 @@
             <div class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4">
 
               <div x-show="image === 1" class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                <img src="{{ isset($imagenes[0]->imagen) ? url('storage/'.$imagenes[0]->imagen) : Vite::asset('resources/images/web-logo.png') }}" class="h-full w-full object-cover rounded-lg" alt="{{$imagenes[0]->alt}}">
+                <img src="{{ isset($imagenes[0]) ? url('storage/'.$imagenes[0]['imagen']) : Vite::asset('resources/images/web-logo.png') }}" class="h-full w-full object-cover rounded-lg" alt="{{isset($imagenes[0]['alt']) ? $imagenes[0]['alt'] : 'foto de ejemplo'}}">
               </div>
 
               <div x-show="image === 2" class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                <img src="{{ isset($imagenes[1]->imagen)  ? url('storage/'.$imagenes[1]->imagen) : Vite::asset('resources/images/web-logo.png') }}" class="h-full w-full object-cover rounded-lg" alt="{{$imagenes[1]->alt}}">
+                <img src="{{ isset($imagenes[1]['imagen']) ? url('storage/'.$imagenes[1]['imagen']) : Vite::asset('resources/images/web-logo.png') }}" class="h-full w-full object-cover rounded-lg" alt="{{isset($imagenes[1]['alt']) ? $imagenes[1]['alt'] : 'foto de ejemplo'}}">
               </div>
 
               <div x-show="image === 3" class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                <img src="{{ isset($imagenes[2]) ? url('storage/'.$imagenes[2]->imagen) : Vite::asset('resources/images/web-logo.png') }}" class="h-full w-full object-cover rounded-lg" alt="{{$imagenes[2]->alt}}">
+                <img src="{{ isset($imagenes[2]) ? url('storage/'.$imagenes[2]['imagen']) : Vite::asset('resources/images/web-logo.png') }}" class="h-full w-full object-cover rounded-lg" alt="{{isset($imagenes[2]['alt']) ? $imagenes[2]['alt'] : 'foto de ejemplo'}}">
               </div>
 
               <div x-show="image === 4" class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                <img src="{{ isset($imagenes[3]->imagen) ? url('storage/'.$imagenes[3]->imagen) : Vite::asset('resources/images/web-logo.png') }}" class="h-full w-full object-cover rounded-lg" alt="{{$imagenes[3]->alt}}">
+                <img src="{{ isset($imagenes[3]) ? url('storage/'.$imagenes[3]['imagen']) : Vite::asset('resources/images/web-logo.png') }}" class="h-full w-full object-cover rounded-lg" alt="{{isset($imagenes[3]['alt']) ? $imagenes[3]['alt'] : 'foto de ejemplo'}}">
               </div>
 
 
