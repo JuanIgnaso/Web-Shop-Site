@@ -10,7 +10,7 @@
 
 {{-- Productos --}}
 
-<div class="bg-white pb-6 min-h-screen">
+<div class="bg-indigo-50 pb-6 min-h-screen">
 
 
 
@@ -62,8 +62,9 @@
       @if (!$data['productos']->isEmpty())
       <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             @foreach($data['productos'] as $p)
-              <x-product.product-wrapper :producto="$p" :src="'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg'"></x-product.product-wrapper>
-           @endforeach
+            {{-- <img src="{{$p->imagen != null ? url('storage/'.$p->imagen) : Vite::asset('resources/images/web-logo.png')}}" alt=""> --}}
+              <x-product.product-wrapper :producto="$p" :src="$p->imagen != null ? url('storage/'.$p->imagen) : Vite::asset('resources/images/web-logo.png')"></x-product.product-wrapper>
+            @endforeach
       </div>
       @else
       <div>

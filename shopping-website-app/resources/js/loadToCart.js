@@ -39,12 +39,12 @@ if(window.localStorage.getItem('cart') != null){
 
 //Guardar producto en Array
 function storeProduct(producto){
-
     let found = productList.find(ob => ob.producto.id == producto.id);
+    console.log(producto.imagen);
 
     if(found == undefined){
         if(Number(cantidad.value) <= producto.unidades){
-            productList.push({producto:producto,cant: Number(cantidad.value)});
+            productList.push({producto:producto,imagen:producto.imagen,cant: Number(cantidad.value)});
             saveInStorage();
             error.innerHTML = '';
             productCount.forEach(element => {
@@ -90,7 +90,7 @@ function loadProduct(target,element){
     target.innerHTML +=
     `
     <div id="id${element.producto.id}" class="cart-element p-2 flex bg-white hover:bg-gray-100 cursor-pointer border-b border-gray-100" style="">
-    <div class="p-2 w-12"><img src="https://dummyimage.com/50x50/bababa/0011ff&amp;text=50x50" alt="img product"></div>
+    <div class="p-2 w-12 h-12"><img class="object-cover w-full h-full" src="${element.imagen}" alt="img product"></div>
     <div class="flex-auto text-sm w-32">
         <div class="font-bold">${element.producto.nombreProducto}</div>
         <div class="truncate">${(element.producto.descripcion).substring(0,15)}...</div>

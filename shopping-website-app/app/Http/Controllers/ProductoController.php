@@ -36,8 +36,17 @@ class ProductoController extends Controller
             'proveedores' => Producto::select('productos.proveedor', 'proveedores.id', 'proveedores.nombre_proveedor')->distinct()->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->where('categoria', '=', $categoria)->get(),
             'marcas' => Producto::select(['marca'])->distinct()->where('categoria', '=', $categoria)->get(),
             'categoria' => $categoria,
-            'productos' => $this->filter($request, ['*'])->where('categoria', '=', $categoria)->paginate(env('PAGINATION_LENGTH'))
+            //    'productos' => $this->filter($request, ['*'])->where('categoria', '=', $categoria)->paginate(env('PAGINATION_LENGTH'))
+            'productos' => $this->filter(
+                $request,
+                [
+                    'productos.*',
+                    \DB::raw('(select imagen from fotosProducto where producto  =   productos.id limit 1) as imagen')
+                ]
+            )
+                ->where('categoria', '=', $categoria)->paginate(env('PAGINATION_LENGTH'))
         ];
+
         return view('producto.lists', ['data' => $data]);
     }
 
@@ -67,12 +76,14 @@ class ProductoController extends Controller
      */
     public function details($producto)
     {
+        $producto = Producto::select(['productos.*', \DB::raw('(select imagen from fotosProducto where producto  =   productos.id limit 1) as imagen'), 'categorias.nombre_categoria', 'proveedores.nombre_proveedor', 'proveedores.website'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->find($producto);
+        $producto->imagen = $producto->imagen == NULL ? \Vite::asset('resources/images/web-logo.png') : url('storage/' . $producto->imagen);
         return view(
             'producto.details',
             [
                 'titulo' => 'Detalles del Producto',
-                'imagenes' => (fotosProducto::getProductImages($producto))->toArray(),
-                'producto' => Producto::select(['productos.*', 'categorias.nombre_categoria', 'proveedores.nombre_proveedor', 'proveedores.website'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->find($producto),
+                'imagenes' => (fotosProducto::getProductImages($producto->id))->toArray(),
+                'producto' => $producto,
                 'reviews' => Review::getProductReviews($producto)
             ]
         );

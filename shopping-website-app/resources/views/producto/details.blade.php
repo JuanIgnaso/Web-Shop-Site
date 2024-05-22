@@ -41,7 +41,7 @@
             <div class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4">
 
               <div x-show="image === 1" class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                <img src="{{ isset($imagenes[0]) ? url('storage/'.$imagenes[0]['imagen']) : Vite::asset('resources/images/web-logo.png') }}" class="h-full w-full object-cover rounded-lg" alt="{{isset($imagenes[0]['alt']) ? $imagenes[0]['alt'] : 'foto de ejemplo'}}">
+                <img src="{{isset($imagenes[0]) ? url('storage/'.$imagenes[0]['imagen']) : Vite::asset('resources/images/web-logo.png') }}" class="h-full w-full object-cover rounded-lg" alt="{{isset($imagenes[0]['alt']) ? $imagenes[0]['alt'] : 'foto de ejemplo'}}">
               </div>
 
               <div x-show="image === 2" class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
