@@ -9,7 +9,7 @@
           <h2 class="text-3xl font-bold md:text-5xl">Contacta con nosotros!</h2>
           <p class="mx-auto mb-8 mt-4 max-w-lg text-[#636262] md:mb-12 lg:mb-16">Lorem ipsum dolor sit amet consectetur adipiscing elit ut aliquam,purus sit amet luctus magna fringilla urna</p>
           <!-- Form -->
-          <form name="wf-form-name" method="POST" class="mx-auto mb-4 text-left sm:px-4 md:px-20" action="{{route('contact.store')}}">
+          <form name="wf-form-name" method="post" class="mx-auto mb-4 text-left sm:px-4 md:px-20" action="{{route('contact.store')}}">
             @csrf
             <div class="mb-4 grid w-full grid-cols-2 gap-6">
               <div>

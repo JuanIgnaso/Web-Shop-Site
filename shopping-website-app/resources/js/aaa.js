@@ -6,20 +6,3 @@ c.forEach(element => {
         document.querySelector('#score').innerHTML = `${element.value} Estrella/s`;
     });
 });
-
-// function fill(index){
-
-//     for(let i = 0; i < c.length; i++){
-//         if(!c[i].nextElementSibling.classList.contains('gray')){
-//             c[i].nextElementSibling.classList.add('gray');
-//             c[i].nextElementSibling.classList.remove('yellow');
-//         }
-//     }
-
-//     for (let i = 0; i <= index; i++) {
-//         if(c[i].nextElementSibling.classList.contains('gray')){
-//             c[i].nextElementSibling.classList.remove('gray');
-//             c[i].nextElementSibling.classList.add('yellow');
-//         }
-//     }
-// }

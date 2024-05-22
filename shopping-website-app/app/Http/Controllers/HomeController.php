@@ -17,7 +17,7 @@ class HomeController extends Controller
     {
         $data = $request->validate(
             [
-                'name' => ['required', 'min:4'],
+                'nombreC' => ['required', 'min:4'],
                 'apellidos' => ['required'],
                 'telefono' => ['nullable', 'regex:/[0-9]{9}/'],
                 'email' => ['email', 'required'],

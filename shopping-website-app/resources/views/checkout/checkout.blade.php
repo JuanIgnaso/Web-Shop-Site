@@ -19,7 +19,7 @@
                         <fieldset class="mb-3 bg-white shadow-lg rounded text-gray-600">
                             <label class="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span class="text-right px-2 font-bold">Nombre</span>
-                                <input name="name" class="focus:outline-none border-none px-3" placeholder="Nombre Apellido" required="">
+                                <input name="nombreApellidos" class="focus:outline-none border-none px-3" placeholder="Nombre Apellido" required="">
                             </label>
                             <label class="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span class="text-right px-2 font-bold">Email</span>
@@ -27,24 +27,24 @@
                             </label>
                             <label class="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span class="text-right px-2 font-bold">Dirección</span>
-                                <input name="address" class="focus:outline-none px-3 border-none" placeholder="10 Street XYZ 654">
+                                <input name="direccion" class="focus:outline-none px-3 border-none" placeholder="10 Street XYZ 654">
                             </label>
                             <label class="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span class="text-right px-2 font-bold">Ciudad</span>
-                                <input name="city" class="focus:outline-none px-3 border-none" placeholder="San Francisco">
+                                <input name="ciudad" class="focus:outline-none px-3 border-none" placeholder="San Francisco">
                             </label>
                             <label class="inline-flex w-2/4 border-gray-200 py-3">
                                 <span class="text-right px-2 font-bold">Estado/Provincia</span>
-                                <input name="state" class="focus:outline-none px-3 border-none" placeholder="CA">
+                                <input name="estado" class="focus:outline-none px-3 border-none" placeholder="CA">
                             </label>
                             <label class="xl:w-1/4 xl:inline-flex gap-2 items-center flex xl:border-none border-t border-gray-200 py-3">
                                 <span class="text-right px-2 xl:px-0 xl:text-none font-bold">Código Postal</span>
-                                <input name="postal_code" class="focus:outline-none px-3 border-none" placeholder="98603">
+                                <input name="codigo_postal" class="focus:outline-none px-3 border-none" placeholder="98603">
                             </label>
                             <label class="flex border-t border-gray-200 h-12 py-3 items-center select relative">
                                 <span class="text-right px-2 font-bold">País</span>
-                                <div id="country" class="focus:outline-none px-3 w-full flex items-center">
-                                    <select name="country" class="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none">
+                                <div id="pais" class="focus:outline-none px-3 w-full flex items-center">
+                                    <select name="pais" class="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none">
                                         <option value="AU">Australia</option>
                                         <option value="BE">Belgium</option>
                                         <option value="BR">Brazil</option>
@@ -88,7 +88,7 @@
                     </fieldset>
                 </section>
             </div>
-            <button type="submit" class="submit-button px-4 py-3 rounded-full bg-darkOrange hover:bg-orange-500 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
+            <button type="submit" id="pagar" class="submit-button px-4 py-3 rounded-full bg-darkOrange hover:bg-orange-500 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
                 Pagar €846.98
             </button>
         </div>
@@ -96,10 +96,9 @@
         {{-- Resumen de la compra --}}
         <div class="col-span-3 lg:col-span-1 bg-white order-1 lg:order-2">
             <h2 class="py-6 border-b-2 text-xl text-turquoiseMedium px-8">Resumen del Pedido</h2>
-            <ul class="py-6 border-b space-y-6 px-8">
+            <ul class="py-6 border-b space-y-6 px-8" id="resumen-compra">
                 {{-- Mostrar los elementos del carrito aquí --}}
-                <x-checkout.product></x-checkout.product>
-                <x-checkout.product></x-checkout.product>
+
             </ul>
             <div class="px-8 border-b">
                 <div class="flex justify-between py-4 text-gray-600">
@@ -113,12 +112,9 @@
             </div>
             <div class="font-semibold text-xl px-8 flex justify-between py-8 text-gray-600">
                 <span>Total</span>
-                <span>€846.98</span>
+                <span id="precio-final">€846.98</span>
             </div>
         </div>
     </div>
-
-
-
-
+    <script src="{{Vite::asset('resources/js/purchaseResume.js')}}"></script>
 </x-app-layout>
