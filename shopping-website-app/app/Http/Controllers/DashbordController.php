@@ -13,10 +13,22 @@ use App\Models\User;
 
 class DashbordController extends Controller
 {
+
+    public function home()
+    {
+        $name = \Auth::user()->name ?? '';
+        return view('dashboard', [
+            'name' => $name,
+            'ultimos' => Producto::select(
+                'productos.*',
+                \DB::raw('(select imagen from fotosProducto where producto  =   productos.id limit 1) as imagen'),
+                \DB::raw('(select avg(puntuacion) from reviews where producto = productos.id) as puntuacion_total')
+            )->orderBy('puntuacion_total', 'desc')->limit(8)->get()
+        ]);
+    }
+
     function index()
     {
-
-
         //Recoger registros de este mes
         $esteMes = Registro::whereBetween('ocurrido_en', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()])->count();
 

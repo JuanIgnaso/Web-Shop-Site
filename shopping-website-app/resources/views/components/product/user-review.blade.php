@@ -29,7 +29,7 @@
                     Si se quiere poner en un formato como: ej dia mes y año  Carbon\Carbon::parse($obj->fecha)->isoFormat('LL')
                     Si se quiere poner la diferencia de la fecha con el tiempo de ahora se usa ->diffForHumans()
                     --}}
-                <footer class="mb-3 text-sm text-gray-600 "><p><span>{{Carbon\Carbon::parse($review->fecha_review)->diffForHumans()}}</span> - <span class="italic">{{$review->editado_en != $review->fecha_review ? ' Editado: '. Carbon\Carbon::parse($review->editado_en)->diffForHumans() : ''}}</span></p></footer>
+                <footer class="mb-3 text-sm text-gray-600 "><p><span>{{Carbon\Carbon::parse($review->editado_en)->diffForHumans()}}</span> - <span class="italic">{{$review->editado_en != $review->fecha_review ? ' Editado: '. Carbon\Carbon::parse($review->editado_en)->diffForHumans() : ''}}</span></p></footer>
                 <p class="mb-2 text-gray-900 ">{{$review->review}}</p>
 
                 {{-- Recomendación del usuario --}}

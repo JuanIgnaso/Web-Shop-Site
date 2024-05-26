@@ -6,24 +6,30 @@
     <div class="min-h-screen grid grid-cols-3">
         <div class="lg:col-span-2 col-span-3 space-y-8 p-2 sm:px-12 pb-6 order-2 lg:order-1">
             {{-- Alerta de información --}}
+
+            @if ($errors->any())
+            <div class="p-4 mb-4 w-full m-auto text-sm mt-4 text-red-800 rounded-lg bg-red-100 " role="alert">
+                <span class="font-base"><i class="fa-solid fa-xmark"></i></span> Error al rellenar el formulario, revisa abajo los posibles errores.
+            </div>
+            @else
             <div class="p-4 mb-4 w-full m-auto text-sm mt-4 text-blue-800 rounded-lg bg-blue-100 " role="alert">
                 <span class="font-medium"><i class="fa-solid fa-circle-info"></i></span>  Completa tus detalles de pago y envío aquí abajo
             </div>
-
+            @endif
             {{-- Formulario de envío --}}
             <div class="rounded-md">
-                <form id="payment-form" method="POST" action="">
+                <form id="payment-form" method="POST" action="{{route('checkout.store')}}">
                     @csrf
                     <section>
                         <h2 class="uppercase tracking-wide text-lg font-semibold text-turquoiseMedium my-2">Información de envío y facturación</h2>
                         <fieldset class="mb-3 bg-white shadow-lg rounded text-gray-600">
                             <label class="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span class="text-right px-2 font-bold">Nombre</span>
-                                <input name="nombreApellidos" class="focus:outline-none border-none px-3" placeholder="Nombre Apellido" required="">
+                                <input name="nombreApellidos" class="focus:outline-none border-none px-3" placeholder="Nombre Apellido">
                             </label>
                             <label class="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span class="text-right px-2 font-bold">Email</span>
-                                <input name="email" type="email" class="focus:outline-none border-none px-3" placeholder="prueba@example.com" required="">
+                                <input name="email" type="email" class="focus:outline-none border-none px-3" placeholder="prueba@example.com">
                             </label>
                             <label class="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span class="text-right px-2 font-bold">Dirección</span>
@@ -73,7 +79,7 @@
                             </label>
                         </fieldset>
                     </section>
-                </form>
+
             </div>
             {{--  --}}
 
@@ -83,16 +89,31 @@
                     <fieldset class="mb-3 bg-white shadow-lg rounded text-gray-600">
                         <label class="flex border-b border-gray-200 h-12 py-3 items-center">
                             <span class="text-right px-2 font-bold">Tarjeta de Crédito</span>
-                            <input name="card" class="focus:outline-none border-none px-3 w-full" placeholder="Card number MM/YY CVC" required="">
+                            <input name="targeta_credito" class="focus:outline-none border-none px-3 w-full" placeholder="Card number MM/YY CVC">
                         </label>
                     </fieldset>
                 </section>
             </div>
+
+
+
+            @if(count($errors) != 0)
+            <div class="bg-red-100 p-4 text-sm text-red-800 rounded-md">
+                <ul>
+                    @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
+
+
             <button type="submit" id="pagar" class="submit-button px-4 py-3 rounded-full bg-darkOrange hover:bg-orange-500 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
                 Pagar €846.98
             </button>
         </div>
-
+    </form>
         {{-- Resumen de la compra --}}
         <div class="col-span-3 lg:col-span-1 bg-white order-1 lg:order-2">
             <h2 class="py-6 border-b-2 text-xl text-turquoiseMedium px-8">Resumen del Pedido</h2>

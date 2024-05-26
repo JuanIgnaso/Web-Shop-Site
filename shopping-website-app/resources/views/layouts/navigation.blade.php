@@ -73,9 +73,13 @@
                 </x-dropdown>
             </div>
 @else
-    <div class="flex justify-center items-center gap-4 text-white">
-        <a href="{{route('login')}}">Iniciar Sesión</a>
-        <a href="{{route('register')}}">Registrarse</a>
+    <div class="flex gap-4 text-sm text-white">
+        <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
+            {{ __('Iniciar Sesión') }}
+        </x-nav-link>
+        <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
+            {{ __('Registrarse') }}
+        </x-nav-link>
     </div>
 @endif
 

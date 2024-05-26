@@ -41,7 +41,9 @@ class ProductoController extends Controller
                 $request,
                 [
                     'productos.*',
-                    \DB::raw('(select imagen from fotosProducto where producto  =   productos.id limit 1) as imagen')
+                    \DB::raw('(select imagen from fotosProducto where producto  =   productos.id limit 1) as imagen'),
+                    \DB::raw('(select avg(puntuacion) from reviews where producto = productos.id) as puntuacion_total')
+
                 ]
             )
                 ->where('categoria', '=', $categoria)->paginate(env('PAGINATION_LENGTH'))
@@ -84,7 +86,7 @@ class ProductoController extends Controller
                 'titulo' => 'Detalles del Producto',
                 'imagenes' => (fotosProducto::getProductImages($producto->id))->toArray(),
                 'producto' => $producto,
-                'reviews' => Review::getProductReviews($producto)
+                'reviews' => Review::getProductReviews($producto->id)
             ]
         );
     }

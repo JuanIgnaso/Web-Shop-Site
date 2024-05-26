@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashbordController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
@@ -15,10 +16,7 @@ use App\Http\Middleware\AdminAccess;
 use App\Http\Middleware\EditorAllowed;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    $name = Auth::user()->name ?? '';
-    return view('dashboard', ['name' => $name]);
-})->name('dashboard');
+Route::get('/', [DashbordController::class, 'home'])->name('dashboard');
 
 //Contact us
 Route::get('/contactar', [HomeController::class, 'contactUs'])->name('contact.index');
@@ -40,6 +38,9 @@ Route::middleware(AccessForbidden::class)->group(function () {
     Route::get('/checkout', function () {
         return view('checkout.checkout', ['titulo' => 'Finalizar Compra']);
     })->name('checkout.index');
+
+    //Checkout
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 });
 
 

@@ -32,5 +32,6 @@ if(list.length != 0){
     });
 }
 
+
 document.querySelector('#precio-final').innerHTML = `${(list.reduce(function (acc, obj) { return acc + obj.producto.precio * obj.cant; }, 0)).toFixed(2)} €`;
 document.querySelector('#pagar').innerHTML = `Pagar ${(list.reduce(function (acc, obj) { return acc + obj.producto.precio * obj.cant; }, 0)).toFixed(2)} €`;

@@ -82,11 +82,7 @@
                                     </td>
                                     <td class="px-6 py-4">{{$review->fecha_review}}</td>
                                     <td class="px-6 py-4">
-                                        <form action="{{route('review.destroy',$review->id)}}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="admin-panel-action-button rose-gradient shadow-rose-500/40"><i class="fa-solid fa-minus"></i></button>
-                                        </form>
+                                        <x-adminPanel.actions :objPathName="'review'" :object="$review" :actions="['destroy']"></x-adminPanel.actions>
                                     </td>
                                 </tr>
                         @endforeach

@@ -88,15 +88,7 @@
                             {{$producto->unidades}}
                         </td>
                         <td class="px-6 py-4">
-                            <div class=" flex justify-center gap-2">
-                            <a href="{{route('producto.edit',$producto)}}" class="admin-panel-action-button blue-gradient shadow-blue-600/40"><i class="fa-solid fa-pen-nib"></i></a>
-                            <a href="{{route('producto.show',$producto)}}" class="admin-panel-action-button emerald-gradient shadow-emerald-500/40"><i class="fa-solid fa-eye"></i></a>
-                            <form action="{{route('producto.destroy',$producto)}}" method="POST">
-                                @csrf
-                                @method('DELETE') <!-- Modificamos método del formulario -->
-                                <button class="admin-panel-action-button rose-gradient shadow-rose-500/40"><i class="fa-solid fa-minus"></i></button>
-                            </form>
-                            </div>
+                            <x-adminPanel.actions :objPathName="'producto'" :object="$producto" :actions="['edit','show','destroy']"></x-adminPanel.actions>
                         </td>
                     </tr>
                     @endforeach
