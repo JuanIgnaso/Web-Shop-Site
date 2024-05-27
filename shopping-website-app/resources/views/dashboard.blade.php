@@ -143,12 +143,10 @@ Alternatively if you want to just have a single hero
             @if (isset($ultimos))
             <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 p-6">
                   @foreach($ultimos as $p)
-                  {{-- <img src="{{$p->imagen != null ? url('storage/'.$p->imagen) : Vite::asset('resources/images/web-logo.png')}}" alt=""> --}}
                     <x-product.product-wrapper :producto="$p" :src="$p->imagen != null ? url('storage/'.$p->imagen) : Vite::asset('resources/images/web-logo.png')"></x-product.product-wrapper>
                   @endforeach
             </div>
             @endif
-
             {{-- <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
                 <a href="#">
                     <img class="hover:grow hover:shadow-lg rounded-lg" src="https://images.unsplash.com/photo-1555982105-d25af4182e4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=80">

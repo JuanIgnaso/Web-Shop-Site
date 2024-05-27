@@ -73,6 +73,8 @@ class ProductoController extends Controller
         //AVERIGUADO COMO HACERLO CON CHECKBOXES, FALTARÍA SABER COMO CON SELECT MÚLTIPLES
     }
 
+
+
     /**
      * Muestra los detalles del producto en el front de la tienda
      */

@@ -5,6 +5,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashbordController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProveedorController;
@@ -17,6 +18,9 @@ use App\Http\Middleware\EditorAllowed;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashbordController::class, 'home'])->name('dashboard');
+
+
+
 
 //Contact us
 Route::get('/contactar', [HomeController::class, 'contactUs'])->name('contact.index');
@@ -38,6 +42,17 @@ Route::middleware(AccessForbidden::class)->group(function () {
     Route::get('/checkout', function () {
         return view('checkout.checkout', ['titulo' => 'Finalizar Compra']);
     })->name('checkout.index');
+
+    //Carrito TEST TEMPORAL
+    Route::get('/ajaxResponse', [OrderController::class, 'cfgetData']);
+    Route::get('/addToCart', [OrderController::class, 'addToCart']);
+    Route::get('/removeFromCart', [OrderController::class, 'removeFromCart']);
+    Route::get('/getUserCart', [OrderController::class, 'getUserCart']);
+    /*
+    /addToCart
+    /removeFromCart
+    /getUserCart
+    */
 
     //Checkout
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');

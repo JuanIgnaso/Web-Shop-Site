@@ -91,11 +91,11 @@
             </div>
             <div class="flex-1">
               <p class="text-[#E39005] text-xl font-semibold">Ahorra 12%</p>
-              <p class="text-gray-400 text-sm">Incluyendo impuestos</p>
+              <p class="text-gray-400 text-sm" onclick="remove_from_cart({{$producto->id}})">Incluyendo impuestos</p>
             </div>
           </div>
 
-          <p class="text-gray-500">{{$producto->descripcion}}</p>
+          <p class="text-gray-500" onclick="add_to_cart({{$producto}})">{{$producto->descripcion}}</p>
 
           <div class="flex py-4 space-x-4">
             <div class="relative">
@@ -106,6 +106,43 @@
                  @endfor
               </select>
             </div>
+
+            <script>
+              function remove_from_cart(element){
+                $.ajax({
+                  url:'/removeFromCart',
+                  type:'GET',
+                  dataType:'json',
+                  data:{
+                    id:element,
+                  },
+                  success: function(response){
+                    console.log(response);
+                  },
+                  error: function(error){
+                    console.log(error.responseText);
+                  }
+                });
+              }
+
+              function add_to_cart(element){
+                $.ajax({
+                  url:'/addToCart',
+                  type:'GET',
+                  dataType:'json',
+                  data:{
+                    mensaje:{'producto':element,'cant':Number(document.querySelector('#cant-producto').value)},
+                  },
+                  success: function(response){
+                    console.log(response);
+                  },
+                  error: function(error){
+                    console.log(error.responseText);
+                  }
+                });
+              }
+              </script>
+
 
             <button id="add-to-cart" type="button" onclick="storeProduct({{$producto}})" class="h-14 px-6 py-2 font-semibold rounded-xl bg-turquoiseSemiLight hover:bg-turquoiseMedium text-white">
               Añadir al carrito
