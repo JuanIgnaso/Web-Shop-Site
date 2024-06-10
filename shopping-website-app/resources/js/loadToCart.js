@@ -50,8 +50,6 @@ function storeProduct(producto){
             productCount.forEach(element => {
                 element.innerHTML = JSON.parse(window.localStorage.getItem('cart')).length;
             });
-
-
         }else{
             error.innerHTML = 'El producto no tiene suficientes unidades en stock ahora mismo';
         }

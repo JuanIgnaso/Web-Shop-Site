@@ -3,39 +3,89 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Producto;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
 
-    public function cfgetData(Request $request)
-    {
-        // Your logic to fetch the data goes here
-        // For example, you could fetch data from the database
-        $request->session()->put('mensaje' . \Auth::id(), $request->mensaje);
-        return response()->json($request->session()->get('mensaje' . \Auth::id()));
 
-        /*Manipular Session*/
-        //crear -> put('key',data)
-        //obtener -> get('key')
-        //borrar -> forget('key')
-        //añadir valores ->push('key','value to add')
-        //existe? -> has('key')
+    public function store(Request $request): RedirectResponse
+    {
+        $data = $request->validate(
+            [
+                'nombreApellidos' => ['required', 'min:3'],
+                'email' => ['required', 'email'],
+                'direccion' => ['required', 'max:100'],
+                'ciudad' => ['required', 'regex:/^[a-zA-Z ]+$/i'],
+                'estado' => ['required', 'regex:/^[a-zA-Z ]+$/i'],
+                'codigo_postal' => ['nullable', 'between:10000,99999', 'numeric'],
+                'targeta_credito' => [
+                    'regex:/[0-9]{16} (0[1-9]|1[1,2])(\/|-)(19|20)\d{2} [0-9]{3}/'
+                ]
+            ]
+        );
+
+        return to_route('dashboard')->with('message', 'Su orden ha sido procesada correctamente.');
     }
+
+    public function test(Request $request)
+    {
+        return response()->json(['completed' => true]);
+
+    }
+
+
+    /*Manipular Session*/
+    //crear -> put('key',data)
+    //obtener -> get('key')
+    //borrar -> forget('key')
+    //añadir valores ->push('key','value to add')
+    //existe? -> has('key')
 
     /**
      * Añadir objeto a carrito del usuario
      */
     public function addToCart(Request $request)
     {
-        //session()->forget('user_' . \Auth::id() . '_cart');
-        if (!session()->has('user_' . \Auth::id() . '_cart')) {
-            session()->put('user_' . \Auth::id() . '_cart', collect([$request->mensaje]));
-        } else {
-            session()->push('user_' . \Auth::id() . '_cart', $request->mensaje);
+        if (!Producto::find($request->mensaje['producto']['id'])) {
+            abort(404);
         }
-        return response()->json(session()->get('user_' . \Auth::id() . '_cart'));
 
+        $cart = session()->get('user_' . \Auth::id() . '_cart');
+
+        if (!$cart) {
+
+            $cart = [
+                $request->mensaje['producto']['id'] => [
+                    "nombre" => $request->mensaje['producto']['nombreProducto'],
+                    "cant" => $request->mensaje['cant'],
+                    "precio" => $request->mensaje['producto']['precio'],
+                    "foto" => $request->mensaje['producto']['imagen'],
+                    'descripcion' => $request->mensaje['producto']['descripcion']
+                ]
+            ];
+
+            session()->put('user_' . \Auth::id() . '_cart', $cart);
+        }
+
+        if (isset($cart[$request->mensaje['producto']['id']])) {
+            $cart[$request->mensaje['producto']['id']]['cant'] = (int) $cart[$request->mensaje['producto']['id']]['cant'] + (int) $request->mensaje['cant'];
+        }
+
+        $cart[$request->mensaje['producto']['id']] =
+            [
+                "nombre" => $request->mensaje['producto']['nombreProducto'],
+                "cant" => $request->mensaje['cant'],
+                "precio" => $request->mensaje['producto']['precio'],
+                "foto" => $request->mensaje['producto']['imagen'],
+                'descripcion' => $request->mensaje['producto']['descripcion']
+            ];
+
+        session()->put('user_' . \Auth::id() . '_cart', $cart);
+        // //session()->forget('user_' . \Auth::id() . '_cart');
+        return response()->json(session()->get('user_' . \Auth::id() . '_cart'));
     }
 
     /**
@@ -44,21 +94,23 @@ class OrderController extends Controller
     public function removeFromCart(Request $request)
     {
 
-        $filtered = session()->get('user_' . \Auth::id() . '_cart')->filter(function ($value, $key) use ($request) {
-            return $value['producto']['id'] != $request->id;
-        });
-
-        session()->put('user_' . \Auth::id() . '_cart', collect($filtered));
+        if ($request->id) {
+            $cart = session()->get('user_' . \Auth::id() . '_cart');
+            if (isset($cart[$request->id])) {
+                unset($cart[$request->id]);
+                session()->put('user_' . \Auth::id() . '_cart', $cart);
+            }
+        }
         return response()->json(session()->get('user_' . \Auth::id() . '_cart'));
-
     }
+
 
     /**
      * Enviar el carrito del usuario para cargar en la vista
      */
     public function getUserCart(Request $request)
     {
-        if (!session()->has('user_' . \Auth::id() . '_cart')) {
+        if (session()->has('user_' . \Auth::id() . '_cart')) {
             return response()->json($request->session()->get('user_' . \Auth::id() . '_cart'));
         }
     }

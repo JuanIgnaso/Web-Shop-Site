@@ -109,11 +109,29 @@
 
 
 
-            <button type="submit" id="pagar" class="submit-button px-4 py-3 rounded-full bg-darkOrange hover:bg-orange-500 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
+            <button type="submit" onclick="complete_checkout()" id="pagar" class="submit-button px-4 py-3 rounded-full bg-darkOrange hover:bg-orange-500 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
                 Pagar €846.98
             </button>
         </div>
     </form>
+    <script>
+        function complete_chekout(){
+                $.ajax({
+                  url:'/test',
+                  type:'GET',
+                  dataType:'json',
+                  data:{
+                    purchase:window.localStorage.getItem('cart'),
+                  },
+                  success: function(response){
+                    console.log(response);
+                  },
+                  error: function(error){
+                    console.log(error.responseText);
+                  }
+                });
+              }
+    </script>
         {{-- Resumen de la compra --}}
         <div class="col-span-3 lg:col-span-1 bg-white order-1 lg:order-2">
             <h2 class="py-6 border-b-2 text-xl text-turquoiseMedium px-8">Resumen del Pedido</h2>

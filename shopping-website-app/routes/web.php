@@ -44,10 +44,10 @@ Route::middleware(AccessForbidden::class)->group(function () {
     })->name('checkout.index');
 
     //Carrito TEST TEMPORAL
-    Route::get('/ajaxResponse', [OrderController::class, 'cfgetData']);
     Route::get('/addToCart', [OrderController::class, 'addToCart']);
     Route::get('/removeFromCart', [OrderController::class, 'removeFromCart']);
     Route::get('/getUserCart', [OrderController::class, 'getUserCart']);
+    Route::get('/test', [OrderController::class, 'test']);
     /*
     /addToCart
     /removeFromCart
@@ -55,7 +55,7 @@ Route::middleware(AccessForbidden::class)->group(function () {
     */
 
     //Checkout
-    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::post('/checkout', [OrderController::class, 'store'])->name('checkout.store');
 });
 
 
