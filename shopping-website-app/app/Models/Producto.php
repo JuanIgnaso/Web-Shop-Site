@@ -19,7 +19,12 @@ class Producto extends Model
     }
 
 
+    static function isStockAvailable($id, $qnt): bool
+    {
+        $product = self::find($id);
 
+        return $product->unidades >= $qnt;
+    }
 
     //'productos.id','productos.nombreProducto','productos.descripcion','productos.categoria','productos.proveedor','productos.marca','productos.precio','productos.unidades'
 }

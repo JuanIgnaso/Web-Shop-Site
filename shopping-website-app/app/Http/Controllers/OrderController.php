@@ -40,7 +40,7 @@ class OrderController extends Controller
     /*Manipular Session*/
     //crear -> put('key',data)
     //obtener -> get('key')
-    //borrar -> forget('key')
+    //borrar -> forget('key') Ej: session()->forget('key');
     //añadir valores ->push('key','value to add')
     //existe? -> has('key')
 
@@ -67,19 +67,21 @@ class OrderController extends Controller
                     'descripcion' => $request->mensaje['producto']['descripcion']
                 ]
             ];
+        } else {
+            $cart[$request->mensaje['producto']['id']] =
+                [
+                    "nombre" => $request->mensaje['producto']['nombreProducto'],
+                    "cant" => isset($cart[$request->mensaje['producto']['id']]) ? $cart[$request->mensaje['producto']['id']]['cant'] + (int) $request->mensaje['cant'] : $request->mensaje['cant'],
+                    "precio" => $request->mensaje['producto']['precio'],
+                    "foto" => $request->mensaje['producto']['imagen'],
+                    'descripcion' => $request->mensaje['producto']['descripcion']
+                ];
         }
 
-        $cart[$request->mensaje['producto']['id']] =
-            [
-                "nombre" => $request->mensaje['producto']['nombreProducto'],
-                "cant" => isset($cart[$request->mensaje['producto']['id']]) ? $cart[$request->mensaje['producto']['id']]['cant'] + (int) $request->mensaje['cant'] : $request->mensaje['cant'],
-                "precio" => $request->mensaje['producto']['precio'],
-                "foto" => $request->mensaje['producto']['imagen'],
-                'descripcion' => $request->mensaje['producto']['descripcion']
-            ];
+
 
         session()->put('user_' . \Auth::id() . '_cart', $cart);
-        // //session()->forget('user_' . \Auth::id() . '_cart');
+
         return response()->json(session()->get('user_' . \Auth::id() . '_cart'));
     }
 
@@ -103,10 +105,10 @@ class OrderController extends Controller
     /**
      * Enviar el carrito del usuario para cargar en la vista
      */
-    public function getUserCart(Request $request)
+    public function getUserCart()
     {
         if (session()->has('user_' . \Auth::id() . '_cart')) {
-            return response()->json($request->session()->get('user_' . \Auth::id() . '_cart'));
+            return response()->json(session()->get('user_' . \Auth::id() . '_cart'));
         }
     }
 }
