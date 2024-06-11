@@ -28,7 +28,15 @@
                                 bg-teal-100
                                 text-teal-700
                                 border duration-200 ease-in-out
-                                border-teal-600 transition"><a href="{{route('checkout.index')}}" class="total-purchase"></a></button>
+                                border-teal-600 transition">
+                                <a
+                                @if (session()->has('user_' . Auth::id() . '_cart'))
+                                    href="{{route('checkout.index')}}"
+                                @else
+                                    href=""
+                                @endif
+                                      class="total-purchase">Tu cesta está vacía</a>
+                                </button>
                             </div>
                         </div>
                     </div>

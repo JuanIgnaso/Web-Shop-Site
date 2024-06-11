@@ -39,9 +39,7 @@ Route::middleware(AccessForbidden::class)->group(function () {
     Route::post('/review/{id}/create', [ReviewController::class, 'store'])->name('review.store');
     Route::delete('/review/{id}', [ReviewController::class, 'destroy'])->name('review.destroy');
     Route::put('/review/{id}', [ReviewController::class, 'update'])->name('review.update');
-    Route::get('/checkout', function () {
-        return view('checkout.checkout', ['titulo' => 'Finalizar Compra']);
-    })->name('checkout.index');
+    Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout.index');
 
     //Carrito TEST TEMPORAL
     Route::get('/addToCart', [OrderController::class, 'addToCart']);

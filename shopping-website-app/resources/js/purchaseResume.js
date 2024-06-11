@@ -38,7 +38,8 @@
 
         total += response[key].cant * response[key].precio;
        }
-       document.querySelector('#precio-final').innerHTML = document.querySelector('#pagar').innerHTML = total;
+       document.querySelector('#precio-final').innerHTML = `${total}€`;
+       document.querySelector('#pagar').innerHTML = `Pagar ${total}€`;
 
     },
     error: function(error){

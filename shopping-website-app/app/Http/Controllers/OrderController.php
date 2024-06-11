@@ -97,6 +97,7 @@ class OrderController extends Controller
                 unset($cart[$request->id]);
                 session()->put('user_' . \Auth::id() . '_cart', $cart);
             }
+
         }
         return response()->json(session()->get('user_' . \Auth::id() . '_cart'));
     }
@@ -108,7 +109,19 @@ class OrderController extends Controller
     public function getUserCart()
     {
         if (session()->has('user_' . \Auth::id() . '_cart')) {
-            return response()->json(session()->get('user_' . \Auth::id() . '_cart'));
+            if (count(session()->get('user_' . \Auth::id() . '_cart')) == 0) {
+                session()->forget('user_' . \Auth::id() . '_cart');
+            } else {
+                return response()->json(session()->get('user_' . \Auth::id() . '_cart'));
+            }
         }
+    }
+
+    public function checkout()
+    {
+        if (!session()->has('user_' . \Auth::id() . '_cart')) {
+            abort(403);
+        }
+        return view('checkout.checkout', ['titulo' => 'Finalizar Compra']);
     }
 }
