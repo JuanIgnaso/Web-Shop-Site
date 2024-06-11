@@ -136,7 +136,7 @@
                     document.querySelectorAll(`.id${element}`).forEach(element => {
                         element.remove();
                     });
-                      calcTotal(document.querySelectorAll('.total-purchase'),get_user_cart(),' € - Finalizar Pedido');
+                    calcTotal(document.querySelectorAll('.total-purchase'),get_user_cart(),' € - Finalizar Pedido');
                   },
                   error: function(error){
                     console.log(error.responseText);
@@ -153,7 +153,6 @@
                     mensaje:{'producto':element,'cant':Number(document.querySelector('#cant-producto').value)},
                   },
                   success: function(response){
-                    console.log(response);
                     get_user_cart();
                   },
                   error: function(error){
@@ -161,11 +160,6 @@
                   }
                 });
               }
-
-
-
-
-
 
               function get_user_cart(){
                 $.ajax({
@@ -176,13 +170,12 @@
                     id:'a',
                   },
                   success: function(response){
-                    let products = response;
                     let shopcart = document.querySelectorAll('.shopping-cart .product-container');
                     shopcart.forEach(element => {
                       element.innerHTML = '';
                       loadItems(element,response);
                       });
-                    //calcTotal(document.querySelectorAll('.total-purchase'),products,' € - Finalizar Pedido');
+                    calcTotal(document.querySelectorAll('.total-purchase'),response,' € - Finalizar Pedido');
                   },
                   error: function(error){
                     console.log(error.responseText);
@@ -190,7 +183,21 @@
                 });
               }
 
+              //Calcular total del carrito
+              function calcTotal(target,array,message){
+
+                let total = 0;
+                for(let key in array){
+                  total += array[key].cant * array[key].precio;
+                }
+
+                target.forEach(element =>{
+                    element.innerHTML = `${(total).toFixed(2)}${message}`;
+                });
+              }
+
               function loadItems(e,array){
+                let products = 0;
                 for(let key in array){
                   e.innerHTML+=`
                   <div class="id${key} cart-element p-2 flex bg-white hover:bg-gray-100 cursor-pointer border-b border-gray-100" style="">
@@ -213,15 +220,15 @@
                       </div>
                   </div>
                   `;
+                  products++;
                 }
+
+                document.querySelectorAll('.cart-product-count').forEach(element => {
+                  element.innerHTML = products;
+                })
               }
 
-              //Calcular total del carrito
-              function calcTotal(target,array,message){
-                      target.forEach(element =>{
-                          element.innerHTML = `${(array.reduce(function (acc, obj) { return acc + obj.producto.precio * obj.cant; }, 0)).toFixed(2)}${message}`;
-                      });
-              }
+
 
 
 

@@ -49,6 +49,7 @@ class OrderController extends Controller
      */
     public function addToCart(Request $request)
     {
+        //Lanzar error 404 si no encuentra el producto
         if (!Producto::find($request->mensaje['producto']['id'])) {
             abort(404);
         }
@@ -56,7 +57,7 @@ class OrderController extends Controller
         $cart = session()->get('user_' . \Auth::id() . '_cart');
 
         if (!$cart) {
-
+            //Si no existe se crea con el primero objeto
             $cart = [
                 $request->mensaje['producto']['id'] => [
                     "nombre" => $request->mensaje['producto']['nombreProducto'],
@@ -66,18 +67,12 @@ class OrderController extends Controller
                     'descripcion' => $request->mensaje['producto']['descripcion']
                 ]
             ];
-
-            session()->put('user_' . \Auth::id() . '_cart', $cart);
-        }
-
-        if (isset($cart[$request->mensaje['producto']['id']])) {
-            $cart[$request->mensaje['producto']['id']]['cant'] = (int) $cart[$request->mensaje['producto']['id']]['cant'] + (int) $request->mensaje['cant'];
         }
 
         $cart[$request->mensaje['producto']['id']] =
             [
                 "nombre" => $request->mensaje['producto']['nombreProducto'],
-                "cant" => $request->mensaje['cant'],
+                "cant" => isset($cart[$request->mensaje['producto']['id']]) ? $cart[$request->mensaje['producto']['id']]['cant'] + (int) $request->mensaje['cant'] : $request->mensaje['cant'],
                 "precio" => $request->mensaje['producto']['precio'],
                 "foto" => $request->mensaje['producto']['imagen'],
                 'descripcion' => $request->mensaje['producto']['descripcion']
@@ -93,7 +88,7 @@ class OrderController extends Controller
      */
     public function removeFromCart(Request $request)
     {
-
+        //Se busca dentro del array por la clave que coincida y se hace un unset
         if ($request->id) {
             $cart = session()->get('user_' . \Auth::id() . '_cart');
             if (isset($cart[$request->id])) {
