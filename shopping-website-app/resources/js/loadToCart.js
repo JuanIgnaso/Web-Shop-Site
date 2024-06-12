@@ -1,5 +1,7 @@
 // class = product-container <- donde cargar los elementos
 
+let finishPurchase = document.querySelectorAll('.end-purchase');
+let empty = document.querySelectorAll('.cart-empty');
 
 window.onload = function(){
     get_user_cart();
@@ -26,7 +28,7 @@ function remove_from_cart(element){
         window.location.reload();
       },
       error: function(error){
-        console.log(error.responseText);
+        console.log(JSON.parse(error.responseText));
       }
     });
 }
@@ -44,10 +46,23 @@ function add_to_cart(element){
         mensaje:{'producto':element,'cant':Number(document.querySelector('#cant-producto').value)},
       },
       success: function(response){
+
         get_user_cart();
+
+        finishPurchase.forEach(element =>{
+          if(element.classList.contains('hidden')){
+            element.classList.remove('hidden');
+          }
+        });
+
+        empty.forEach(element =>{
+          if(!element.classList.contains('hidden')){
+            element.classList.add('hidden');
+          }
+        })
       },
       error: function(error){
-        console.log(error.responseText);
+        window.location.reload();
       }
     });
 }
@@ -61,15 +76,30 @@ function get_user_cart(){
       type:'GET',
       dataType:'json',
       success: function(response){
+
         let shopcart = document.querySelectorAll('.shopping-cart .product-container');
+
         shopcart.forEach(element => {
           element.innerHTML = '';
           loadItems(element,response);
           });
+
         calcTotal(document.querySelectorAll('.total-purchase'),response,' € - Finalizar Pedido');
       },
       error: function(error){
-        console.log(error.responseText);
+
+        finishPurchase.forEach(element =>{
+          if(!element.classList.contains('hidden')){
+            element.classList.add('hidden');
+          }
+        });
+
+        empty.forEach(element =>{
+          if(element.classList.contains('hidden')){
+            element.classList.remove('hidden');
+          }
+        });
+
       }
     });
   }
@@ -87,6 +117,12 @@ function calcTotal(target,array,message){
     });
 }
 
+/**
+ * Carga los elementos en el carrito.
+ *
+ * @param {*} e - Elemento donde cargar los productos
+ * @param {*} array - array que contiene los productos
+ */
 function loadItems(e,array){
 
     let products = 0;
@@ -120,4 +156,6 @@ function loadItems(e,array){
       element.innerHTML = products;
     })
 }
+
+
 

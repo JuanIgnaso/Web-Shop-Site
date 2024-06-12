@@ -30,13 +30,6 @@ class OrderController extends Controller
         return to_route('dashboard')->with('message', 'Su orden ha sido procesada correctamente.');
     }
 
-    public function test(Request $request)
-    {
-        return response()->json(['completed' => true]);
-
-    }
-
-
     /*Manipular Session*/
     //crear -> put('key',data)
     //obtener -> get('key')
@@ -50,31 +43,34 @@ class OrderController extends Controller
     public function addToCart(Request $request)
     {
         //Lanzar error 404 si no encuentra el producto
-        if (!Producto::find($request->mensaje['producto']['id'])) {
-            abort(404);
+        if (!Producto::find($request->mensaje['producto'])) {
+            session()->flash('error', 'El producto especificado no existe!.');
+            abort(400);
         }
+
+        $producto = Producto::select(['productos.*', \DB::raw('(select imagen from fotosProducto where producto  =   productos.id limit 1) as imagen'), 'categorias.nombre_categoria', 'proveedores.nombre_proveedor', 'proveedores.website'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->find($request->mensaje['producto']);
 
         $cart = session()->get('user_' . \Auth::id() . '_cart');
 
         if (!$cart) {
             //Si no existe se crea con el primero objeto
             $cart = [
-                $request->mensaje['producto']['id'] => [
-                    "nombre" => $request->mensaje['producto']['nombreProducto'],
+                $producto->id => [
+                    "nombre" => $producto->nombreProducto,
                     "cant" => $request->mensaje['cant'],
-                    "precio" => $request->mensaje['producto']['precio'],
-                    "foto" => $request->mensaje['producto']['imagen'],
-                    'descripcion' => $request->mensaje['producto']['descripcion']
+                    "precio" => $producto->precio,
+                    "foto" => $producto->imagen == NULL ? \Vite::asset('resources/images/web-logo.png') : url('storage/' . $producto->imagen),
+                    'descripcion' => $producto->descripcion
                 ]
             ];
         } else {
-            $cart[$request->mensaje['producto']['id']] =
+            $cart[$producto->id] =
                 [
-                    "nombre" => $request->mensaje['producto']['nombreProducto'],
-                    "cant" => isset($cart[$request->mensaje['producto']['id']]) ? $cart[$request->mensaje['producto']['id']]['cant'] + (int) $request->mensaje['cant'] : $request->mensaje['cant'],
-                    "precio" => $request->mensaje['producto']['precio'],
-                    "foto" => $request->mensaje['producto']['imagen'],
-                    'descripcion' => $request->mensaje['producto']['descripcion']
+                    "nombre" => $producto->nombreProducto,
+                    "cant" => isset($cart[$producto->id]) ? $cart[$producto->id]['cant'] + (int) $request->mensaje['cant'] : $request->mensaje['cant'],
+                    "precio" => $producto->precio,
+                    "foto" => $producto->imagen == NULL ? \Vite::asset('resources/images/web-logo.png') : url('storage/' . $producto->imagen),
+                    'descripcion' => $producto->descripcion
                 ];
         }
 
@@ -114,13 +110,15 @@ class OrderController extends Controller
             } else {
                 return response()->json(session()->get('user_' . \Auth::id() . '_cart'));
             }
+        } else {
+            return response()->json(["hola" => "algo salió mal."], 404); //texto de error o array de errores que quieres mostrarle al usuario (se lo  envias a Ajax)
         }
     }
 
     public function checkout()
     {
         if (!session()->has('user_' . \Auth::id() . '_cart')) {
-            abort(403);
+            return redirect(url()->previous())->with('error', 'No puedes acceder al Checkout mientras tu cesta esté vacía.');
         }
         return view('checkout.checkout', ['titulo' => 'Finalizar Compra']);
     }

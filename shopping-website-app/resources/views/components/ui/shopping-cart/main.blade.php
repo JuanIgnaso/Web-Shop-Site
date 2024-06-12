@@ -23,20 +23,16 @@
                             </div>
                             {{--  --}}
                             <div class="p-4 justify-center  flex bg-white">
-                                <button class=" text-base  undefined  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer
+                                <button class="end-purchase text-base  undefined  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer
                                 hover:bg-teal-700 hover:text-teal-100
                                 bg-teal-100
                                 text-teal-700
                                 border duration-200 ease-in-out
                                 border-teal-600 transition">
-                                <a
-                                @if (session()->has('user_' . Auth::id() . '_cart'))
-                                    href="{{route('checkout.index')}}"
-                                @else
-                                    href=""
-                                @endif
-                                      class="total-purchase">Tu cesta está vacía</a>
+                                <a href="{{route('checkout.index')}}" class="total-purchase"></a>
                                 </button>
+
+                                <p class="hidden cart-empty">Tu cesta está vacía</p>
                             </div>
                         </div>
                     </div>

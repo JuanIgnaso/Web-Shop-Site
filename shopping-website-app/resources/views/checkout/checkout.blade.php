@@ -25,27 +25,27 @@
                         <fieldset class="mb-3 bg-white shadow-lg rounded text-gray-600">
                             <label class="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span class="text-right px-2 font-bold">Nombre</span>
-                                <input name="nombreApellidos" class="focus:outline-none border-none px-3" placeholder="Nombre Apellido">
+                                <input name="nombreApellidos" value="{{old('nombreApellidos')}}" class="focus:outline-none border-none px-3" placeholder="Nombre Apellido">
                             </label>
                             <label class="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span class="text-right px-2 font-bold">Email</span>
-                                <input name="email" type="email" class="focus:outline-none border-none px-3" placeholder="prueba@example.com">
+                                <input name="email" type="email" value="{{old('email')}}" class="focus:outline-none border-none px-3" placeholder="prueba@example.com">
                             </label>
                             <label class="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span class="text-right px-2 font-bold">Dirección</span>
-                                <input name="direccion" class="focus:outline-none px-3 border-none" placeholder="10 Street XYZ 654">
+                                <input name="direccion" value="{{old('direccion')}}" class="focus:outline-none px-3 border-none" placeholder="10 Street XYZ 654">
                             </label>
                             <label class="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span class="text-right px-2 font-bold">Ciudad</span>
-                                <input name="ciudad" class="focus:outline-none px-3 border-none" placeholder="San Francisco">
+                                <input name="ciudad" value="{{old('ciudad')}}" class="focus:outline-none px-3 border-none" placeholder="San Francisco">
                             </label>
                             <label class="inline-flex w-2/4 border-gray-200 py-3">
                                 <span class="text-right px-2 font-bold">Estado/Provincia</span>
-                                <input name="estado" class="focus:outline-none px-3 border-none" placeholder="CA">
+                                <input name="estado" value="{{old('estado')}}" class="focus:outline-none px-3 border-none" placeholder="CA">
                             </label>
                             <label class="xl:w-1/4 xl:inline-flex gap-2 items-center flex xl:border-none border-t border-gray-200 py-3">
                                 <span class="text-right px-2 xl:px-0 xl:text-none font-bold">Código Postal</span>
-                                <input name="codigo_postal" class="focus:outline-none px-3 border-none" placeholder="98603">
+                                <input name="codigo_postal" value="{{old('codigo_postal')}}" class="focus:outline-none px-3 border-none" placeholder="98603">
                             </label>
                             <label class="flex border-t border-gray-200 h-12 py-3 items-center select relative">
                                 <span class="text-right px-2 font-bold">País</span>
@@ -89,7 +89,7 @@
                     <fieldset class="mb-3 bg-white shadow-lg rounded text-gray-600">
                         <label class="flex border-b border-gray-200 h-12 py-3 items-center">
                             <span class="text-right px-2 font-bold">Tarjeta de Crédito</span>
-                            <input name="targeta_credito" class="focus:outline-none border-none px-3 w-full" placeholder="Card number MM/YY CVC">
+                            <input name="targeta_credito" value="{{old('targeta_credito')}}" class="focus:outline-none border-none px-3 w-full" placeholder="Numero targeta MM/YYYY CVC">
                         </label>
                     </fieldset>
                 </section>
@@ -145,8 +145,8 @@
                     <span class="font-semibold text-pink-500">€846.98</span>
                 </div>
                 <div class="flex justify-between py-4 text-gray-600">
-                    <span>Shipping</span>
-                    <span class="font-semibold text-pink-500">Free</span>
+                    <span>Gastos Envío</span>
+                    <span class="font-semibold text-pink-500">Gratis</span>
                 </div>
             </div>
             <div class="font-semibold text-xl px-8 flex justify-between py-8 text-gray-600">

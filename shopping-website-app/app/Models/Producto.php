@@ -26,5 +26,7 @@ class Producto extends Model
         return $product->unidades >= $qnt;
     }
 
+
+
     //'productos.id','productos.nombreProducto','productos.descripcion','productos.categoria','productos.proveedor','productos.marca','productos.precio','productos.unidades'
 }
