@@ -9,7 +9,12 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-
+    /*Manipular Session*/
+    //crear -> put('key',data)
+    //obtener -> get('key')
+    //borrar -> forget('key') Ej: session()->forget('key');
+    //añadir valores ->push('key','value to add')
+    //existe? -> has('key')
 
     public function store(Request $request): RedirectResponse
     {
@@ -27,15 +32,16 @@ class OrderController extends Controller
             ]
         );
 
+        //Actualizar el stock de los productos, finalizar compra
+
+        $cart = session()->get('user_' . \Auth::id() . '_cart');
+
+        foreach ($cart as $key => $value) {
+            Producto::where('id', $key)->update(['unidades' => $cart[$key]['stock'] - $cart[$key]['cant']]);
+        }
+
         return to_route('dashboard')->with('message', 'Su orden ha sido procesada correctamente.');
     }
-
-    /*Manipular Session*/
-    //crear -> put('key',data)
-    //obtener -> get('key')
-    //borrar -> forget('key') Ej: session()->forget('key');
-    //añadir valores ->push('key','value to add')
-    //existe? -> has('key')
 
     /**
      * Añadir objeto a carrito del usuario
@@ -52,6 +58,8 @@ class OrderController extends Controller
 
         $cart = session()->get('user_' . \Auth::id() . '_cart');
 
+        $this->checkStock($producto->id, $request->mensaje['cant']); //comprobar que no se añade más del stock actual del producto
+
         if (!$cart) {
             //Si no existe se crea con el primero objeto
             $cart = [
@@ -60,29 +68,47 @@ class OrderController extends Controller
                     "cant" => $request->mensaje['cant'],
                     "precio" => $producto->precio,
                     "foto" => $producto->imagen == NULL ? \Vite::asset('resources/images/web-logo.png') : url('storage/' . $producto->imagen),
-                    'descripcion' => $producto->descripcion
+                    'descripcion' => $producto->descripcion,
+                    'stock' => $producto->unidades
                 ]
             ];
         } else {
+
+            $this->checkStock($producto->id, $cart[$producto->id]['cant'] + $request->mensaje['cant']);
+
             $cart[$producto->id] =
                 [
                     "nombre" => $producto->nombreProducto,
                     "cant" => isset($cart[$producto->id]) ? $cart[$producto->id]['cant'] + (int) $request->mensaje['cant'] : $request->mensaje['cant'],
                     "precio" => $producto->precio,
                     "foto" => $producto->imagen == NULL ? \Vite::asset('resources/images/web-logo.png') : url('storage/' . $producto->imagen),
-                    'descripcion' => $producto->descripcion
+                    'descripcion' => $producto->descripcion,
+                    'stock' => $producto->unidades
                 ];
         }
-
-
 
         session()->put('user_' . \Auth::id() . '_cart', $cart);
 
         return response()->json(session()->get('user_' . \Auth::id() . '_cart'));
     }
 
+
     /**
-     * Eliminar del carrito del usuario
+     * Comprueba que la cantidad no sea superior al stock disponible y lanza un flash advirtiendo al usuario
+     * @param $product - id del producto
+     * @param $qnt - cantidad a evaluar
+     */
+    private function checkStock($product, $qnt)
+    {
+        if (!Producto::isStockAvailable($product, $qnt)) {
+            session()->flash('warning', 'El producto no cuenta con el suficiente stock.');
+            abort(400);
+        }
+    }
+
+    /**
+     * Elimina un elemento del carrito del usuario
+     * @param $request - id del producto enviado por Request
      */
     public function removeFromCart(Request $request)
     {
@@ -93,7 +119,6 @@ class OrderController extends Controller
                 unset($cart[$request->id]);
                 session()->put('user_' . \Auth::id() . '_cart', $cart);
             }
-
         }
         return response()->json(session()->get('user_' . \Auth::id() . '_cart'));
     }
@@ -110,11 +135,12 @@ class OrderController extends Controller
             } else {
                 return response()->json(session()->get('user_' . \Auth::id() . '_cart'));
             }
-        } else {
-            return response()->json(["hola" => "algo salió mal."], 404); //texto de error o array de errores que quieres mostrarle al usuario (se lo  envias a Ajax)
         }
     }
 
+    /**
+     * Carga la ventana para finalizar la compra del usuario.
+     */
     public function checkout()
     {
         if (!session()->has('user_' . \Auth::id() . '_cart')) {

@@ -27,6 +27,5 @@ class Producto extends Model
     }
 
 
-
     //'productos.id','productos.nombreProducto','productos.descripcion','productos.categoria','productos.proveedor','productos.marca','productos.precio','productos.unidades'
 }
