@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreOrderRequest;
 use App\Models\Producto;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,21 +17,9 @@ class OrderController extends Controller
     //añadir valores ->push('key','value to add')
     //existe? -> has('key')
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreOrderRequest $request): RedirectResponse
     {
-        $data = $request->validate(
-            [
-                'nombreApellidos' => ['required', 'min:3'],
-                'email' => ['required', 'email'],
-                'direccion' => ['required', 'max:100'],
-                'ciudad' => ['required', 'regex:/^[a-zA-Z ]+$/i'],
-                'estado' => ['required', 'regex:/^[a-zA-Z ]+$/i'],
-                'codigo_postal' => ['nullable', 'between:10000,99999', 'numeric'],
-                'targeta_credito' => [
-                    'regex:/[0-9]{16} (0[1-9]|1[1,2])(\/|-)(19|20)\d{2} [0-9]{3}/'
-                ]
-            ]
-        );
+        $data = $request->validated();
 
         //Actualizar el stock de los productos, finalizar compra
 
@@ -39,6 +28,7 @@ class OrderController extends Controller
         foreach ($cart as $key => $value) {
             Producto::where('id', $key)->update(['unidades' => $cart[$key]['stock'] - $cart[$key]['cant']]);
         }
+        session()->forget('user_' . \Auth::id() . '_cart');
 
         return to_route('dashboard')->with('message', 'Su orden ha sido procesada correctamente.');
     }
@@ -48,17 +38,18 @@ class OrderController extends Controller
      */
     public function addToCart(Request $request)
     {
-        //Lanzar error 404 si no encuentra el producto
+        //Comprueba que el producto existe
         if (!Producto::find($request->mensaje['producto'])) {
             session()->flash('error', 'El producto especificado no existe!.');
             abort(400);
         }
 
+        //Sacas el producto y el carrito del usuario
         $producto = Producto::select(['productos.*', \DB::raw('(select imagen from fotosProducto where producto  =   productos.id limit 1) as imagen'), 'categorias.nombre_categoria', 'proveedores.nombre_proveedor', 'proveedores.website'])->leftJoin('proveedores', 'productos.proveedor', '=', 'proveedores.id')->leftJoin('categorias', 'productos.categoria', '=', 'categorias.id')->find($request->mensaje['producto']);
-
         $cart = session()->get('user_' . \Auth::id() . '_cart');
 
-        $this->checkStock($producto->id, $request->mensaje['cant']); //comprobar que no se añade más del stock actual del producto
+        //Comprobar stock
+        $this->checkStock($request->mensaje['producto'], $request->mensaje['cant']);
 
         if (!$cart) {
             //Si no existe se crea con el primero objeto
@@ -73,8 +64,10 @@ class OrderController extends Controller
                 ]
             ];
         } else {
-
-            $this->checkStock($producto->id, $cart[$producto->id]['cant'] + $request->mensaje['cant']);
+            //Si existe el carrito se comprueba antes si existe el producto y si la suma de la cantidad es superior al stock
+            if (isset($cart[$producto->id])) {
+                $this->checkStock($producto->id, $cart[$producto->id]['cant'] + (int) $request->mensaje['cant']);
+            }
 
             $cart[$producto->id] =
                 [

@@ -89,7 +89,8 @@
                     <fieldset class="mb-3 bg-white shadow-lg rounded text-gray-600">
                         <label class="flex border-b border-gray-200 h-12 py-3 items-center">
                             <span class="text-right px-2 font-bold">Tarjeta de Crédito</span>
-                            <input name="targeta_credito" value="{{old('targeta_credito')}}" class="focus:outline-none border-none px-3 w-full" placeholder="Numero targeta MM/YYYY CVC">
+                            <input name="tarjeta_credito[numero]" value="{{old('tarjeta_credito.numero')}}" class="focus:outline-none border-none px-3 w-full" placeholder="Numero targeta y CVC">
+                            <input class="focus:outline-none border-none" type="text" name="tarjeta_credito[tarjetafecha]" value="{{old('tarjeta_credito.tarjetafecha')}}" id="" placeholder="Fecha de caducidad MM/YY">
                         </label>
                     </fieldset>
                 </section>
