@@ -22,8 +22,10 @@ class OrderController extends Controller
         $data = $request->validated();
 
         //Actualizar el stock de los productos, finalizar compra
-
         $cart = session()->get('user_' . \Auth::id() . '_cart');
+
+        //Total
+
 
         foreach ($cart as $key => $value) {
             Producto::where('id', $key)->update(['unidades' => $cart[$key]['stock'] - $cart[$key]['cant']]);

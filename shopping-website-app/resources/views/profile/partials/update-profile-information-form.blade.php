@@ -47,6 +47,15 @@
             @endif
         </div>
 
+
+        <div>
+            <x-input-label for="wallet" :value="__('Wallet')" />
+            <x-text-input id="wallet" name="wallet" type="text" class="mt-1 block w-full" :value="old('wallet')"  autofocus autocomplete="name" />
+            <x-input-error class="mt-2" :messages="$errors->get('wallet')" />
+        </div>
+
+        <p><span class="font-bold">Saldo actual:</span> {{$user->wallet}}</p>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 

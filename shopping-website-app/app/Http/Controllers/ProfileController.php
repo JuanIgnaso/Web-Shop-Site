@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -32,6 +33,7 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
+        User::where('id', \Auth::id())->update(['wallet' => User::where('id', \Auth::id())->value('wallet') + (int) $request->wallet]);
         $request->user()->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
