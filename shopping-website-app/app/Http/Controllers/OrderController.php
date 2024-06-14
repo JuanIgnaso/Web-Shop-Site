@@ -7,6 +7,7 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Models\Producto;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -24,15 +25,38 @@ class OrderController extends Controller
         //Actualizar el stock de los productos, finalizar compra
         $cart = session()->get('user_' . \Auth::id() . '_cart');
 
-        //Total
+        //Total a pagar por el usuario
+        $total = $this->getOrderPrice();
 
+        if (\Auth::user()->wallet < $total) {
+            return redirect(url()->current())->with('error', 'Tu Wallet no cuenta con suficiente saldo!');
+        }
 
         foreach ($cart as $key => $value) {
             Producto::where('id', $key)->update(['unidades' => $cart[$key]['stock'] - $cart[$key]['cant']]);
         }
+
+        User::where('id', \Auth::id())->update(['wallet' => User::where('id', \Auth::id())->value('wallet') - $total]);
+
         session()->forget('user_' . \Auth::id() . '_cart');
 
         return to_route('dashboard')->with('message', 'Su orden ha sido procesada correctamente.');
+    }
+
+    /**
+     * Calcula el total de la compra del usuario
+     * @return float - Precio total a pagar
+     */
+    private function getOrderPrice(): float
+    {
+        $result = 0.0;
+        if (session()->has('user_' . \Auth::id() . '_cart')) {
+            $cart = session()->get('user_' . \Auth::id() . '_cart');
+            foreach ($cart as $key => $value) {
+                $result += $cart[$key]['precio'] * $cart[$key]['cant'];
+            }
+        }
+        return $result;
     }
 
     /**
