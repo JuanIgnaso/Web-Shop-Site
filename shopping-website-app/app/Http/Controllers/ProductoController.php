@@ -134,7 +134,7 @@ class ProductoController extends Controller
         $producto = Producto::create($data);
 
         Registro::create(['operacion' => 'Crear nuevo registro', 'tabla' => 'productos', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
-        return to_route('producto.show', $producto)->with('message', 'Se ha creado un nuevo registro');
+        return to_route('producto.show', $producto)->with('success', 'Se ha creado un nuevo registro');
     }
 
 
@@ -179,7 +179,7 @@ class ProductoController extends Controller
         );
         $producto->update($data);
         Registro::create(['operacion' => 'Actualizar registro', 'tabla' => 'productos', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
-        return to_route('producto.show', $producto)->with('message', 'Cambios realizados con éxito!');
+        return to_route('producto.show', $producto)->with('success', 'Cambios realizados con éxito!');
     }
 
     /**
@@ -211,6 +211,6 @@ class ProductoController extends Controller
         $producto->delete();
 
         Registro::create(['operacion' => 'Eliminar registro', 'tabla' => 'productos', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
-        return to_route('producto.index')->with('message', 'Registro eliminado correctamente');
+        return to_route('producto.index')->with('success', 'Registro eliminado correctamente');
     }
 }

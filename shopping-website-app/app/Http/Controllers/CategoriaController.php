@@ -61,7 +61,7 @@ class CategoriaController extends Controller
         //Crear nuevo registro
         $categoria = Categoria::create($data);
         Registro::create(['operacion' => 'Crear nuevo registro', 'tabla' => 'categorias', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
-        return to_route('categoria.show', $categoria->id)->with('message', 'Se ha creado un nuevo registro.');
+        return to_route('categoria.show', $categoria->id)->with('success', 'Se ha creado un nuevo registro.');
     }
 
     /**
@@ -98,7 +98,7 @@ class CategoriaController extends Controller
 
         $categoria->update($data);
         Registro::create(['operacion' => 'Modificar registro', 'tabla' => 'categorias', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
-        return to_route('categoria.show', $categoria->id)->with('message', 'Registro actualizado');
+        return to_route('categoria.show', $categoria->id)->with('success', 'Registro actualizado');
     }
 
     /**
@@ -115,7 +115,7 @@ class CategoriaController extends Controller
             }
             Categoria::find($id)->delete();
             $insert = Registro::create(['operacion' => 'Eliminar registro', 'tabla' => 'categorias', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
-            return to_route('categoria.index')->with('message', 'Registro eliminado correctamente');
+            return to_route('categoria.index')->with('success', 'Registro eliminado correctamente');
         } catch (\Error $e) {
             return to_route('categoria.index')->with('error', $e->getMessage());
         }

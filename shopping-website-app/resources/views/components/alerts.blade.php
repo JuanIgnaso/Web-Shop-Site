@@ -1,6 +1,6 @@
-@session('message')
+@session('success')
 <div class="absolute p-4 mb-4 w-full m-auto text-sm mt-4 text-green-800 rounded-lg bg-green-100 " role="alert">
-    <span class="font-medium"><i class="fa-solid fa-check"></i></span> {{session('message')}}
+    <span class="font-medium"><i class="fa-solid fa-check"></i></span> {{session('success')}}
 </div>
 @endsession
 

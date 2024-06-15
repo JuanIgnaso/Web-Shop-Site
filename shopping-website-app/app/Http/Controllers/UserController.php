@@ -93,7 +93,7 @@ class UserController extends Controller
         );
         $user->update($data);
         Registro::create(['operacion' => 'Actualizar registro', 'tabla' => 'users', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
-        return to_route('user.index')->with('message', 'Información del usuario actualizada.');
+        return to_route('user.index')->with('success', 'Información del usuario actualizada.');
     }
 
     /**

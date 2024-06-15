@@ -26,6 +26,6 @@ class HomeController extends Controller
                 'terminos' => ['required']
             ]
         );
-        return to_route('dashboard')->with('message', 'Gracias por contactar con nosotros!');
+        return to_route('dashboard')->with('success', 'Gracias por contactar con nosotros!');
     }
 }

@@ -4,19 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
+use App\Mail\OrderConfirmation;
 use App\Models\Producto;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
+/**
+ * Controler asociado a operaciones relacionadas con los pedidos de los usuarios registrados de la página.
+ *
+ */
 class OrderController extends Controller
 {
-    /*Manipular Session*/
-    //crear -> put('key',data)
-    //obtener -> get('key')
-    //borrar -> forget('key') Ej: session()->forget('key');
-    //añadir valores ->push('key','value to add')
-    //existe? -> has('key')
+    /*Manipular Session crear-put, obtener-get, borrar-forget, añadir-push, existe-has*/
 
     public function store(StoreOrderRequest $request): RedirectResponse
     {
@@ -25,10 +26,8 @@ class OrderController extends Controller
         //Actualizar el stock de los productos, finalizar compra
         $cart = session()->get('user_' . \Auth::id() . '_cart');
 
-        //Total a pagar por el usuario
-        $total = $this->getOrderPrice();
-
-        if (\Auth::user()->wallet < $total) {
+        //Evalúa si el usuario dispone de suficiente dinero
+        if (\Auth::user()->wallet < $this->getOrderPrice()) {
             return redirect(url()->current())->with('error', 'Tu Wallet no cuenta con suficiente saldo!');
         }
 
@@ -36,14 +35,28 @@ class OrderController extends Controller
             Producto::where('id', $key)->update(['unidades' => $cart[$key]['stock'] - $cart[$key]['cant']]);
         }
 
-        User::where('id', \Auth::id())->update(['wallet' => User::where('id', \Auth::id())->value('wallet') - $total]);
+        User::where('id', \Auth::id())->update(['wallet' => User::where('id', \Auth::id())->value('wallet') - $this->getOrderPrice()]);
+
+        $this->sendMailConfirmation(); //Envia email de confirmación tras realizar el pedido
 
         session()->forget('user_' . \Auth::id() . '_cart');
 
-        return to_route('dashboard')->with('message', 'Su orden ha sido procesada correctamente.');
+
+        return to_route('dashboard')->with('success', 'Su orden ha sido procesada correctamente.');
+    }
+
+    private function sendMailConfirmation()
+    {
+        //Indicar la clase de email que se va a usar f5064330ade0d9@inbox.mailtrap.io
+        $mailTo = 'juanford55@gmail.com';
+        $message = 'Tu orden ha sido confirmada.';
+        $subject = 'Gracias por confiar en nosotros, tu orden está en proceso!';
+        \Mail::to($mailTo)->send(new OrderConfirmation($message, $subject));
     }
 
     /**
+     *
+
      * Calcula el total de la compra del usuario
      * @return float - Precio total a pagar
      */
@@ -154,6 +167,14 @@ class OrderController extends Controller
             } else {
                 return response()->json(session()->get('user_' . \Auth::id() . '_cart'));
             }
+        }
+    }
+
+    public function clearUserCart()
+    {
+        if (session()->has('user_' . \Auth::id() . '_cart')) {
+            session()->forget('user_' . \Auth::id() . '_cart');
+            return redirect(url()->previous())->with('success', 'Se ha limpiado tu cesta.');
         }
     }
 

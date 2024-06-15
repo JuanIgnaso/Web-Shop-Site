@@ -33,7 +33,7 @@ class ReviewController extends Controller
 
         //Si el usuario aún no ha opinado sobre el producto
         $review->create(['cabecera' => $request->input('cabecera'), 'review' => $request->input('review'), 'producto' => $id, 'usuario' => \Auth::id(), 'recomendado' => $request->input('recomendado'), 'puntuacion' => $request->input('puntuacion')]);
-        return to_route('producto.details', $id)->with('message', 'Gracias por compartir tu opinión!');
+        return to_route('producto.details', $id)->with('success', 'Gracias por compartir tu opinión!');
 
 
     }
@@ -43,7 +43,7 @@ class ReviewController extends Controller
         $review = Review::find($id);
         if ($review->usuario == \Auth::id() || \Auth::user()->claseUsuario == 3) {
             $review->delete();
-            return redirect(\URL::previous())->with('message', 'Review ha sido borrada');
+            return redirect(\URL::previous())->with('success', 'Review ha sido borrada');
         } else {
             return redirect(\URL::previous())->with('error', 'No puedes borrar reviews hechas por otros usuarios!.');
         }
@@ -67,7 +67,7 @@ class ReviewController extends Controller
                 ]
             );
             $review->update($data);
-            return redirect(\URL::previous())->with('message', 'Review actualizada!');
+            return redirect(\URL::previous())->with('success', 'Review actualizada!');
         } else {
             return redirect(\URL::previous())->with('error', 'No puedes modificar reviews hechas por otros usuarios!.');
         }

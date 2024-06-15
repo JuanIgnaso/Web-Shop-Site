@@ -41,11 +41,12 @@ Route::middleware(AccessForbidden::class)->group(function () {
     Route::put('/review/{id}', [ReviewController::class, 'update'])->name('review.update');
     Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout.index');
 
-    //Carrito TEST TEMPORAL
+    //Carrito
     Route::get('/addToCart', [OrderController::class, 'addToCart']);
     Route::get('/removeFromCart', [OrderController::class, 'removeFromCart']);
     Route::get('/getUserCart', [OrderController::class, 'getUserCart']);
     Route::get('/test', [OrderController::class, 'test']);
+    Route::get('/clearUserCart', [OrderController::class, 'clearUserCart'])->name('cart.destroy');
     /*
     /addToCart
     /removeFromCart

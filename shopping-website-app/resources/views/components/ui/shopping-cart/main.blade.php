@@ -22,7 +22,7 @@
                             <div class="product-container">
                             </div>
                             {{--  --}}
-                            <div class="p-4 justify-center  flex bg-white">
+                            <div class="p-4 justify-center  flex flex-col gap-2 bg-white">
                                 <button class="end-purchase text-base  undefined  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer
                                 hover:bg-teal-700 hover:text-teal-100
                                 bg-teal-100
@@ -32,7 +32,16 @@
                                 <a href="{{route('checkout.index')}}" class="total-purchase"></a>
                                 </button>
 
-                                <p class="hidden cart-empty">Tu cesta está vacía</p>
+                                <button class="end-purchase text-base  undefined  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer
+                                hover:bg-red-700 hover:text-red-100
+                                bg-red-100
+                                text-red-700
+                                border duration-200 ease-in-out
+                                border-red-600 transition">
+                                    <a href="{{route('cart.destroy')}}">Limpiar Cesta <i class="fa-regular fa-trash-can"></i></a>
+                                </button>
+
+                                <p class="hidden cart-empty text-center">Tu cesta está vacía</p>
                             </div>
                         </div>
                     </div>

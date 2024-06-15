@@ -46,13 +46,13 @@ class FileController extends Controller
             fotosProducto::create(['imagen' => $path, 'alt' => $request->alt, 'producto' => $request->producto]);
         }
 
-        return redirect()->route('files.index')->with('message', 'La imagen se ha subido correctamente!');
+        return redirect()->route('files.index')->with('success', 'La imagen se ha subido correctamente!');
     }
 
     public function destroy($id)
     {
         if (fotosProducto::deleteImage($id)) {
-            return redirect()->route('files.index')->with('message', 'Archivo subido correctamente!');
+            return redirect()->route('files.index')->with('success', 'Archivo subido correctamente!');
         } else {
             return redirect()->route('files.index')->with('error', 'No se ha podido completar la operación.');
         }
