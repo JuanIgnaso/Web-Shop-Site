@@ -8,18 +8,20 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\User;
 
 class UserRegistered extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public User $user;
     public $mailBody;
     /**
      * Create a new message instance.
      */
-    public function __construct($mailBody)
+    public function __construct(User $user)
     {
-        $this->mailBody = $mailBody;
+        $this->user = $user;
     }
 
     /**

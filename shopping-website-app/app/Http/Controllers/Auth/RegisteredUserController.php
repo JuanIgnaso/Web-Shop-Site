@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserRegistered;
+
 
 class RegisteredUserController extends Controller
 {
@@ -46,10 +49,20 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        Auth::login($user); //Se loguea el usuario
 
         Registro::create(['operacion' => 'Crear nuevo registro', 'tabla' => 'users', 'usuario' => \Auth::id(), 'ocurrido_en' => Carbon::now()->toDateTimeString()]);
 
+        $this->sendRegistrationEmail($user);
+
         return redirect(route('dashboard', absolute: false));
+    }
+
+    /**
+     * Envía email de bienvenida al registrarse en la web
+     */
+    private function sendRegistrationEmail(User $user)
+    {
+        \Mail::to($user->email)->send(new UserRegistered($user));
     }
 }
