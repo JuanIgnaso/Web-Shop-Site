@@ -23,7 +23,6 @@ class StoreOrderRequest extends FormRequest
     {
         return [
             'nombreApellidos' => ['required', 'min:3'],
-            'email' => ['required', 'email'],
             'direccion' => ['required', 'max:100'],
             'ciudad' => ['required', 'regex:/^[a-zA-Z ]+$/i'],
             'estado' => ['required', 'regex:/^[a-zA-Z ]+$/i'],

@@ -29,7 +29,7 @@
                             </label>
                             <label class="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span class="text-right px-2 font-bold">Email</span>
-                                <input name="email" type="email" value="{{old('email')}}" class="focus:outline-none border-none px-3" placeholder="prueba@example.com">
+                                <p class="focus:outline-none border-none px-3">{{Auth::user()->email}}</p>
                             </label>
                             <label class="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span class="text-right px-2 font-bold">Dirección</span>

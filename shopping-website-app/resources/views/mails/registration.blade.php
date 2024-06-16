@@ -1,1 +1,0 @@
-Gracias por registrarte en nuestra web.

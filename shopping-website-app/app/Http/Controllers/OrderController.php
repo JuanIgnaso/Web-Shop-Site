@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
-use App\Mail\OrderConfirmation;
+use App\Mail\OrderShipped;
 use App\Models\Producto;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -37,21 +37,19 @@ class OrderController extends Controller
 
         User::where('id', \Auth::id())->update(['wallet' => User::where('id', \Auth::id())->value('wallet') - $this->getOrderPrice()]);
 
-        $this->sendMailConfirmation(); //Envia email de confirmación tras realizar el pedido
+        $this->sendMailConfirmation($cart); //Envia email de confirmación tras realizar el pedido
 
         session()->forget('user_' . \Auth::id() . '_cart');
-
 
         return to_route('dashboard')->with('success', 'Su orden ha sido procesada correctamente.');
     }
 
-    private function sendMailConfirmation()
+    private function sendMailConfirmation($content)
     {
         //Indicar la clase de email que se va a usar f5064330ade0d9@inbox.mailtrap.io
         $mailTo = 'juanford55@gmail.com';
         $message = 'Tu orden ha sido confirmada.';
-        $subject = 'Gracias por confiar en nosotros, tu orden está en proceso!';
-        \Mail::to($mailTo)->send(new OrderConfirmation($message, $subject));
+        \Mail::to($mailTo)->send(new OrderShipped($content, $message));
     }
 
     /**

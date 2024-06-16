@@ -9,35 +9,26 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class OrderConfirmation extends Mailable
+class UserRegistered extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $body;
-    public $subject;
+    public $mailBody;
     /**
      * Create a new message instance.
      */
-    public function __construct($body, $subject)
+    public function __construct($mailBody)
     {
-        $this->body = $body;
-        $this->subject = $subject;
+        $this->mailBody = $mailBody;
     }
-
-    public function build()
-    {
-        return $this->view('mails.orderConfirm');
-    }
-
 
     /**
      * Get the message envelope.
      */
     public function envelope(): Envelope
     {
-        //Motivo del email
         return new Envelope(
-            subject: $this->subject,
+            subject: 'Tu cuenta de usuario ha sido creada.',
         );
     }
 
@@ -47,7 +38,7 @@ class OrderConfirmation extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mails.orderConfirm',
+            markdown: 'mail.users.registered',
         );
     }
 
