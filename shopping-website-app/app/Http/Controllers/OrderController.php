@@ -47,9 +47,8 @@ class OrderController extends Controller
     private function sendMailConfirmation($content)
     {
         //Indicar la clase de email que se va a usar f5064330ade0d9@inbox.mailtrap.io
-        $mailTo = 'juanford55@gmail.com';
         $message = 'Tu orden ha sido confirmada.';
-        \Mail::to($mailTo)->send(new OrderShipped($content, $message));
+        \Mail::to(\Auth::user()->email)->send(new OrderShipped($content, $message));
     }
 
     /**

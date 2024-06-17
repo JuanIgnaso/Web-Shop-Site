@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ContactWebSite;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -26,6 +28,19 @@ class HomeController extends Controller
                 'terminos' => ['required']
             ]
         );
+
+        $this->sendContactMail($request);
+
         return to_route('dashboard')->with('success', 'Gracias por contactar con nosotros!');
+    }
+
+    private function sendContactMail(Request $request)
+    {
+        $message = [
+            'usuario' => $request->nombre . ' ' . $request->apellidos,
+            'mensaje' => $request->mensaje,
+            'email' => $request->email
+        ];
+        \Mail::to(env('MAIL_CONTACT_TO'))->send(new ContactWebSite($message));
     }
 }

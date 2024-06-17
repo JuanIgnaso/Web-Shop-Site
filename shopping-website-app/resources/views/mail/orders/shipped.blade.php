@@ -7,6 +7,8 @@
     }
 @endphp
 
+    ![Image](cid:logo.png)
+
 # {{$subject}}
 
 Gracias por confiar en nosotros, tu orden está siendo procesada ahora mismo
@@ -29,5 +31,5 @@ Más detalles del pedido
 </x-mail::button>
 
 Gracias,<br>
-Juan Laravel Web Shop
+El equipo de Juan Navarrete Laravel Shop
 </x-mail::message>
