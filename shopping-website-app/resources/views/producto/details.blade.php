@@ -106,10 +106,6 @@
                  @endfor
               </select>
             </div>
-            {{--
-              Otro script
-              storeProduct({{$producto}})
-              --}}
             <button id="add-to-cart" type="button" onclick="add_to_cart({{$producto->id}})" class="h-14 px-6 py-2 font-semibold rounded-xl bg-turquoiseSemiLight hover:bg-turquoiseMedium text-white">
               Añadir al carrito
             </button>
@@ -166,10 +162,10 @@
                 </div>
             </div>
 
-            <div x-show="show" x-transition class="bg-gray-200 p-2 rounded-lg mt-2">
+            <div x-show="show" x-transition class="bg-indigo-100 p-2 rounded-lg mt-2">
 
               {{-- FORMULARIO CREAR REVIEW --}}
-              <form action="{{route('review.store',$producto->id)}}" method="POST" class="space-y-2">
+              <form action="{{route('review.store',$producto->id)}}" method="POST" class="space-y-4">
                 @csrf
                 <h3 class="mt-4">Qué te parece el producto?</h3>
 
