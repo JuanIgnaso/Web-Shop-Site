@@ -20,7 +20,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js','resources/css/fontawesome/css/all.css'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-indigo-50">
+        <div class="min-h-screen bg-linen">
 
 
 
