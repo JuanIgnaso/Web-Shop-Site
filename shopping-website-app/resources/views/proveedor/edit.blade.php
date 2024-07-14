@@ -2,14 +2,14 @@
     {{$titulo}}
 @endsection
 <x-adminPanel.admin-panel-layout>
-    <h1 class="text-center font-bold mt-4">@yield('title')</h1>
+    <h1 class="mt-4 font-bold text-center">@yield('title')</h1>
 
 <form class="element-form" action="{{route('proveedor.update',$proveedor)}}" method="POST">
     @csrf
     @method('PUT')
     <div class="space-y-12">
-      <div class="border-b border-gray-900/10 pb-12">
-        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+      <div class="pb-12 border-b border-gray-900/10">
+        <div class="grid grid-cols-1 mt-10 gap-x-6 gap-y-8 sm:grid-cols-6">
 
           <div class="sm:col-span-3">
             <x-form.input :type="'text'" :name="'nombre_proveedor'" :value="old('nombre_proveedor',$proveedor->nombre_proveedor)" :label="'Nombre del Proveedor'"></x-form.input>
@@ -35,10 +35,12 @@
       </div>
     </div>
 
-    <div class="mt-6 flex items-center justify-end gap-x-6">
-      <button type="button" class="text-sm font-semibold leading-6 text-gray-900"><a href="{{route('proveedor.index')}}">Cancelar</a></button>
-      <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Guardar cambios</button>
-    </div>
+    <div class="flex items-center justify-end mt-6 gap-x-6">
+      <button type="button" class="form-button bg-arbolCoral"><a
+              href="{{route('proveedor.index')}}">Cancelar</a></button>
+      <button type="submit"
+          class="form-button bg-turquoiseMedium hover:bg-turquoiseMediumDark">Guardar</button>
+  </div>
   </form>
 
 </x-adminPanel.admin-panel-layout>

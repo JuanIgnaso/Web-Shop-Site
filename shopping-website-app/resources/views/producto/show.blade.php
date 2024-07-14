@@ -2,11 +2,11 @@
 {{ $titulo}}
 @endsection
 <x-adminPanel.admin-panel-layout>
-    <h1 class="text-center font-bold mt-4">@yield('title')</h1>
+    <h1 class="mt-4 font-bold text-center">@yield('title')</h1>
 
-    <div class="w-2/3 md:w-1/2 m-auto mb-16">
-        <div class="px-4 sm:px-0 mt-5  divide-y ">
-          <h3 class="text-center font-semibold leading-7 text-gray-900">Aquí se muestran los datos del producto <strong class="font-bold">ID - {{$producto->id}}</strong></h3>
+    <div class="w-2/3 m-auto mb-16 md:w-1/2">
+        <div class="px-4 mt-5 divide-y sm:px-0 ">
+          <h3 class="font-semibold leading-7 text-center text-gray-900">Aquí se muestran los datos del producto <strong class="font-bold">ID - {{$producto->id}}</strong></h3>
         </div>
         <div class="mt-6 border-t border-gray-100">
           <dl class="divide-y divide-gray-300">
@@ -52,15 +52,18 @@
 
           </dl>
         </div>
-        <div class="mt-6 flex items-center justify-end gap-x-6">
-            <button type="button" class="rounded-md bg-yellow-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-yellow-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"><a href="{{route('producto.index')}}">Volver</a></button>
-            <form action="{{route('producto.destroy',$producto)}}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="button" class="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Borrar</button>
-            </form>
-            <button type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"><a href="{{route('producto.edit',$producto)}}">Editar</a></button>
-          </div>
+
+            {{-- Acciones --}}
+            <div class="flex items-center justify-end mt-6 gap-x-6">
+              <button type="button" class="text-white bg-lochinvar hover:bg-dixie  focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="{{route('producto.index')}}">Volver</a></button>
+              <form action="{{route('producto.destroy',$producto)}}" method="POST">
+                  @csrf
+                  @method('DELETE')
+                  <button type="button" class="text-white bg-arbolCoral  focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none ">Borrar</button>
+              </form>
+              <button type="button" class="text-white bg-coldPurple hover:bg-purple-500  focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="{{route('producto.edit',$producto)}}">Editar</a></button>
+            </div>
+
       </div>
 
 </x-adminPanel.admin-panel-layout>

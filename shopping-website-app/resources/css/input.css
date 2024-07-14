@@ -41,11 +41,11 @@
     }
 
     .table-row{
-      @apply odd:bg-white  even:bg-turquoiseLight  border-b ;
+      @apply border-b odd:bg-white even:bg-linen ;
     }
 
     .admin-panel-action-button{
-      @apply grid h-10 w-10 place-items-center rounded-xl text-white  md:text-xl;
+      @apply grid w-10 h-10 text-white place-items-center rounded-xl md:text-xl;
     }
 
     .yellow-gradient{
@@ -77,7 +77,7 @@
     }
 
     .form-button{
-      @apply rounded-md  px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600;
+      @apply px-3 py-2 text-sm font-semibold text-white rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600;
     }
 
   }
