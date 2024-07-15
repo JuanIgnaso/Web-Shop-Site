@@ -1,14 +1,14 @@
-<nav x-data="{ open: false }" class="bg-sandrift border-b border-gray-100">
+<nav x-data="{ open: false }" class="border-b border-gray-100 bg-sandrift">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
                 {{-- url del logo app.logomakr.com/26AYp0 --}}
-                <div class="shrink-0 flex items-center w-20">
+                <div class="flex items-center w-20 shrink-0">
                     <a href="{{ route('dashboard') }}">
-                        {{-- <img class="block h-12 w-auto "  src="{{Vite::asset('resources/images/moon-logo.png')}}" alt=""> --}}
-                        <img src="{{Vite::asset('resources/images/web-logo.png')}}" alt="logo de la tienda">
+                        {{-- <img class="block w-auto h-12 "  src="{{Vite::asset('resources/images/moon-logo.png')}}" alt=""> --}}
+                        <img src="{{Vite::asset('resources/images/web-logo-alternative.png')}}" alt="logo de la tienda">
                     </a>
                 </div>
 
@@ -35,7 +35,7 @@
 
             <!-- Settings Dropdown -->
             @if(Auth::check())
-            <div class="hidden sm:flex sm:items-center gap-2 sm:ms-6">
+            <div class="hidden gap-2 sm:flex sm:items-center sm:ms-6">
 
                 {{-- Carrito --}}
                 <x-ui.shopping-cart.main></x-ui.shopping-cart.main>
@@ -43,11 +43,11 @@
                 {{-- Menú del usuario --}}
                   <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 rounded-md text-linen font-black bg-sandrift hover:text-gray-700  focus:outline-none transition ease-in-out duration-150">
+                        <button class="inline-flex items-center px-3 py-2 text-sm font-black leading-4 transition duration-150 ease-in-out border border-transparent rounded-md text-linen bg-sandrift hover:text-gray-700 focus:outline-none">
                             <div> {{Auth::user()->name}} </div>
 
                             <div class="ms-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                                 </svg>
                             </div>
@@ -86,9 +86,9 @@
             @endif
 
             <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="bg-sandrift inline-flex items-center justify-center p-2 rounded-md text-linen hover:text-verdeAlga  hover:bg-azulDianne focus:outline-none focus:bg-shingleFawn focus:text-linen transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+            <div class="flex items-center -me-2 sm:hidden">
+                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 transition duration-150 ease-in-out rounded-md bg-sandrift text-linen hover:text-verdeAlga hover:bg-azulDianne focus:outline-none focus:bg-shingleFawn focus:text-linen">
+                    <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
@@ -120,8 +120,8 @@
         <div class="pt-4 pb-1 border-t border-gray-200">
             @if(Auth::check())
             <div class="px-4">
-                <div class="font-medium text-base text-linen">{{Auth::user()->name ?? 'Default Name'}}</div>
-                <div class="font-medium text-sm text-linen flex items-center gap-2">{{Auth::user()->email ?? 'Default Name'}}
+                <div class="text-base font-medium text-linen">{{Auth::user()->name ?? 'Default Name'}}</div>
+                <div class="flex items-center gap-2 text-sm font-medium text-linen">{{Auth::user()->email ?? 'Default Name'}}
 
                  {{-- Carrito --}}
                  <x-ui.shopping-cart.main></x-ui.shopping-cart.main>

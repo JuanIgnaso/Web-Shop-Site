@@ -2,14 +2,14 @@
 {{ $titulo}}
 @endsection
 <x-adminPanel.admin-panel-layout>
-    <h1 class="text-center font-bold mt-4">@yield('title')</h1>
+    <h1 class="mt-4 font-bold text-center">@yield('title')</h1>
 
     <form class="element-form" action="{{route('producto.update',$producto)}}" method="POST">
         @csrf
         @method('PUT')
         <div class="space-y-12">
-            <div class="border-b border-gray-900/10 pb-12">
-                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div class="pb-12 border-b border-gray-900/10">
+                <div class="grid grid-cols-1 mt-10 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                     <div class="sm:col-span-3">
                         <x-form.input :type="'text'" :name="'nombreProducto'" :value="old('nombreProducto',$producto->nombreProducto)" :label="'Nombre del Producto'"></x-form.input>
@@ -64,11 +64,11 @@
             </div>
         </div>
 
-        <div class="mt-6 flex items-center justify-end gap-x-6">
-            <button type="button" class="form-button bg-darkOrange hover:bg-orange-500"><a
+        <div class="flex items-center justify-end mt-6 gap-x-6">
+            <button type="button" class="form-button bg-arbolCoral"><a
                     href="{{route('producto.index')}}">Cancelar</a></button>
             <button type="submit"
-                class="form-button bg-turquoiseMedium  hover:bg-turquoiseMediumDark">Guardar</button>
+                class="form-button bg-turquoiseMedium hover:bg-turquoiseMediumDark">Guardar</button>
         </div>
     </form>
 

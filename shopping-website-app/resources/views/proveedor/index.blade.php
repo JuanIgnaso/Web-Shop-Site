@@ -17,15 +17,15 @@
                 <x-form.input :type="'text'" :name="'website'" :label="'Página Web'" :value="Request::get('website')"></x-form.input>
             </div>
             <div class="flex justify-center mb-4 space-x-2 md:justify-end">
-                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none ">Aplicar Filtros</button>
-                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="{{URL::current()}}">Limpiar Filtros</a></button>
+                <button type="submit" class="text-white bg-lochinvar hover:bg-dixie focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none ">Aplicar Filtros</button>
+                <button type="button" class="text-white bg-lochinvar hover:bg-dixie focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="{{URL::current()}}">Limpiar Filtros</a></button>
             </div>
         </form>
     </section>
     <button type="button" class="text-white bg-lochinvar hover:bg-dixie  focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="{{route('proveedor.create')}}">Añadir nuevo</a></button>
 
     <table class="w-full text-sm text-left text-gray-500 rtl:text-right ">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+        <thead class="text-xs text-white uppercase bg-sandrift ">
             <tr>
                 <th scope="col" class="px-6 py-3">
                     ID

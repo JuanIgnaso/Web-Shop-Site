@@ -39,7 +39,7 @@
 
     <button type="button" class="text-white bg-lochinvar hover:bg-dixie  focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="{{route('categoria.create')}}">Añadir nuevo</a></button>
     <table class="w-full text-sm text-left text-gray-500 rtl:text-right ">
-        <thead class="text-xs text-white uppercase bg-sandrift ">
+        <thead class="text-xs text-center text-white uppercase bg-sandrift ">
             <tr>
                 <th scope="col" class="px-6 py-3">
                     ID
@@ -60,7 +60,7 @@
         </thead>
         <tbody>
             @foreach ($categorias as $categoria)
-            <tr class="table-row">
+            <tr class="table-row text-center">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                     {{$categoria->id}}
                 </th>
