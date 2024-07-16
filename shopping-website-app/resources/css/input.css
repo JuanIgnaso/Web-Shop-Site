@@ -13,14 +13,17 @@
     h2{
       @apply text-3xl;
       @apply font-bold;
+      @apply text-eternity;
     }
     h3{
       @apply text-xl;
       @apply font-bold;
+      @apply text-eternity;
     }
     h4{
       @apply text-lg;
       @apply font-bold;
+      @apply text-eternity;
     }
     h5{
       @apply font-bold;

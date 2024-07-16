@@ -47,8 +47,8 @@
         <div class="flex items-center justify-start mt-3 mb-6">
 
           <div x-data="{id: 1}">
-            <button type="button" " @click="$dispatch('open-dropdown',{id})" class="text-white bg-turquoiseMedium hover:bg-turquoiseMediumDark focus:ring-4 focus:ring-turquoiseSemiLight font-medium rounded-lg text-sm px-5 py-2.5 me-2   focus:outline-none ">Filtrar</button>
-            <button type="button" class="text-white bg-turquoiseMedium hover:bg-turquoiseMediumDark focus:ring-4 focus:ring-turquoiseSemiLight font-medium rounded-lg text-sm px-5 py-2.5 me-2 focus:outline-none"><a href="{{URL::current()}}">Limpiar Filtros</a></button>
+            <button type="button" " @click="$dispatch('open-dropdown',{id})" class="text-white bg-coldPurple hover:bg-eternity transition duration-150 focus:ring-0 focus:ring-turquoiseSemiLight font-medium rounded-lg text-sm px-5 py-2.5 me-2   focus:outline-none ">Filtrar</button>
+            <button type="button" class="text-white bg-coldPurple hover:bg-eternity focus:ring-0 focus:ring-eternity font-medium rounded-lg transition duration-150 text-sm px-5 py-2.5 me-2 focus:outline-none"><a href="{{URL::current()}}">Limpiar Filtros</a></button>
           </div>
         </div>
 

@@ -73,7 +73,7 @@
           </div>
         </div>
         <div class="px-4 md:flex-1">
-          <h2 class="mb-2 text-2xl font-extrabold leading-tight tracking-tight text-turquoiseMediumDark md:text-3xl">{{ucfirst($producto->nombreProducto)}}</h2>
+          <h2 class="mb-2 text-2xl font-extrabold leading-tight tracking-tight text-lochinvar md:text-3xl">{{ucfirst($producto->nombreProducto)}}</h2>
 
 
           {{-- Rating --}}
@@ -106,7 +106,7 @@
                  @endfor
               </select>
             </div>
-            <button id="add-to-cart" type="button" onclick="add_to_cart({{$producto->id}})" class="px-6 py-2 font-semibold text-white h-14 rounded-xl bg-turquoiseSemiLight hover:bg-turquoiseMedium">
+            <button id="add-to-cart" type="button" onclick="add_to_cart({{$producto->id}})" class="px-6 py-2 font-semibold text-white transition duration-150 ease-in-out h-14 rounded-xl bg-coldPurple hover:bg-eternity">
               Añadir al carrito
             </button>
             {{--  Añadir productos al carro de compra --}}
@@ -153,9 +153,9 @@
                       <li>Tu opinión nos interesa, solo te llevará un par de minutos!</li>
                       <li>
                         @if(Auth::check())
-                            <button @click="show = !show" :aria-expanded="show ? 'true' : 'false'" type="button" class="text-white bg-turquoiseSemiLight hover:bg-turquoiseMedium focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="">Añadir Opinión</a></button>
+                            <button @click="show = !show" :aria-expanded="show ? 'true' : 'false'" type="button" class="text-white bg-coldPurple hover:bg-eternity transition duration-150 ease-in-out focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="">Añadir Opinión</a></button>
                         @else
-                            <button type="button" class="text-white bg-turquoiseSemiLight hover:bg-turquoiseMedium focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="{{route('register')}}">Regístrate y opina</a></button>
+                            <button type="button" class="text-white bg-coldPurple hover:bg-eternity transition duration-150 ease-in-out focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="{{route('register')}}">Regístrate y opina</a></button>
                         @endif
                       </li>
                     </ol>
