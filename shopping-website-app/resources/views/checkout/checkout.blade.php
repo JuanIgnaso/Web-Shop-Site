@@ -2,17 +2,17 @@
     {{$titulo}}
 @endsection
 <x-app-layout>
-    <h1 class="px-12 p-3 text-darkBlue">{{$titulo}}</h1>
-    <div class="min-h-screen grid grid-cols-3">
-        <div class="lg:col-span-2 col-span-3 space-y-8 p-2 sm:px-12 pb-6 order-2 lg:order-1">
+    <h1 class="p-3 px-12 text-darkBlue">{{$titulo}}</h1>
+    <div class="grid min-h-screen grid-cols-3">
+        <div class="order-2 col-span-3 p-2 pb-6 space-y-8 lg:col-span-2 sm:px-12 lg:order-1">
             {{-- Alerta de información --}}
 
             @if ($errors->any())
-            <div class="p-4 mb-4 w-full m-auto text-sm mt-4 text-red-800 rounded-lg bg-red-100 " role="alert">
+            <div class="w-full p-4 m-auto mt-4 mb-4 text-sm text-red-800 bg-red-100 rounded-lg " role="alert">
                 <span class="font-base"><i class="fa-solid fa-xmark"></i></span> Error al rellenar el formulario, revisa abajo los posibles errores.
             </div>
             @else
-            <div class="p-4 mb-4 w-full m-auto text-sm mt-4 text-blue-800 rounded-lg bg-blue-100 " role="alert">
+            <div class="w-full p-4 m-auto mt-4 mb-4 text-sm text-blue-800 bg-blue-100 rounded-lg " role="alert">
                 <span class="font-medium"><i class="fa-solid fa-circle-info"></i></span>  Completa tus detalles de pago y envío aquí abajo
             </div>
             @endif
@@ -21,36 +21,36 @@
                 <form id="payment-form" method="POST" action="{{route('checkout.store')}}">
                     @csrf
                     <section>
-                        <h2 class="uppercase tracking-wide text-lg font-semibold text-turquoiseMedium my-2">Información de envío y facturación</h2>
-                        <fieldset class="mb-3 bg-white shadow-lg rounded text-gray-600">
-                            <label class="flex border-b border-gray-200 h-12 py-3 items-center">
-                                <span class="text-right px-2 font-bold">Nombre</span>
-                                <input name="nombreApellidos" value="{{old('nombreApellidos')}}" class="focus:outline-none border-none px-3" placeholder="Nombre Apellido">
+                        <h2 class="my-2 text-lg font-semibold tracking-wide uppercase text-turquoiseMedium">Información de envío y facturación</h2>
+                        <fieldset class="mb-3 text-gray-600 bg-white rounded shadow-lg">
+                            <label class="flex items-center h-12 py-3 border-b border-gray-200">
+                                <span class="px-2 font-bold text-right">Nombre</span>
+                                <input name="nombreApellidos" value="{{old('nombreApellidos')}}" class="px-3 border-none focus:outline-none" placeholder="Nombre Apellido">
                             </label>
-                            <label class="flex border-b border-gray-200 h-12 py-3 items-center">
-                                <span class="text-right px-2 font-bold">Email</span>
-                                <p class="focus:outline-none border-none px-3">{{Auth::user()->email}}</p>
+                            <label class="flex items-center h-12 py-3 border-b border-gray-200">
+                                <span class="px-2 font-bold text-right">Email</span>
+                                <p class="px-3 border-none focus:outline-none">{{Auth::user()->email}}</p>
                             </label>
-                            <label class="flex border-b border-gray-200 h-12 py-3 items-center">
-                                <span class="text-right px-2 font-bold">Dirección</span>
-                                <input name="direccion" value="{{old('direccion')}}" class="focus:outline-none px-3 border-none" placeholder="10 Street XYZ 654">
+                            <label class="flex items-center h-12 py-3 border-b border-gray-200">
+                                <span class="px-2 font-bold text-right">Dirección</span>
+                                <input name="direccion" value="{{old('direccion')}}" class="px-3 border-none focus:outline-none" placeholder="10 Street XYZ 654">
                             </label>
-                            <label class="flex border-b border-gray-200 h-12 py-3 items-center">
-                                <span class="text-right px-2 font-bold">Ciudad</span>
-                                <input name="ciudad" value="{{old('ciudad')}}" class="focus:outline-none px-3 border-none" placeholder="San Francisco">
+                            <label class="flex items-center h-12 py-3 border-b border-gray-200">
+                                <span class="px-2 font-bold text-right">Ciudad</span>
+                                <input name="ciudad" value="{{old('ciudad')}}" class="px-3 border-none focus:outline-none" placeholder="San Francisco">
                             </label>
-                            <label class="inline-flex w-2/4 border-gray-200 py-3">
-                                <span class="text-right px-2 font-bold">Estado/Provincia</span>
-                                <input name="estado" value="{{old('estado')}}" class="focus:outline-none px-3 border-none" placeholder="CA">
+                            <label class="inline-flex w-2/4 py-3 border-gray-200">
+                                <span class="px-2 font-bold text-right">Estado/Provincia</span>
+                                <input name="estado" value="{{old('estado')}}" class="px-3 border-none focus:outline-none" placeholder="CA">
                             </label>
-                            <label class="xl:w-1/4 xl:inline-flex gap-2 items-center flex xl:border-none border-t border-gray-200 py-3">
-                                <span class="text-right px-2 xl:px-0 xl:text-none font-bold">Código Postal</span>
-                                <input name="codigo_postal" value="{{old('codigo_postal')}}" class="focus:outline-none px-3 border-none" placeholder="98603">
+                            <label class="flex items-center gap-2 py-3 border-t border-gray-200 xl:w-1/4 xl:inline-flex xl:border-none">
+                                <span class="px-2 font-bold text-right xl:px-0 xl:text-none">Código Postal</span>
+                                <input name="codigo_postal" value="{{old('codigo_postal')}}" class="px-3 border-none focus:outline-none" placeholder="98603">
                             </label>
-                            <label class="flex border-t border-gray-200 h-12 py-3 items-center select relative">
-                                <span class="text-right px-2 font-bold">País</span>
-                                <div id="pais" class="focus:outline-none px-3 w-full flex items-center">
-                                    <select name="pais" class="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none">
+                            <label class="relative flex items-center h-12 py-3 border-t border-gray-200 select">
+                                <span class="px-2 font-bold text-right">País</span>
+                                <div id="pais" class="flex items-center w-full px-3 focus:outline-none">
+                                    <select name="pais" class="flex-1 bg-transparent border-none appearance-none cursor-pointer focus:outline-none">
                                         <option value="AU">Australia</option>
                                         <option value="BE">Belgium</option>
                                         <option value="BR">Brazil</option>
@@ -85,12 +85,12 @@
 
             <div class="rounded-md">
                 <section>
-                    <h2 class="uppercase tracking-wide text-lg font-bold text-turquoiseMedium my-2">Información de Pago</h2>
-                    <fieldset class="mb-3 bg-white shadow-lg rounded text-gray-600">
-                        <label class="flex border-b border-gray-200 h-12 py-3 items-center">
-                            <span class="text-right px-2 font-bold">Tarjeta de Crédito</span>
-                            <input name="tarjeta_credito[numero]" value="{{old('tarjeta_credito.numero')}}" class="focus:outline-none border-none px-3 w-full" placeholder="Numero targeta y CVC">
-                            <input class="focus:outline-none border-none" type="text" name="tarjeta_credito[tarjetafecha]" value="{{old('tarjeta_credito.tarjetafecha')}}" id="" placeholder="Fecha de caducidad MM/YY">
+                    <h2 class="my-2 text-lg font-bold tracking-wide uppercase text-turquoiseMedium">Información de Pago</h2>
+                    <fieldset class="mb-3 text-gray-600 bg-white rounded shadow-lg">
+                        <label class="flex items-center h-12 py-3 border-b border-gray-200">
+                            <span class="px-2 font-bold text-right">Tarjeta de Crédito</span>
+                            <input name="tarjeta_credito[numero]" value="{{old('tarjeta_credito.numero')}}" class="w-full px-3 border-none focus:outline-none" placeholder="Numero targeta y CVC">
+                            <input class="border-none focus:outline-none" type="text" name="tarjeta_credito[tarjetafecha]" value="{{old('tarjeta_credito.tarjetafecha')}}" id="" placeholder="Fecha de caducidad MM/YY">
                         </label>
                     </fieldset>
                 </section>
@@ -99,7 +99,7 @@
 
 
             @if(count($errors) != 0)
-            <div class="bg-red-100 p-4 text-sm text-red-800 rounded-md">
+            <div class="p-4 text-sm text-red-800 bg-red-100 rounded-md">
                 <ul>
                     @foreach($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -110,48 +110,30 @@
 
 
 
-            <button type="submit" onclick="complete_checkout()" id="pagar" class="submit-button px-4 py-3 rounded-full bg-darkOrange hover:bg-orange-500 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
+            <button type="submit" onclick="complete_checkout()" id="pagar" class="w-full px-4 py-3 text-xl font-semibold transition-colors rounded-full primary-button focus:outline-none">
                 Pagar €846.98
             </button>
         </div>
     </form>
-    <script>
-        function complete_chekout(){
-                $.ajax({
-                  url:'/test',
-                  type:'GET',
-                  dataType:'json',
-                  data:{
-                    purchase:window.localStorage.getItem('cart'),
-                  },
-                  success: function(response){
-                    console.log(response);
-                  },
-                  error: function(error){
-                    console.log(error.responseText);
-                  }
-                });
-              }
-    </script>
         {{-- Resumen de la compra --}}
-        <div class="col-span-3 lg:col-span-1 bg-white order-1 lg:order-2">
-            <h2 class="py-6 border-b-2 text-xl text-turquoiseMedium px-8">Resumen del Pedido</h2>
-            <ul class="py-6 border-b space-y-6 px-8" id="resumen-compra">
+        <div class="order-1 col-span-3 bg-white lg:col-span-1 lg:order-2">
+            <h2 class="px-8 py-6 text-xl border-b-2 text-turquoiseMedium">Resumen del Pedido</h2>
+            <ul class="px-8 py-6 space-y-6 border-b" id="resumen-compra">
                 {{-- Mostrar los elementos del carrito aquí --}}
 
             </ul>
             <div class="px-8 border-b">
                 <div class="flex justify-between py-4 text-gray-600">
                     <span>Subtotal</span>
-                    <span class="font-semibold text-pink-500">€846.98</span>
+                    <span class="font-semibold text-eternity" id="subtotal">€846.98</span>
                 </div>
                 <div class="flex justify-between py-4 text-gray-600">
                     <span>Gastos Envío</span>
-                    <span class="font-semibold text-pink-500">Gratis</span>
+                    <span class="font-semibold text-eternity">Gratis</span>
                 </div>
             </div>
-            <div class="font-semibold text-xl px-8 flex justify-between py-8 text-gray-600">
-                <span>Total</span>
+            <div class="flex justify-between px-8 py-8 text-xl font-semibold text-gray-600">
+                <span class="berkshire text-eternity">Total</span>
                 <span id="precio-final">€846.98</span>
             </div>
         </div>

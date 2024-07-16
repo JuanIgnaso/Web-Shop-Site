@@ -64,7 +64,7 @@
             <div class="flex mb-4 -mx-2">
               <template x-for="i in 4">
                 <div class="flex-1 px-2">
-                  <button x-on:click="image = i" :class="{ 'ring-2 ring-darkBlue ring-inset': image === i }" class="flex items-center justify-center w-full h-24 bg-gray-200 rounded-lg focus:outline-none md:h-32">
+                  <button x-on:click="image = i" :class="{ 'ring-4 ring-coldPurple ring-inset': image === i }" class="flex items-center justify-center w-full h-24 bg-white rounded-lg shadow-lg focus:outline-none md:h-32">
                     <span x-text="i" class="text-2xl"></span>
                   </button>
                 </div>
@@ -86,7 +86,7 @@
             <div>
               <div class="flex px-3 py-2 rounded-lg">
                 <span class="mt-1 mr-1 text-darkBlue">$</span>
-                <span class="text-3xl font-bold text-darkBlue">{{$producto->precio}}</span>
+                <span class="text-3xl font-bold text-eternity">{{round($producto->precio + $producto->precio * env('PORCENTAJE_IVA') / 100,2)}}</span>
               </div>
             </div>
             <div class="flex-1">
@@ -123,7 +123,7 @@
         <h2 class="mt-8 mb-6">Opiniones del Producto</h2>
         <div  x-data="{ show: false }">
               <div class="flex flex-col items-start justify-start gap-6 pb-6 border-b-2 md:flex-row border-gray-300/50">
-                <div class="grid w-24 rounded-lg bg-turquoiseLight aspect-square md:w-36 place-items-center">
+                <div class="grid w-24 text-white rounded-lg bg-lochinvar/50 aspect-square md:w-36 place-items-center">
                   <p class="text-3xl font-black text-center md:text-4xl">@if($reviews->count() == 0) {{'0'}} @else {{$reviews->sum('puntuacion') / $reviews->count()}}@endif</p>
                   <div class="flex justify-center">
                     {{-- Printar las estrellas --}}
@@ -135,14 +135,14 @@
                         @else
                             <x-ui.star :color="'text-gray-300'" :attr="''"></x-ui.star>
                         @endif
-                  @endfor
-                @else
-                    <x-ui.star :color="'text-gray-300'" :attr="''"></x-ui.star>
-                    <x-ui.star :color="'text-gray-300'" :attr="''"></x-ui.star>
-                    <x-ui.star :color="'text-gray-300'" :attr="''"></x-ui.star>
-                    <x-ui.star :color="'text-gray-300'" :attr="''"></x-ui.star>
-                    <x-ui.star :color="'text-gray-300'" :attr="''"></x-ui.star>
-                @endif
+                    @endfor
+                    @else
+                        <x-ui.star :color="'text-gray-300'" :attr="''"></x-ui.star>
+                        <x-ui.star :color="'text-gray-300'" :attr="''"></x-ui.star>
+                        <x-ui.star :color="'text-gray-300'" :attr="''"></x-ui.star>
+                        <x-ui.star :color="'text-gray-300'" :attr="''"></x-ui.star>
+                        <x-ui.star :color="'text-gray-300'" :attr="''"></x-ui.star>
+                        @endif
                   </div>
                   <p class="text-xs md:text-sm">{{$reviews->count()}} Opiniones</p>
                 </div>
@@ -152,17 +152,18 @@
                       <li><h3>Déjanos tu opinión.</h3></li>
                       <li>Tu opinión nos interesa, solo te llevará un par de minutos!</li>
                       <li>
+                        {{-- Si el usuario está o no logueado --}}
                         @if(Auth::check())
-                            <button @click="show = !show" :aria-expanded="show ? 'true' : 'false'" type="button" class="text-white bg-coldPurple hover:bg-eternity transition duration-150 ease-in-out focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="">Añadir Opinión</a></button>
+                            <button @click="show = !show" :aria-expanded="show ? 'true' : 'false'" type="button" class="primary-button font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="">Añadir Opinión</a></button>
                         @else
-                            <button type="button" class="text-white bg-coldPurple hover:bg-eternity transition duration-150 ease-in-out focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="{{route('register')}}">Regístrate y opina</a></button>
+                            <button type="button" class=" primary-button font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="{{route('register')}}">Regístrate y opina</a></button>
                         @endif
                       </li>
                     </ol>
                 </div>
             </div>
 
-            <div x-show="show" x-transition class="p-2 mt-2 bg-indigo-100 rounded-lg">
+            <div x-show="show" x-transition class="p-2 mt-2 bg-indigo-100 rounded-lg shadow-lg">
 
               {{-- FORMULARIO CREAR REVIEW --}}
               <form action="{{route('review.store',$producto->id)}}" method="POST" class="space-y-4">
@@ -192,7 +193,9 @@
                   <x-form.checkbox :type="'radio'" :name="'recomendado'" :label="'Si'" :value="1"></x-form.checkbox>
                   <x-form.checkbox :type="'radio'" :name="'recomendado'" :label="'No'" :value="0"></x-form.checkbox>
                 </div>
-                <button type="submit" class="text-white bg-turquoiseSemiLight hover:bg-turquoiseMedium focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none">Enviar mi Opinión</button>
+                <button type="submit" class="primary-button font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none">Enviar mi Opinión</button>
+                <button @click="show = !show" :aria-expanded="show ? 'true' : 'false'" type="button" class="primary-button font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none">Cancelar</button>
+
               </form>
               {{--  --}}
 

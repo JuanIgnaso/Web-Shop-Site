@@ -21,7 +21,7 @@
             <div class="col-span-2 pt-3">
                 <div class="flex items-center space-x-2 text-sm justify-between">
                     <span class="text-gray-400">${response[key].cant} x ${response[key].precio}€</span>
-                    <span class="text-pink-400 font-semibold inline-block">${response[key].cant * response[key].precio}€</span>
+                    <span class="text-eternity font-semibold inline-block">${response[key].cant * response[key].precio}€</span>
                 </div>
                 <div onclick="remove_from_cart(${key})" class="w-4 h-4 mb-6 hover:bg-red-200 rounded-full cursor-pointer text-red-700">
                 <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 ">
@@ -40,6 +40,7 @@
        }
        document.querySelector('#precio-final').innerHTML = `${total}€`;
        document.querySelector('#pagar').innerHTML = `Pagar ${total}€`;
+       document.querySelector('#subtotal').innerHTML = `${total}€`;
 
     },
     error: function(error){

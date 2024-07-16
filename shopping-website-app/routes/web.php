@@ -45,7 +45,6 @@ Route::middleware(AccessForbidden::class)->group(function () {
     Route::get('/addToCart', [OrderController::class, 'addToCart']);
     Route::get('/removeFromCart', [OrderController::class, 'removeFromCart']);
     Route::get('/getUserCart', [OrderController::class, 'getUserCart']);
-    Route::get('/test', [OrderController::class, 'test']);
     Route::get('/clearUserCart', [OrderController::class, 'clearUserCart'])->name('cart.destroy');
     /*
     /addToCart

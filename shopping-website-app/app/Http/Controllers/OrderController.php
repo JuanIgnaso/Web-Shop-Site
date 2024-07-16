@@ -93,7 +93,7 @@ class OrderController extends Controller
                 $producto->id => [
                     "nombre" => $producto->nombreProducto,
                     "cant" => $request->mensaje['cant'],
-                    "precio" => $producto->precio,
+                    "precio" => round($producto->precio + $producto->precio * env('PORCENTAJE_IVA') / 100, 2),
                     "foto" => $producto->imagen == NULL ? \Vite::asset('resources/images/web-logo.png') : url('storage/' . $producto->imagen),
                     'descripcion' => $producto->descripcion,
                     'stock' => $producto->unidades

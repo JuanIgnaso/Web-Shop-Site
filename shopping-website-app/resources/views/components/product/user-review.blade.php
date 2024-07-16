@@ -3,9 +3,9 @@
         {{-- Review --}}
             <div id="userReview" x-show="show">
                 <div class="flex items-center mb-4">
-                    <img class="w-10 h-10 me-4 rounded-full object-cover" src="{{Vite::asset('resources/images/pfp_example_foto.jpg')}}" alt="">
+                    <img class="object-cover w-10 h-10 rounded-full me-4" src="{{Vite::asset('resources/images/pfp_example_foto.jpg')}}" alt="">
                     <div class="font-medium ">
-                        <p class="font-black">{{$review->name}} <time datetime="2014-08-16 19:00" class="block text-sm text-gray-600 ">Miembro desde {{Carbon\Carbon::parse($review->registro_usuario)->isoFormat('LL')}}</time></p>
+                        <p class="font-black text-coldPurple">{{$review->name}} <time datetime="2014-08-16 19:00" class="block text-sm text-lochinvar ">Miembro desde {{Carbon\Carbon::parse($review->registro_usuario)->isoFormat('LL')}}</time></p>
                     </div>
                 </div>
                 <div class="flex items-center mb-1 space-x-1 rtl:space-x-reverse">
@@ -23,7 +23,7 @@
                     @endfor
 
                     {{-- -- --}}
-                    <h3 class="ms-2 text-sm font-semibold text-gray-900 ">{{$review->cabecera}}</h3>
+                    <h4  class="font-semibold text-gray-900 ms-2">{{$review->cabecera}}</h4>
                 </div>
                 {{--
                     Si se quiere poner en un formato como: ej dia mes y año  Carbon\Carbon::parse($obj->fecha)->isoFormat('LL')
@@ -34,9 +34,9 @@
 
                 {{-- Recomendación del usuario --}}
                 @if ((int)$review->recomendado == 1)
-                    <p class="text-green-500"><i class="fa-solid fa-thumbs-up text-xl"></i> Recomienda este producto</p>
+                    <p class="text-green-500"><i class="text-xl fa-solid fa-thumbs-up"></i> Recomienda este producto</p>
                 @else
-                    <p class="text-red-500"><i class="fa-solid fa-thumbs-down text-xl"></i>  No recomienda este producto</p>
+                    <p class="text-red-500"><i class="text-xl fa-solid fa-thumbs-down"></i>  No recomienda este producto</p>
                 @endif
 
                 {{-- Acción del usuario en función de si es el autor de la review --}}
@@ -44,12 +44,12 @@
                 <aside>
                     <div class="flex items-center gap-2 mt-3">
                         @if(\Auth::id() == $review->usuario)
-                        <button x-on:click="[show = false, edit = true]" class="px-2 py-1.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border-2 border-darkBlue hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 ">Editar</button>
+                        <button x-on:click="[show = false, edit = true]" class="p-2 text-sm font-medium text-white transition rounded-lg duration-120 hover:scale-105 bg-arbolCoral">Editar</button>
                         @endif
                         <form action="{{route('review.destroy',$review->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button class="px-2 py-1.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border-2 border-red-500 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 ">Borrar</button>
+                            <button class="p-2 text-sm font-medium text-white transition rounded-lg duration-120 bg-lochinvar hover:scale-105">Borrar</button>
                         </form>
                     </div>
                 </aside>
@@ -67,7 +67,7 @@
                     <div class="flex items-center" id="user-rating">
                       @for ($i = 1; $i <= 5; $i++)
                       <label>
-                        <input type="radio" value="{{$i}}" class="peer hidden" {{$i == $review->puntuacion ? 'checked' : ''}} name="puntuacion">
+                        <input type="radio" value="{{$i}}" class="hidden peer" {{$i == $review->puntuacion ? 'checked' : ''}} name="puntuacion">
                         <x-ui.star :color="'text-gray-300'" :attr="'peer-checked:text-yellow-300'"></x-ui.star>
                       </label>
                       @endfor
