@@ -8,8 +8,8 @@
         <div class="w-[90%] lg:w-[80%] m-auto relative overflow-x-auto mt-4 sm:rounded-lg">
 
             {{-- FILTROS --}}
-            <section x-data="{ show: false,open: 'v',closed: '>' }" class="mb-4">
-                <h2 @click="show = !show" :aria-expanded="show ? 'true' : 'false'" class="text-2xl cursor-pointer text-turquoiseMediumDark">Filtros <span class="text-darkOrange" x-text="show ? open : closed"> </span></h2>
+            <section x-data="{ show: false }" class="mb-6">
+                <h2 @click="show = !show" :aria-expanded="show ? 'true' : 'false'" class="text-2xl cursor-pointer text-lochinvar">Filtros <i :class="show ? 'fa-solid fa-caret-right text-dixie' : 'fa-solid fa-caret-down text-dixie' "></i></h2>
                 <form x-show="show" x-transition action="" method="get" class="mb-8 border-b-2 border-b-gray-200/50">
                 @csrf
                     <div class="grid grid-cols-1 gap-4 mb-4 sm:grid-cols-2 md:grid-cols-3">
@@ -34,7 +34,7 @@
             </section>
             {{-- --}}
 
-            <button type="button" class="text-white bg-lochinvar hover:bg-dixie  focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="{{route('producto.create')}}">Añadir nuevo</a></button>
+            <button type="button" class="mb-6 primary-button"><a href="{{route('producto.create')}}">Añadir nuevo</a></button>
 
             <table class="w-full text-sm text-left text-gray-500 rtl:text-right ">
                 <thead class="text-xs text-center text-white uppercase bg-sandrift ">

@@ -10,8 +10,8 @@
             <div class="w-[90%] lg:w-[80%] m-auto relative overflow-x-auto mt-4 sm:rounded-lg">
 
                 {{-- Fitros --}}
-                <section x-data="{ show: false,open: 'v',closed: '>' }" class="mb-4">
-                    <h2 @click="show = !show" :aria-expanded="show ? 'true' : 'false'" class="text-2xl cursor-pointer text-turquoiseMediumDark">Filtros <span class="text-darkOrange" x-text="show ? open : closed"> </span></h2>
+                <section x-data="{ show: false}" class="mb-6">
+                    <h2 @click="show = !show" :aria-expanded="show ? 'true' : 'false'" class="text-2xl cursor-pointer text-lochinvar">Filtros <i :class="show ? 'fa-solid fa-caret-right text-dixie' : 'fa-solid fa-caret-down text-dixie' "></i></h2>
                     <form x-show="show" x-transition action="" method="get" class="mb-8 border-b-2 border-b-gray-200/50">
                     @csrf
                         <div class="grid grid-cols-1 gap-4 mb-4 sm:grid-cols-2 md:grid-cols-3">
@@ -23,8 +23,8 @@
                             </div>
                         </div>
                         <div class="flex justify-center mb-4 space-x-2 md:justify-end">
-                            <button type="submit" class="text-white bg-lochinvar hover:bg-dixie focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none ">Aplicar Filtros</button>
-                            <button type="button" class="text-white bg-lochinvar hover:bg-dixie focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="{{URL::current()}}">Limpiar Filtros</a></button>
+                            <button type="submit" class="primary-button">Aplicar Filtros</button>
+                            <button type="button" class="primary-button"><a href="{{URL::current()}}">Limpiar Filtros</a></button>
                         </div>
                     </form>
                 </section>
@@ -79,21 +79,26 @@
                             <td class="px-6 py-4">
                                 @if(Auth::user()->id != $usuario->id)
                                 <div class="flex justify-center gap-2 ">
-                                    <a class="admin-panel-action-button emerald-gradient shadow-emerald-500/40" href="{{route('user.show',$usuario)}}"><i class="fa-solid fa-eye"></i></a>
+                                    <a class="admin-panel-action-button bg-emerald-500 hover:bg-emerald-400" href="{{route('user.show',$usuario)}}"><i class="fa-solid fa-eye"></i></a>
+
+                                    {{-- Si el usuario se encuentra o no activo --}}
+
                                     @if($usuario->activo == 1)
                                         <form action="{{route('user.toggle',$usuario->id)}}" method="POST">
                                             @csrf
                                             @method('PUT')
-                                            <button type="submit" class="admin-panel-action-button yellow-gradient shadow-yellow-500/40" href=""><i class="fa-solid fa-toggle-on"></i></button>
+                                            <button type="submit" class="bg-yellow-500 admin-panel-action-button hover:bg-yellow-400" href=""><i class="fa-solid fa-toggle-on"></i></button>
                                         </form>
                                     @else
                                         <form action="{{route('user.toggle',$usuario->id)}}" method="POST">
                                             @csrf
                                             @method('PUT')
-                                        <button type="submit" class="admin-panel-action-button darkgrey-gradient shadow-neutral-500/40" href=""><i class="fa-solid fa-toggle-off"></i></button>
+                                        <button type="submit" class="admin-panel-action-button bg-neutral-600 hover:bg-neutral-500" href=""><i class="fa-solid fa-toggle-off"></i></button>
                                         </form>
                                     @endif
-                                    <a class="admin-panel-action-button blue-gradient shadow-blue-600/40" href="{{route('user.edit',$usuario)}}"><i class="fa-solid fa-pen-nib"></i></a>
+
+                                    <a class="bg-blue-500 admin-panel-action-button hover:bg-blue-400" href="{{route('user.edit',$usuario)}}"><i class="fa-solid fa-pen-nib"></i></a>
+
                                 </div>
                                 @endif
                             </td>

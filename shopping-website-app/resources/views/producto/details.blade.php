@@ -154,9 +154,9 @@
                       <li>
                         {{-- Si el usuario está o no logueado --}}
                         @if(Auth::check())
-                            <button @click="show = !show" :aria-expanded="show ? 'true' : 'false'" type="button" class="primary-button font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="">Añadir Opinión</a></button>
+                            <button @click="show = !show" :aria-expanded="show ? 'true' : 'false'" type="button" class="primary-button"><a href="">Añadir Opinión</a></button>
                         @else
-                            <button type="button" class=" primary-button font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none "><a href="{{route('register')}}">Regístrate y opina</a></button>
+                            <button type="button" class=" primary-button focus:outline-none"><a href="{{route('register')}}">Regístrate y opina</a></button>
                         @endif
                       </li>
                     </ol>
